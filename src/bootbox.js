@@ -95,6 +95,8 @@
     '<button type="button" class="btn"></button>',
     option:
     '<option></option>',
+    promptMessage:
+    '<div class="bootbox-prompt-message"></div>',
     inputs: {
       text:
       '<input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text" />',
@@ -117,7 +119,7 @@
       password:
       '<input class="bootbox-input bootbox-input-password form-control" autocomplete="off" type="password" />',
       range:
-      '<input class="bootbox-input bootbox-input-range" autocomplete="off" type="range" />'
+      '<input class="bootbox-input bootbox-input-range form-control-range" autocomplete="off" type="range" />'
     }
   };
 
@@ -333,7 +335,7 @@
           dialog.find('.modal-header').prepend(closeButton);
         }
       } else {
-        closeButton.css('margin-top', '-2px').prependTo(body);
+        closeButton.prependTo(body);
       }
     }
 
@@ -351,9 +353,11 @@
     // modal has performed certain actions.
 
     // make sure we unbind any listeners once the dialog has definitively been dismissed
-    dialog.one("hide.bs.modal", function () {
-      dialog.off("escape.close.bb");
-      dialog.off("click");
+      dialog.one("hide.bs.modal", function (e) {
+        if (e.target === this) {
+          dialog.off("escape.close.bb");
+          dialog.off("click");
+        }
     });
 
     dialog.one("hidden.bs.modal", function (e) {
@@ -365,8 +369,8 @@
       }
     });
 
-    dialog.one('shown.bs.modal', function () {
-      dialog.find('.bootbox-accept:first').focus();
+    dialog.one('shown.bs.modal', function (e) {
+      dialog.find('.bootbox-accept:first').trigger('focus');
     });
 
     // Bootbox event listeners; used to decouple some
@@ -797,12 +801,12 @@
 
       // @TODO can we actually click *the* button object instead?
       // e.g. buttons.confirm.click() or similar
-      promptDialog.find('.bootbox-accept').click();
+      promptDialog.find('.bootbox-accept').trigger('click');
     });
 
     if ($.trim(options.message) !== '') {
       // Add the form to whatever content the user may have added.
-      var message = $('<div class="bootbox-prompt-message"></div>').html(options.message);
+      var message = $(templates.promptMessage).html(options.message);
       form.prepend(message);
       options.message = form;
     }
@@ -1073,7 +1077,8 @@
         input.attr(name, value);
 
         if (!/(\d{4})-(\d{2})-(\d{2})/.test(value)) {
-          console.warn('Edge and Blink/Webkit-based browsers expect date values to be of the form "YYYY-mm-dd", including zero-padded numbers. '
+          console.warn('Browsers which natively support the "date" input type expect date values to be of the form "YYYY-MM-DD" ' 
+            + ' (see ISO-8601 https://www.iso.org/iso-8601-date-and-time-format.html). '
             + 'Bootbox does not enforce this rule, but your ' + name + ' value may not be enforced by this browser.')
         }
       }
