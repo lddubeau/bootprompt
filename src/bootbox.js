@@ -1,6 +1,6 @@
 /*! @preserve
  * bootbox.js
- * version: 5.0.0-beta
+ * version: 5.0.0
  * author: Nick Payne <nick@kurai.co.uk>
  * license: MIT
  * http://bootboxjs.com/
@@ -720,7 +720,7 @@
         // checkboxes have to nest within a containing element, so
         // they break the rules a bit and we end up re-assigning
         // our 'input' element to this container instead
-        input = $('<div/>');
+        input = $('<div class="bootbox-checkbox-list"></div>');
 
         each(inputOptions, function (_, option) {
           if (option.value === undefined || option.text === undefined) {
@@ -759,7 +759,7 @@
         // Radiobuttons have to nest within a containing element, so
         // they break the rules a bit and we end up re-assigning
         // our 'input' element to this container instead
-        input = $('<div/>');
+        input = $('<div class="bootbox-radiobutton-list"></div>');
 
         // Radiobuttons should always have an initial checked input checked in a "group".
         // If value is undefined or doesn't match an input option, select the first radiobutton
