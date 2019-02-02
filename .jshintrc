@@ -18,7 +18,7 @@
       "module": true,
       "require": true,
       "expect": true,
-      "bootbox": true,
+      "bootshine": true,
       "sinon": true
     }
 }

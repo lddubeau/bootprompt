@@ -1,23 +1,23 @@
 (function (global, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['bootbox'], factory);
+    define(['bootshine'], factory);
   } else if (typeof module === 'object' && module.exports) {
-    factory(require('./bootbox'));
+    factory(require('./bootshine'));
   } else {
-    factory(global.bootbox);
+    factory(global.bootshine);
   }
-}(this, function (bootbox) {
+}(this, function (bootshine) {
 
   (function () {
-    bootbox.addLocale('ar', {
+    bootshine.addLocale('ar', {
       OK: 'موافق',
       CANCEL: 'الغاء',
       CONFIRM: 'تأكيد'
     });
   })();
-  
+
   (function () {
-    bootbox.addLocale('az', {
+    bootshine.addLocale('az', {
       OK: 'OK',
       CANCEL: 'İmtina et',
       CONFIRM: 'Təsdiq et'
@@ -25,7 +25,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('bg_BG', {
+    bootshine.addLocale('bg_BG', {
       OK: 'Ок',
       CANCEL: 'Отказ',
       CONFIRM: 'Потвърждавам'
@@ -33,7 +33,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('br', {
+    bootshine.addLocale('br', {
       OK: 'OK',
       CANCEL: 'Cancelar',
       CONFIRM: 'Sim'
@@ -41,7 +41,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('cs', {
+    bootshine.addLocale('cs', {
       OK: 'OK',
       CANCEL: 'Zrušit',
       CONFIRM: 'Potvrdit'
@@ -49,7 +49,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('da', {
+    bootshine.addLocale('da', {
       OK: 'OK',
       CANCEL: 'Annuller',
       CONFIRM: 'Accepter'
@@ -57,7 +57,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('de', {
+    bootshine.addLocale('de', {
       OK: 'OK',
       CANCEL: 'Abbrechen',
       CONFIRM: 'Akzeptieren'
@@ -65,7 +65,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('el', {
+    bootshine.addLocale('el', {
       OK: 'Εντάξει',
       CANCEL: 'Ακύρωση',
       CONFIRM: 'Επιβεβαίωση'
@@ -73,7 +73,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('en', {
+    bootshine.addLocale('en', {
       OK: 'OK',
       CANCEL: 'Cancel',
       CONFIRM: 'OK'
@@ -81,7 +81,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('es', {
+    bootshine.addLocale('es', {
       OK: 'OK',
       CANCEL: 'Cancelar',
       CONFIRM: 'Aceptar'
@@ -89,7 +89,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('eu', {
+    bootshine.addLocale('eu', {
       OK: 'OK',
       CANCEL: 'Ezeztatu',
       CONFIRM: 'Onartu'
@@ -97,7 +97,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('et', {
+    bootshine.addLocale('et', {
       OK: 'OK',
       CANCEL: 'Katkesta',
       CONFIRM: 'OK'
@@ -105,7 +105,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('fa', {
+    bootshine.addLocale('fa', {
       OK: 'قبول',
       CANCEL: 'لغو',
       CONFIRM: 'تایید'
@@ -113,7 +113,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('fi', {
+    bootshine.addLocale('fi', {
       OK: 'OK',
       CANCEL: 'Peruuta',
       CONFIRM: 'OK'
@@ -121,7 +121,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('fr', {
+    bootshine.addLocale('fr', {
       OK: 'OK',
       CANCEL: 'Annuler',
       CONFIRM: 'Confirmer'
@@ -129,7 +129,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('he', {
+    bootshine.addLocale('he', {
       OK: 'אישור',
       CANCEL: 'ביטול',
       CONFIRM: 'אישור'
@@ -137,7 +137,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('hu', {
+    bootshine.addLocale('hu', {
       OK: 'OK',
       CANCEL: 'Mégsem',
       CONFIRM: 'Megerősít'
@@ -145,7 +145,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('hr', {
+    bootshine.addLocale('hr', {
       OK: 'OK',
       CANCEL: 'Odustani',
       CONFIRM: 'Potvrdi'
@@ -153,7 +153,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('id', {
+    bootshine.addLocale('id', {
       OK: 'OK',
       CANCEL: 'Batal',
       CONFIRM: 'OK'
@@ -161,7 +161,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('it', {
+    bootshine.addLocale('it', {
       OK: 'OK',
       CANCEL: 'Annulla',
       CONFIRM: 'Conferma'
@@ -169,7 +169,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('ja', {
+    bootshine.addLocale('ja', {
       OK: 'OK',
       CANCEL: 'キャンセル',
       CONFIRM: '確認'
@@ -177,7 +177,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('ko', {
+    bootshine.addLocale('ko', {
       OK: 'OK',
       CANCEL: '취소',
       CONFIRM: '확인'
@@ -185,7 +185,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('lt', {
+    bootshine.addLocale('lt', {
       OK: 'Gerai',
       CANCEL: 'Atšaukti',
       CONFIRM: 'Patvirtinti'
@@ -193,7 +193,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('lv', {
+    bootshine.addLocale('lv', {
       OK: 'Labi',
       CANCEL: 'Atcelt',
       CONFIRM: 'Apstiprināt'
@@ -201,7 +201,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('nl', {
+    bootshine.addLocale('nl', {
       OK: 'OK',
       CANCEL: 'Annuleren',
       CONFIRM: 'Accepteren'
@@ -209,7 +209,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('no', {
+    bootshine.addLocale('no', {
       OK: 'OK',
       CANCEL: 'Avbryt',
       CONFIRM: 'OK'
@@ -217,7 +217,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('pl', {
+    bootshine.addLocale('pl', {
       OK: 'OK',
       CANCEL: 'Anuluj',
       CONFIRM: 'Potwierdź'
@@ -225,7 +225,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('pt', {
+    bootshine.addLocale('pt', {
       OK: 'OK',
       CANCEL: 'Cancelar',
       CONFIRM: 'Confirmar'
@@ -233,7 +233,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('ru', {
+    bootshine.addLocale('ru', {
       OK: 'OK',
       CANCEL: 'Отмена',
       CONFIRM: 'Применить'
@@ -241,7 +241,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('sk', {
+    bootshine.addLocale('sk', {
       OK: 'OK',
       CANCEL: 'Zrušiť',
       CONFIRM: 'Potvrdiť'
@@ -249,7 +249,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('sl', {
+    bootshine.addLocale('sl', {
       OK: 'OK',
       CANCEL: 'Prekliči',
       CONFIRM: 'Potrdi'
@@ -257,7 +257,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('sq', {
+    bootshine.addLocale('sq', {
       OK: 'OK',
       CANCEL: 'Anulo',
       CONFIRM: 'Prano'
@@ -265,7 +265,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('sv', {
+    bootshine.addLocale('sv', {
       OK: 'OK',
       CANCEL: 'Avbryt',
       CONFIRM: 'OK'
@@ -273,7 +273,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('th', {
+    bootshine.addLocale('th', {
       OK: 'ตกลง',
       CANCEL: 'ยกเลิก',
       CONFIRM: 'ยืนยัน'
@@ -281,7 +281,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('tr', {
+    bootshine.addLocale('tr', {
       OK: 'Tamam',
       CANCEL: 'İptal',
       CONFIRM: 'Onayla'
@@ -289,7 +289,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('uk', {
+    bootshine.addLocale('uk', {
       OK: 'OK',
       CANCEL: 'Відміна',
       CONFIRM: 'Прийняти'
@@ -297,7 +297,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('zh_CN', {
+    bootshine.addLocale('zh_CN', {
       OK: 'OK',
       CANCEL: '取消',
       CONFIRM: '确认'
@@ -305,7 +305,7 @@
   })();
 
   (function () {
-    bootbox.addLocale('zh_TW', {
+    bootshine.addLocale('zh_TW', {
       OK: 'OK',
       CANCEL: '取消',
       CONFIRM: '確認'

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Documentation | Bootbox.js &mdash; alert, confirm and flexible dialogs for the Bootstrap framework</title>
+    <title>Documentation | Bootshine.js &mdash; alert, confirm and flexible dialogs for the Bootstrap framework</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -15,7 +15,7 @@
 </head>
 <body class="bb-js bb-sidebar-sticky">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="./">bootbox<span class="text-light">.js</span> <span class="d-none d-xl-inline-block">&mdash; alert, confirm and flexible dialogs for the Bootstrap framework</span></a>
+        <a class="navbar-brand" href="./">bootshine<span class="text-light">.js</span> <span class="d-none d-xl-inline-block">&mdash; alert, confirm and flexible dialogs for the Bootstrap framework</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -62,14 +62,14 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://github.com/tiesont/bootbox">
+                    <a class="nav-link" href="https://github.com/lddubeau/bootshine">
                         <i class="fa fa-github"></i>
                         Github
                     </a>
                 </li>
             </ul>
             <div class="form-inline d-none d-lg-flex">
-                <a class="btn btn-light my-2 my-sm-0" href="#" id="download-bootbox">
+                <a class="btn btn-light my-2 my-sm-0" href="#" id="download-bootshine">
                     <i class="fa fa-download"></i>
                     Download
                 </a>
@@ -144,21 +144,16 @@
                             <div class="bb-masthead">
                                 <h2 class="marque">Documentation</h2>
                                 <p class="lead">
-                                    Currently viewing documentation for version 5.x.
+                                    Currently viewing documentation for version 1.x.
                                 </p>
                                 <div class="bb-meta">
                                     <ul class="bb-meta-list float-md-right">
-                                        <li class="ml-auto"><span>Version 5.0.0</span></li>
+                                        <li class="ml-auto"><span>Version 1.0.0</span></li>
                                         <li>
-                                            <a href="https://github.com/tiesont/bootbox">
+                                            <a href="https://github.com/lddubeau/bootshine">
                                                 <i class="fa fa-github"></i>
                                                 Github
                                             </a>
-                                        </li>
-                                        <li class="d-none d-lg-inline-block">
-                                            <a href="./v4.x/">4.x docs</a> &middot;
-                                            <a href="./v3.x/">3.x docs</a> &middot;
-                                            <a href="./v2.x/">2.x docs</a>
                                         </li>
                                     </ul>
                                     <p>Compatible with Bootstrap <b>3</b> and <b>4</b></p>
@@ -173,7 +168,7 @@
                                 Important:
                             </h5>
                             <p>
-                                There are some caveats to using Bootbox dialogs in place of native dialogs. Please see the
+                                There are some caveats to using Bootshine dialogs in place of native dialogs. Please see the
                                 <a href="#bb-notes">Known Limitations</a> section to learn more.
                             </p>
                         </div>
@@ -188,17 +183,17 @@
                             <div id="bb-alert-basic-usage" class="bb-subsection">
                                 <h3 id="alert-basic-usage" class="bb-subsection-header bb-anchor">Basic Usage</h3>
                                 <p>
-                                    This is the simplest usage of Bootbox, requiring only the text of the message you wish to show.
+                                    This is the simplest usage of Bootshine, requiring only the text of the message you wish to show.
                                 </p>
                                 <div class="bb-example bb-example-modal">
-                                    <pre class="prettyprint linenums"><code>bootbox.alert("Your message here&hellip;")</code></pre>
+                                    <pre class="prettyprint linenums"><code>bootshine.alert("Your message here&hellip;")</code></pre>
                                     <figure>
                                         <figcaption id="example-bb-1" class="bb-anchor">Example <b>bb.1</b></figcaption>
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                    <button aria-hidden="true" data-dismiss="modal" class="bootbox-close-button close" type="button">&times;</button>
-                                                    <div class="bootbox-body">Your message here&hellip;</div>
+                                                    <button aria-hidden="true" data-dismiss="modal" class="bootshine-close-button close" type="button">&times;</button>
+                                                    <div class="bootshine-body">Your message here&hellip;</div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-primary" type="button" data-bb-handler="ok">OK</button>
@@ -210,14 +205,14 @@
 
                                 <p>Your message can also contain HTML.</p>
                                 <div class="bb-example bb-example-modal">
-                                    <pre class="prettyprint linenums"><code>bootbox.alert("Your message &lt;b&gt;here&hellip;&lt;/b&gt;")</code></pre>
+                                    <pre class="prettyprint linenums"><code>bootshine.alert("Your message &lt;b&gt;here&hellip;&lt;/b&gt;")</code></pre>
                                     <figure>
                                         <figcaption id="example-bb-2" class="bb-anchor">Example <b>bb.2</b></figcaption>
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                    <button aria-hidden="true" data-dismiss="modal" class="bootbox-close-button close" type="button">&times;</button>
-                                                    <div class="bootbox-body">Your message <b>here&hellip;</b></div>
+                                                    <button aria-hidden="true" data-dismiss="modal" class="bootshine-close-button close" type="button">&times;</button>
+                                                    <div class="bootshine-body">Your message <b>here&hellip;</b></div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-primary" type="button" data-bb-handler="ok">OK</button>
@@ -232,15 +227,15 @@
                                 <h3 id="alert-advanced-usage" class="bb-subsection-header bb-anchor">Advanced Usage</h3>
                                 <p>
                                     If you have code that should not be evaluated until the user has dismissed the alert
-                                    (see <a href="#bb-note-nonblocking">Bootbox Limitations</a> below), call it within the callback function:
+                                    (see <a href="#bb-note-nonblocking">Bootshine Limitations</a> below), call it within the callback function:
                                 </p>
-                                <pre class="prettyprint linenums"><code>bootbox.alert("Your message here&hellip;", function(){ /* your callback code */ })</code></pre>
+                                <pre class="prettyprint linenums"><code>bootshine.alert("Your message here&hellip;", function(){ /* your callback code */ })</code></pre>
                                 <p>
                                     Alerts can be customized, using the <a href="#bb-options">options described below</a>. Here's an example
                                     of a small alert, using <code>size</code>:
                                 </p>
                                 <div class="bb-example bb-example-modal">
-                                    <pre class="prettyprint linenums"><code>bootbox.alert({
+                                    <pre class="prettyprint linenums"><code>bootshine.alert({
     size: "small",
     title: "Your Title",
     message: "Your message here&hellip;",
@@ -252,10 +247,10 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Your Title</h5>
-                                                    <button aria-hidden="true" data-dismiss="modal" class="bootbox-close-button close" type="button">&times;</button>
+                                                    <button aria-hidden="true" data-dismiss="modal" class="bootshine-close-button close" type="button">&times;</button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div class="bootbox-body">Your message here&hellip;</div>
+                                                    <div class="bootshine-body">Your message here&hellip;</div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-primary" type="button" data-bb-handler="ok">OK</button>
@@ -288,14 +283,14 @@
                                     or <b>false</b>, depending on which button the user pressed.
                                 </p>
                                 <div class="bb-example bb-example-modal">
-                                    <pre class="prettyprint linenums"><code>bootbox.confirm("Are you sure?", function(result){ /* your callback code */ })</code></pre>
+                                    <pre class="prettyprint linenums"><code>bootshine.confirm("Are you sure?", function(result){ /* your callback code */ })</code></pre>
                                     <figure>
                                         <figcaption id="example-bb-4" class="bb-anchor">Example <b>bb.4</b></figcaption>
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                    <button aria-hidden="true" data-dismiss="modal" class="bootbox-close-button close" type="button">&times;</button>
-                                                    <div class="bootbox-body">Are you sure?</div>
+                                                    <button aria-hidden="true" data-dismiss="modal" class="bootshine-close-button close" type="button">&times;</button>
+                                                    <div class="bootshine-body">Are you sure?</div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-bb-handler="cancel">Cancel</button>
@@ -323,7 +318,7 @@
                                     an example of a small confirm, using <code>size</code>:
                                 </p>
                                 <div class="bb-example bb-example-modal">
-                                    <pre class="prettyprint linenums"><code>bootbox.confirm({ 
+                                    <pre class="prettyprint linenums"><code>bootshine.confirm({
     size: "small",
     message: "Are you sure?",
     callback: function(result){ /* result is a boolean; true = OK, false = Cancel*/ }
@@ -333,8 +328,8 @@
                                         <div class="modal-dialog modal-sm">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                    <button aria-hidden="true" data-dismiss="modal" class="bootbox-close-button close" type="button">&times;</button>
-                                                    <div class="bootbox-body">Are you sure?</div>
+                                                    <button aria-hidden="true" data-dismiss="modal" class="bootshine-close-button close" type="button">&times;</button>
+                                                    <div class="bootshine-body">Are you sure?</div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-bb-handler="cancel">Cancel</button>
@@ -368,19 +363,19 @@
                                     or dismissed the dialog; otherwise it is passed the value of the text input.
                                 </p>
                                 <div class="bb-example bb-example-modal">
-                                    <pre class="prettyprint linenums"><code>bootbox.prompt("What is your name?", function(result){ /* your callback code */ })</code></pre>
+                                    <pre class="prettyprint linenums"><code>bootshine.prompt("What is your name?", function(result){ /* your callback code */ })</code></pre>
                                     <figure>
                                         <figcaption id="example-bb-6" class="bb-anchor">Example <b>bb.6</b></figcaption>
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" style="margin: 0; padding: 0;">What is your name?</h5>
-                                                    <button aria-hidden="true" data-dismiss="modal" class="bootbox-close-button close" type="button">&times;</button>
+                                                    <button aria-hidden="true" data-dismiss="modal" class="bootshine-close-button close" type="button">&times;</button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div class="bootbox-body">
-                                                        <form class="bootbox-form">
-                                                            <input type="text" autocomplete="off" class="bootbox-input bootbox-input-text form-control" />
+                                                    <div class="bootshine-body">
+                                                        <form class="bootshine-form">
+                                                            <input type="text" autocomplete="off" class="bootshine-input bootshine-input-text form-control" />
                                                         </form>
                                                     </div>
                                                 </div>
@@ -408,7 +403,7 @@
                                     an example of a small prompt, using <code>size</code>:
                                 </p>
                                 <div class="bb-example bb-example-modal">
-                                    <pre class="prettyprint linenums"><code>bootbox.prompt({ 
+                                    <pre class="prettyprint linenums"><code>bootshine.prompt({
     size: "small",
     title: "What is your name?",
     callback: function(result){ /* result = String containing user input if OK clicked or null if Cancel clicked */ }
@@ -419,12 +414,12 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" style="margin: 0; padding: 0;">What is your name?</h5>
-                                                    <button aria-hidden="true" data-dismiss="modal" class="bootbox-close-button close" type="button">&times;</button>
+                                                    <button aria-hidden="true" data-dismiss="modal" class="bootshine-close-button close" type="button">&times;</button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div class="bootbox-body">
-                                                        <form class="bootbox-form">
-                                                            <input type="text" autocomplete="off" class="bootbox-input bootbox-input-text form-control" />
+                                                    <div class="bootshine-body">
+                                                        <form class="bootshine-form">
+                                                            <input type="text" autocomplete="off" class="bootshine-input bootshine-input-text form-control" />
                                                         </form>
                                                     </div>
                                                 </div>
@@ -453,7 +448,7 @@
                                     Prompt Dialog Options
                                 </h4>
                                 <p>
-                                    Prompt dialogs are (by default) single-line text inputs. You can modify the type of prompt Bootbox generates using the prompt-only
+                                    Prompt dialogs are (by default) single-line text inputs. You can modify the type of prompt Bootshine generates using the prompt-only
                                     options below.
                                 </p>
                                 <div class="table-responsive">
@@ -506,53 +501,53 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td><code>text</code> (default)</td>
-                                                                    <td><code>bootbox-input-text</code></td>
+                                                                    <td><code>bootshine-input-text</code></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><code>password</code></td>
-                                                                    <td><code>bootbox-input-password</code></td>
+                                                                    <td><code>bootshine-input-password</code></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><code>textarea</code></td>
-                                                                    <td><code>bootbox-input-textarea</code></td>
+                                                                    <td><code>bootshine-input-textarea</code></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><code>email</code></td>
-                                                                    <td><code>bootbox-input-email</code></td>
+                                                                    <td><code>bootshine-input-email</code></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><code>select</code></td>
-                                                                    <td><code>bootbox-input-select</code></td>
+                                                                    <td><code>bootshine-input-select</code></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><code>checkbox</code></td>
-                                                                    <td><code>bootbox-input-checkbox</code></td>
+                                                                    <td><code>bootshine-input-checkbox</code></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><code>radio</code></td>
-                                                                    <td><code>bootbox-input-radio</code></td>
+                                                                    <td><code>bootshine-input-radio</code></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><code>date</code></td>
-                                                                    <td><code>bootbox-input-date</code></td>
+                                                                    <td><code>bootshine-input-date</code></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><code>time</code></td>
-                                                                    <td><code>bootbox-input-time</code></td>
+                                                                    <td><code>bootshine-input-time</code></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><code>number</code></td>
-                                                                    <td><code>bootbox-input-number</code></td>
+                                                                    <td><code>bootshine-input-number</code></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><code>range</code></td>
-                                                                    <td><code>bootbox-input-range</code></td>
+                                                                    <td><code>bootshine-input-range</code></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     <p>
-                                                        Additionally, checkbox and radiobuttons are wrapped in a parent element, <code>bootbox-checkbox-list</code>
-                                                        and <code>bootbox-radiobutton-list</code>, respectively.
+                                                        Additionally, checkbox and radiobuttons are wrapped in a parent element, <code>bootshine-checkbox-list</code>
+                                                        and <code>bootshine-radiobutton-list</code>, respectively.
                                                     </p>
                                                     <p>
                                                         <code>email</code>, <code>date</code>, <code>time</code>, <code>number</code>, and <code>range</code>
@@ -764,15 +759,15 @@ DD   = two-digit day of month (01 through 31)
                                     a non-dismissable dialog (useful as a "loading" overlay).
                                 </p>
                                 <div class="bb-example bb-example-modal">
-                                    <pre class="prettyprint linenums"><code>bootbox.dialog({ 
-    message: '&lt;div class="text-center"&gt;&lt;i class="fa fa-spin fa-spinner"&gt;&lt;/i&gt; Loading...&lt;/div&gt;' 
+                                    <pre class="prettyprint linenums"><code>bootshine.dialog({
+    message: '&lt;div class="text-center"&gt;&lt;i class="fa fa-spin fa-spinner"&gt;&lt;/i&gt; Loading...&lt;/div&gt;'
 })</code></pre>
                                     <figure>
                                         <figcaption id="example-bb-8" class="bb-anchor">Example <b>bb.8</b></figcaption>
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                    <div class="bootbox-body">
+                                                    <div class="bootshine-body">
                                                         <div class="text-center"><i class="fa fa-spin fa-spinner"></i> Loading...</div>
                                                     </div>
                                                 </div>
@@ -792,9 +787,9 @@ DD   = two-digit day of month (01 through 31)
                                     an example with many of the options utilized:
                                 </p>
                                 <div class="bb-example bb-example-modal-advanced">
-                                    <pre class="prettyprint linenums"><code>bootbox.dialog({ 
+                                    <pre class="prettyprint linenums"><code>bootshine.dialog({
     title: 'Custom Dialog Example',
-    message: '&lt;p&gt;This dialog demonstrates many of the options available when using the Bootbox library&lt;/p&gt;',
+    message: '&lt;p&gt;This dialog demonstrates many of the options available when using the Bootshine library&lt;/p&gt;',
     size: 'large',
     onEscape: true,
     backdrop: true,
@@ -803,28 +798,28 @@ DD   = two-digit day of month (01 through 31)
             label: 'Fee',
             className: 'btn-primary',
             callback: function(){
-                                
+
             }
         },
         fi: {
             label: 'Fi',
             className: 'btn-info',
             callback: function(){
-                                
+
             }
         },
         fo: {
             label: 'Fo',
             className: 'btn-success',
             callback: function(){
-                                
+
             }
         },
         fum: {
             label: 'Fum',
             className: 'btn-danger',
             callback: function(){
-                                
+
             }
         }
     }
@@ -835,11 +830,11 @@ DD   = two-digit day of month (01 through 31)
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Custom Dialog Example</h5>
-                                                    <button type="button" class="bootbox-close-button close" aria-hidden="true">&times;</button>
+                                                    <button type="button" class="bootshine-close-button close" aria-hidden="true">&times;</button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div class="bootbox-body">
-                                                        <p>This dialog demonstrates many of the options available when using the Bootbox library</p>
+                                                    <div class="bootshine-body">
+                                                        <p>This dialog demonstrates many of the options available when using the Bootshine library</p>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -862,7 +857,7 @@ DD   = two-digit day of month (01 through 31)
                         <section id="bb-options" class="bb-section">
                             <h2 id="dialog-options" class="page-header bb-anchor">Dialog Options</h2>
                             <p>
-                                Bootbox dialogs can be configured using the options below.
+                                Bootshine dialogs can be configured using the options below.
                             </p>
                             <div class="bb-section">
                                 <div class="table-responsive">
@@ -925,20 +920,20 @@ DD   = two-digit day of month (01 through 31)
                                                     <p>
                                                         An alert callback should not supply an argument; it will be ignored if it does:
                                                     </p>
-                                                    <pre class="prettyprint linenums"><code>bootbox.alert({ message: "I'm an alert!", callback: function() {} })</code></pre>
+                                                    <pre class="prettyprint linenums"><code>bootshine.alert({ message: "I'm an alert!", callback: function() {} })</code></pre>
                                                     <p>
                                                         Confirm and prompt callbacks <b>must</b> supply an argument for the result; for confirm,
                                                         it will be a
                                                         <code>true</code> or <code>false</code> value, while the prompt result will hold the
                                                         value(s) entered by the user:
                                                     </p>
-                                                    <pre class="prettyprint linenums"><code>bootbox.confirm("Are you sure?", function(result) {
+                                                    <pre class="prettyprint linenums"><code>bootshine.confirm("Are you sure?", function(result) {
     // result will be true or false
 }); </code></pre>
                                                     <p>
                                                         or
                                                     </p>
-                                                    <pre class="prettyprint linenums"><code>bootbox.prompt("What is your name?", function(result) {
+                                                    <pre class="prettyprint linenums"><code>bootshine.prompt("What is your name?", function(result) {
     if (result === null) {
         // Prompt dismissed
     } else {
@@ -948,16 +943,16 @@ DD   = two-digit day of month (01 through 31)
                                                     <p>
                                                         For any callback, if you do not want the dialog to close when the callback completes, add <code>return false;</code>
                                                         as the last line of the callback. You will then need to manually dismiss the dialog using
-                                                        the <code>modal()</code> function or <code>bootbox.hideAll()</code>:
+                                                        the <code>modal()</code> function or <code>bootshine.hideAll()</code>:
                                                     </p>
-                                                    <pre class="prettyprint linenums"><code>var dialog = bootbox.prompt("What is your name?", function(result) {
+                                                    <pre class="prettyprint linenums"><code>var dialog = bootshine.prompt("What is your name?", function(result) {
     if (result === null) {
         // Prompt dismissed
     } else {
         // result has a value
         dialog.modal('hide');
-    } 
-                
+    }
+
     return false;
 }); </code></pre>
                                                     <p>
@@ -1143,7 +1138,7 @@ DD   = two-digit day of month (01 through 31)
                                                     <p>
                                                         Each of the available button options can be overridden to use custom content (text or HTML) and CSS styles. For example:
                                                     </p>
-                                                    <pre class="prettyprint linenums"><code>bootbox.confirm({
+                                                    <pre class="prettyprint linenums"><code>bootshine.confirm({
     message: "This is a confirm with custom button text and color! Do you like it?",
     buttons: {
         confirm: {
@@ -1335,10 +1330,10 @@ DD   = two-digit day of month (01 through 31)
                                 </p>
                                 <ul>
                                     <li>
-                                        Use the <code>bootbox.all.js</code> or <code>bootbox.all.min.js</code> file, which includes all locales.
+                                        Use the <code>bootshine.all.js</code> or <code>bootshine.all.min.js</code> file, which includes all locales.
                                     </li>
                                     <li>
-                                        Add a reference to <code>bootbox.locales.js</code> or <code>bootbox.locales.min.js</code> after <code>bootbox.js</code>.
+                                        Add a reference to <code>bootshine.locales.js</code> or <code>bootshine.locales.min.js</code> after <code>bootshine.js</code>.
                                     </li>
                                     <li>
                                         Add a reference to the target locale file (<code>fr.js</code> to use the French locale, for example), found in the <code>src/locales</code> directory.
@@ -1351,17 +1346,17 @@ DD   = two-digit day of month (01 through 31)
                         </section>
 
                         <section id="bb-jquery-functions" class="bb-section">
-                            <h2 class="page-header">Using jQuery Functions with Bootbox</h2>
+                            <h2 class="page-header">Using jQuery Functions with Bootshine</h2>
                             <div class="bb-function">
                                 <p id="jquery-functions" class="bb-anchor">
-                                    The Bootbox object returned from each of the dialog functions is a jQuery object. As such, you can chain most jQuery functions
-                                    onto the result of a Bootbox dialog. Here's an example showing how to handle Bootstrap's <code>shown.bs.modal</code>
+                                    The Bootshine object returned from each of the dialog functions is a jQuery object. As such, you can chain most jQuery functions
+                                    onto the result of a Bootshine dialog. Here's an example showing how to handle Bootstrap's <code>shown.bs.modal</code>
                                     event, using <a href="http://api.jquery.com/on/">.on()</a>:
                                 </p>
-                                <pre class="prettyprint linenums"><code>var dialog = bootbox.dialog({
+                                <pre class="prettyprint linenums"><code>var dialog = bootshine.dialog({
     /* Your options... */
 });
-                
+
 dialog.on('shown.bs.modal', function(e){
     // Do something with the dialog just after it has been shown to the user...
 });</code></pre>
@@ -1370,13 +1365,13 @@ dialog.on('shown.bs.modal', function(e){
                                     <a href="http://getbootstrap.com/docs/4.0/components/modal/">modal()</a> function to show and hide your
                                     dialog manually:
                                 </p>
-                                <pre class="prettyprint linenums"><code>var dialog = bootbox.dialog({
+                                <pre class="prettyprint linenums"><code>var dialog = bootshine.dialog({
     show: false,
     /* Your options... */
 });
-                
+
 dialog.modal('show');
-                
+
 dialog.modal('hide');</code></pre>
                             </div>
                         </section>
@@ -1384,28 +1379,28 @@ dialog.modal('hide');</code></pre>
                         <section id="bb-public-functions" class="bb-section">
                             <h2 id="bb-instance-functions" class="page-header bb-anchor">Instance Functions</h2>
                             <p>
-                                The following functions can be called on an instance of a Bootbox object.
+                                The following functions can be called on an instance of a Bootshine object.
                             </p>
                             <div class="bb-function">
-                                <h3 id="bb-function-init" class="bb-anchor">bootbox.init(function)</h3>
+                                <h3 id="bb-function-init" class="bb-anchor">bootshine.init(function)</h3>
                                 <p>
                                     Allows the user to supply a function to be called when the dialog gets initialized.
                                 </p>
-                                <pre class="prettyprint linenums"><code>var dialog = bootbox.dialog({
+                                <pre class="prettyprint linenums"><code>var dialog = bootshine.dialog({
     /* Your options... */
 });
-                
+
 dialog.init(function(){
     // Do something with the dialog...
 });</code></pre>
-                                <p><code>init</code> can be called on any of the wrapper functions, as they all return a Bootbox/jQuery object.</p>
+                                <p><code>init</code> can be called on any of the wrapper functions, as they all return a Bootshine/jQuery object.</p>
                             </div>
                             <h2 id="bb-global-functions" class="page-header bb-anchor">Global Functions</h2>
                             <p>
                                 The following functions can be called statically.
                             </p>
                             <div class="bb-function">
-                                <h3 id="bb-function-setDefaults" class="bb-anchor">bootbox.setDefaults(object <b>options</b>)</h3>
+                                <h3 id="bb-function-setDefaults" class="bb-anchor">bootshine.setDefaults(object <b>options</b>)</h3>
                                 <p>
                                     This method allows the user to set many of the default options shown in the dialog example. Many of these options are also
                                     applied to the basic wrapper methods and can be overridden whenever the wrapper methods are invoked with
@@ -1414,7 +1409,7 @@ dialog.init(function(){
                                 <script src="https://gist.github.com/makeusabrew/6339916.js"></script>
                             </div>
                             <div class="bb-function">
-                                <h3 id="bb-function-setLocale" class="bb-anchor">bootbox.setLocale(String <b>name</b>)</h3>
+                                <h3 id="bb-function-setLocale" class="bb-anchor">bootshine.setLocale(String <b>name</b>)</h3>
                                 <p>
                                     Allows the user to select a locale rather than using <code>setDefaults("locale", ...)</code>.
                                 </p>
@@ -1426,7 +1421,7 @@ dialog.init(function(){
                                 </p>
                             </div>
                             <div class="bb-function">
-                                <h3 id="bb-function-addLocale" class="bb-anchor">bootbox.addLocale(String <b>name</b>, object <b>values</b>)</h3>
+                                <h3 id="bb-function-addLocale" class="bb-anchor">bootshine.addLocale(String <b>name</b>, object <b>values</b>)</h3>
                                 <p>
                                     Allows the user to add a custom translation for each of the built-in command buttons. The <code>values</code>
                                     object should be in this format:
@@ -1438,22 +1433,22 @@ dialog.init(function(){
 }</code></pre>
                             </div>
                             <div class="bb-function">
-                                <h3 id="bb-function-removeLocale" class="bb-anchor">bootbox.removeLocale(String <b>name</b>)</h3>
+                                <h3 id="bb-function-removeLocale" class="bb-anchor">bootshine.removeLocale(String <b>name</b>)</h3>
                                 <p>
                                     Allows the user to remove a locale from the available locale settings.
                                 </p>
                             </div>
                             <div class="bb-function">
-                                <h3 id="bb-function-locales" class="bb-anchor">bootbox.locales(String <b>name</b>)</h3>
+                                <h3 id="bb-function-locales" class="bb-anchor">bootshine.locales(String <b>name</b>)</h3>
                                 <p>
                                     Allows the user to get a locale object from the available locale settings. If <code>name</code> is empty,
                                     all locales will be returned.
                                 </p>
                             </div>
                             <div class="bb-function">
-                                <h3 id="bb-function-hideAll" class="bb-anchor">bootbox.hideAll()</h3>
+                                <h3 id="bb-function-hideAll" class="bb-anchor">bootshine.hideAll()</h3>
                                 <p>
-                                    Hide all currently active Bootbox dialogs. Individual dialogs can be closed as per normal Bootstrap dialogs:
+                                    Hide all currently active Bootshine dialogs. Individual dialogs can be closed as per normal Bootstrap dialogs:
                                 </p>
                                 <pre class="prettyprint linenums"><code>dialog.modal('hide')</code></pre>
                             </div>
@@ -1462,7 +1457,7 @@ dialog.init(function(){
                         <section id="bb-notes" class="bb-section">
                             <h2 id="known-limitations" class="page-header bb-anchor">Known Limitations</h2>
                             <p>
-                                Using Bootbox has some caveats, as noted below.
+                                Using Bootshine has some caveats, as noted below.
                             </p>
                             <dl class="bb-notes-list">
                                 <dt class="text-danger bb-anchor" id="bb-note-nonblocking">
@@ -1470,7 +1465,7 @@ dialog.init(function(){
                                 </dt>
                                 <dd>
                                     <p>
-                                        <b>All</b> Bootstrap modals (and therefore Bootbox modals), unlike native alerts, confirms, or prompts,
+                                        <b>All</b> Bootstrap modals (and therefore Bootshine modals), unlike native alerts, confirms, or prompts,
                                         are
                                         <a href="https://getbootstrap.com/docs/4.0/components/modal/#methods">asynchronous</a>; meaning,
                                         the events which Bootstrap generates are <b>non-blocking</b> events. Because of this limitation,
@@ -1494,7 +1489,7 @@ dialog.init(function(){
                                 </dt>
                                 <dd>
                                     <p>
-                                        The value(s) returned by a Bootbox prompt are not sanitized in any way.
+                                        The value(s) returned by a Bootshine prompt are not sanitized in any way.
                                     </p>
                                 </dd>
                             </dl>
@@ -1510,7 +1505,7 @@ dialog.init(function(){
             <div class="row">
                 <div class="col-12 col-md-9 offset-md-3 col-xl-8 offset-xl-2">
                     <span class="d-block float-right">
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bootboxjs.com" data-via="makeusabrew" data-related="makeusabrew" data-size="large">Tweet</a>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bootshinejs.com" data-via="makeusabrew" data-related="makeusabrew" data-size="large">Tweet</a>
                         <a href="https://twitter.com/makeusabrew" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @makeusabrew</a>
                         <script>
                             !function (d, s, id) {
@@ -1521,7 +1516,7 @@ dialog.init(function(){
                         </script>
                     </span>
                     <span class="d-block">
-                        Copyright &copy; 2011-2018 <a href="http://twitter.com/makeusabrew">Nick Payne</a>.
+                        Copyright by the Contributor to Bootbox and Bootshine.
                     </span>
                 </div>
             </div>
@@ -1531,7 +1526,7 @@ dialog.init(function(){
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="./js/bootbox.all.min.js"></script>
+    <script src="./js/bootshine.all.min.js"></script>
 
     <script src="./vendor/js/prettify.min.js"></script>
     <script src="./vendor/js/anchor.min.js"></script>

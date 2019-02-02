@@ -7,9 +7,9 @@ module.exports = function (grunt) {
             },
             my_target: {
                 files: {
-                    'dist/bootbox.min.js': ['src/bootbox.js'],
-                    'dist/bootbox.locales.min.js': ['src/bootbox.locales.js'],
-                    'dist/bootbox.all.min.js': ['src/bootbox.js', 'src/bootbox.locales.js']
+                    'dist/bootshine.min.js': ['src/bootshine.js'],
+                    'dist/bootshine.locales.min.js': ['src/bootshine.locales.js'],
+                    'dist/bootshine.all.min.js': ['src/bootshine.js', 'src/bootshine.locales.js']
                 }
             }
         },
@@ -18,7 +18,7 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            all: ['src/bootbox.js']
+            all: ['src/bootshine.js']
         },
 
         karma: {
@@ -33,4 +33,4 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('default', ['jshint', 'karma']);
-};  
+};

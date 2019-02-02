@@ -1,6 +1,6 @@
 $(function () {
     try {
-        var locales = Object.keys(bootbox.locales());
+        var locales = Object.keys(bootshine.locales());
         for(var i = 0; i < locales.length; i++){
             var option = $('<option value=""></option>');
             option.attr('value', locales[i]);
@@ -23,18 +23,18 @@ $(function () {
                     /* Alerts */
 
                     case 'alert-default':
-                        bootbox.alert("This is the default alert!");
+                        bootshine.alert("This is the default alert!");
                         Example.show('Default alert');
                         break;
 
                     case 'alert-callback':
-                        bootbox.alert("This is an alert with a callback!", function () {
+                        bootshine.alert("This is an alert with a callback!", function () {
                             Example.show('This was logged in the callback!');
                         });
                         break;
 
                     case 'alert-options':
-                        bootbox.alert({
+                        bootshine.alert({
                             message: "This is an alert with a callback!",
                             callback: function () {
                                 Example.show('This was logged in the callback!');
@@ -43,7 +43,7 @@ $(function () {
                         break;
 
                     case 'alert-small':
-                        bootbox.alert({
+                        bootshine.alert({
                             message: "This is the small alert!",
                             size: 'small'
                         });
@@ -51,7 +51,7 @@ $(function () {
                         break;
 
                     case 'alert-large':
-                        bootbox.alert({
+                        bootshine.alert({
                             message: "This is the large alert!",
                             size: 'large'
                         });
@@ -59,7 +59,7 @@ $(function () {
                         break;
 
                     case 'alert-custom-class':
-                        bootbox.alert({
+                        bootshine.alert({
                             message: "This is an alert with an additional class!",
                             className: 'rubberBand animated'
                         });
@@ -67,15 +67,15 @@ $(function () {
                         break;
 
                     case 'alert-overlay-click':
-                        bootbox.alert({
+                        bootshine.alert({
                             message: "This alert can be dismissed by clicking on the background!",
                             backdrop: true
                         });
                         Example.show('Dismissable background alert shown');
                         break;
-                        
+
                     case 'alert-locale':
-                        bootbox.alert({
+                        bootshine.alert({
                             message: "This alert uses the Arabic locale!",
                             locale: 'ar'
                         });
@@ -86,13 +86,13 @@ $(function () {
                     /* Confirms */
 
                     case 'confirm-default':
-                        bootbox.confirm("This is the default confirm.", function (result) {
+                        bootshine.confirm("This is the default confirm.", function (result) {
                             Example.show('This was logged in the callback: ' + result);
                         });
                         break;
 
                     case 'confirm-options':
-                        bootbox.confirm({
+                        bootshine.confirm({
                             message: "This is a confirm with custom button text and color! Do you like it?",
                             buttons: {
                                 confirm: {
@@ -111,7 +111,7 @@ $(function () {
                         break;
 
                     case 'confirm-button-text':
-                        bootbox.confirm({
+                        bootshine.confirm({
                             title: "Destroy planet?",
                             message: "Do you want to activate the Deathstar now? This cannot be undone.",
                             buttons: {
@@ -127,10 +127,10 @@ $(function () {
                             }
                         });
                         break;
-                        
+
                     case 'confirm-locale':
                         var locale = $('#locales').val();
-                        bootbox.confirm({
+                        bootshine.confirm({
                             message: "This confirm uses the selected locale. Were the labels what you expected?",
                             locale: locale,
                             callback: function (result) {
@@ -143,11 +143,11 @@ $(function () {
                    /* Prompts */
 
                     case 'prompt-default':
-                        bootbox.prompt("This is the default prompt!", function (result) {
+                        bootshine.prompt("This is the default prompt!", function (result) {
                             Example.show('This was logged in the callback: ' + result);
                         });
                         break;
-                        
+
                     case 'prompt-custom-locale':
                         var locale = {
                             OK: 'I Suppose',
@@ -155,10 +155,10 @@ $(function () {
                             CANCEL: 'Maybe Not'
                         };
 
-                        bootbox.addLocale('custom', locale);
+                        bootshine.addLocale('custom', locale);
 
-                        bootbox.prompt({ 
-                            title: "This is a prompt with a custom locale! What do you think?", 
+                        bootshine.prompt({
+                            title: "This is a prompt with a custom locale! What do you think?",
                             locale: 'custom',
                             callback: function (result) {
                                 Example.show('This was logged in the callback: ' + result);
@@ -167,7 +167,7 @@ $(function () {
                         break;
 
                     case 'prompt-checkbox':
-                        bootbox.prompt({
+                        bootshine.prompt({
                             title: "This is a prompt with a set of checkbox inputs!",
                             value: [1, 3],
                             inputType: 'checkbox',
@@ -190,9 +190,9 @@ $(function () {
                             }
                         });
                         break;
-                        
+
                     case 'prompt-radio':
-                        bootbox.prompt({
+                        bootshine.prompt({
                             title: "This is a prompt with a set of radio inputs!",
                             message: '<p>Please select an option below:</p>',
                             inputType: 'radio',
@@ -217,7 +217,7 @@ $(function () {
                         break;
 
                     case 'prompt-date':
-                        bootbox.prompt({
+                        bootshine.prompt({
                             title: "This is a prompt with a date input!",
                             inputType: 'date',
                             callback: function (result) {
@@ -227,7 +227,7 @@ $(function () {
                         break;
 
                     case 'prompt-email':
-                        bootbox.prompt({
+                        bootshine.prompt({
                             title: "This is a prompt with an email input!",
                             inputType: 'email',
                             callback: function (result) {
@@ -237,7 +237,7 @@ $(function () {
                         break;
 
                     case 'prompt-number':
-                        bootbox.prompt({
+                        bootshine.prompt({
                             title: "This is a prompt with a number input!",
                             inputType: 'number',
                             callback: function (result) {
@@ -247,7 +247,7 @@ $(function () {
                         break;
 
                     case 'prompt-password':
-                        bootbox.prompt({
+                        bootshine.prompt({
                             title: "This is a prompt with a password input!",
                             inputType: 'password',
                             callback: function (result) {
@@ -257,7 +257,7 @@ $(function () {
                         break;
 
                     case 'prompt-select':
-                        bootbox.prompt({
+                        bootshine.prompt({
                             title: "This is a prompt with select!",
                             inputType: 'select',
                             inputOptions: [
@@ -285,7 +285,7 @@ $(function () {
                         break;
 
                     case 'prompt-textarea':
-                        bootbox.prompt({
+                        bootshine.prompt({
                             title: "This is a prompt with a textarea!",
                             inputType: 'textarea',
                             callback: function (result) {
@@ -295,7 +295,7 @@ $(function () {
                         break;
 
                     case 'prompt-time':
-                        bootbox.prompt({
+                        bootshine.prompt({
                             title: "This is a prompt with a time input!",
                             inputType: 'time',
                             callback: function (result) {
@@ -303,9 +303,9 @@ $(function () {
                             }
                         });
                         break;
-                        
+
                     case 'prompt-range':
-                        bootbox.prompt({
+                        bootshine.prompt({
                             title: "This is a prompt with a range input!",
                             inputType: 'range',
                             min: 0,
@@ -323,7 +323,7 @@ $(function () {
 
                     case 'custom-dialog-as-overlay':
                         var timeout = 3000; // 3 seconds
-                        var dialog = bootbox.dialog({
+                        var dialog = bootshine.dialog({
                             message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Please wait while we do something...</p>',
                             closeButton: false
                         });
@@ -335,21 +335,21 @@ $(function () {
                         break;
 
                     case 'custom-dialog-init':
-                        var dialog = bootbox.dialog({
+                        var dialog = bootshine.dialog({
                             title: 'A custom dialog with init',
                             message: '<p><i class="fa fa-spin fa-spinner"></i> Loading...</p>'
                         });
 
                         dialog.init(function () {
                             setTimeout(function () {
-                                dialog.find('.bootbox-body p').html('I was loaded after the dialog was shown!');
+                                dialog.find('.bootshine-body p').html('I was loaded after the dialog was shown!');
                             }, 3000);
                         });
 
                         break;
 
                     case 'custom-dialog-with-buttons':
-                        var dialog = bootbox.dialog({
+                        var dialog = bootshine.dialog({
                             title: 'A custom dialog with buttons and callbacks',
                             message: "<p>This dialog has buttons. Each button has it's own callback function.</p>",
                             size: 'large',

@@ -1,17 +1,17 @@
-// bootbox.js locale configuration
+// bootshine.js locale configuration
 // locale : Japanese
 // author : ms183
 
 (function (global, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['../bootbox'], factory);
+        define(['../bootshine'], factory);
     } else if (typeof module === 'object' && module.exports) {
-        factory(require('../bootbox'));
+        factory(require('../bootshine'));
     } else {
-        factory(global.bootbox);
+        factory(global.bootshine);
     }
-}(this, function (bootbox) {
-    bootbox.addLocale('ja', {
+}(this, function (bootshine) {
+    bootshine.addLocale('ja', {
         OK      : 'OK',
         CANCEL  : 'キャンセル',
         CONFIRM : '確認'

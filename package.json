@@ -1,6 +1,6 @@
 {
-  "name": "bootbox",
-  "version": "5.0.0",
+  "name": "bootshine",
+  "version": "1.0.0",
   "description": "Wrappers for JavaScript alert(), confirm() and other flexible dialogs using the Bootstrap framework",
   "directories": {
     "test": "tests"
@@ -10,12 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tiesont/bootbox.git"
+    "url": "git://github.com/lddubeau/bootshine.git"
   },
-  "author": "Nick Payne <nick@kurai.co.uk>",
+  "author": "Louis-Dominique Dubeau <ldd@lddubeau.com>",
+  "contributors": [
+    "Tieson Trowbridge <tiesont@gmail.com>",
+    "Nick Payne <nick@kurai.co.uk>"
+  ],
   "license": "MIT",
-  "readmeFilename": "README.md",
-  "main": "src/bootbox.js",
+  "main": "src/bootshine.js",
   "devDependencies": {
     "chai": "^3.5.0",
     "grunt": "~0.4.1",

@@ -1,9 +1,8 @@
 /*! @preserve
- * bootbox.js
- * version: 5.0.0
- * author: Nick Payne <nick@kurai.co.uk>
+ * bootshine.js
+ * version: 1.0.0
  * license: MIT
- * http://bootboxjs.com/
+ * http://github.com/lddubeau/bootshine
  */
 
 (function (root, factory) {
@@ -16,7 +15,7 @@
     module.exports = factory(require('jquery'));
   } else {
     // Browser globals (root is window)
-    root.bootbox = factory(root.jQuery);
+    root.bootshine = factory(root.jQuery);
   }
 }(this, function init($, undefined) {
   'use strict';
@@ -67,17 +66,17 @@
 
   var exports = {};
 
-  var VERSION = '5.0.0';
+  var VERSION = '1.0.0';
   exports.VERSION = VERSION;
 
   var locales = {};
 
   var templates = {
     dialog:
-    '<div class="bootbox modal" tabindex="-1" role="dialog" aria-hidden="true">' +
+    '<div class="bootshine modal" tabindex="-1" role="dialog" aria-hidden="true">' +
     '<div class="modal-dialog">' +
     '<div class="modal-content">' +
-    '<div class="modal-body"><div class="bootbox-body"></div></div>' +
+    '<div class="modal-body"><div class="bootshine-body"></div></div>' +
     '</div>' +
     '</div>' +
     '</div>',
@@ -88,38 +87,38 @@
     footer:
     '<div class="modal-footer"></div>',
     closeButton:
-    '<button type="button" class="bootbox-close-button close" aria-hidden="true">&times;</button>',
+    '<button type="button" class="bootshine-close-button close" aria-hidden="true">&times;</button>',
     form:
-    '<form class="bootbox-form"></form>',
+    '<form class="bootshine-form"></form>',
     button:
     '<button type="button" class="btn"></button>',
     option:
     '<option></option>',
     promptMessage:
-    '<div class="bootbox-prompt-message"></div>',
+    '<div class="bootshine-prompt-message"></div>',
     inputs: {
       text:
-      '<input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text" />',
+      '<input class="bootshine-input bootshine-input-text form-control" autocomplete="off" type="text" />',
       textarea:
-      '<textarea class="bootbox-input bootbox-input-textarea form-control"></textarea>',
+      '<textarea class="bootshine-input bootshine-input-textarea form-control"></textarea>',
       email:
-      '<input class="bootbox-input bootbox-input-email form-control" autocomplete="off" type="email" />',
+      '<input class="bootshine-input bootshine-input-email form-control" autocomplete="off" type="email" />',
       select:
-      '<select class="bootbox-input bootbox-input-select form-control"></select>',
+      '<select class="bootshine-input bootshine-input-select form-control"></select>',
       checkbox:
-      '<div class="form-check checkbox"><label class="form-check-label"><input class="form-check-input bootbox-input bootbox-input-checkbox" type="checkbox" /></label></div>',
+      '<div class="form-check checkbox"><label class="form-check-label"><input class="form-check-input bootshine-input bootshine-input-checkbox" type="checkbox" /></label></div>',
       radio:
-      '<div class="form-check radio"><label class="form-check-label"><input class="form-check-input bootbox-input bootbox-input-radio" type="radio" name="bootbox-radio" /></label></div>',
+      '<div class="form-check radio"><label class="form-check-label"><input class="form-check-input bootshine-input bootshine-input-radio" type="radio" name="bootshine-radio" /></label></div>',
       date:
-      '<input class="bootbox-input bootbox-input-date form-control" autocomplete="off" type="date" />',
+      '<input class="bootshine-input bootshine-input-date form-control" autocomplete="off" type="date" />',
       time:
-      '<input class="bootbox-input bootbox-input-time form-control" autocomplete="off" type="time" />',
+      '<input class="bootshine-input bootshine-input-time form-control" autocomplete="off" type="time" />',
       number:
-      '<input class="bootbox-input bootbox-input-number form-control" autocomplete="off" type="number" />',
+      '<input class="bootshine-input bootshine-input-number form-control" autocomplete="off" type="number" />',
       password:
-      '<input class="bootbox-input bootbox-input-password form-control" autocomplete="off" type="password" />',
+      '<input class="bootshine-input bootshine-input-password form-control" autocomplete="off" type="password" />',
       range:
-      '<input class="bootbox-input bootbox-input-range form-control-range" autocomplete="off" type="range" />'
+      '<input class="bootshine-input bootshine-input-range form-control-range" autocomplete="off" type="range" />'
     }
   };
 
@@ -196,7 +195,7 @@
   }
 
 
-  // Override default value(s) of Bootbox.
+  // Override default value(s) of Bootshine.
   exports.setDefaults = function () {
     var values = {};
 
@@ -214,9 +213,9 @@
   }
 
 
-  // Hides all currently active Bootbox modals
+  // Hides all currently active Bootshine modals
   exports.hideAll = function () {
-    $(".bootbox").modal("hide");
+    $(".bootshine").modal("hide");
 
     return exports;
   }
@@ -253,7 +252,7 @@
       options.bootstrap = '2';
       options.fullBootstrapVersion = '2.3.2';
 
-      console.warn('Bootbox will *mostly* work with Bootstrap 2, but we do not officially support it. Please upgrade, if possible.');
+      console.warn('Bootshine will *mostly* work with Bootstrap 2, but we do not officially support it. Please upgrade, if possible.');
     }
 
     var dialog = $(templates.dialog);
@@ -267,9 +266,9 @@
       onEscape: options.onEscape
     };
 
-    body.find('.bootbox-body').html(options.message);
+    body.find('.bootshine-body').html(options.message);
 
-    // Only attempt to create buttons if at least one has 
+    // Only attempt to create buttons if at least one has
     // been defined in the options object
     if (getKeyLength(options.buttons) > 0) {
       each(buttons, function (key, b) {
@@ -281,11 +280,11 @@
         {
           case 'ok':
           case 'confirm':
-            button.addClass('bootbox-accept');
+            button.addClass('bootshine-accept');
             break;
 
           case 'cancel':
-            button.addClass('bootbox-cancel');
+            button.addClass('bootshine-cancel');
             break;
         }
 
@@ -362,7 +361,7 @@
 
     dialog.one("hidden.bs.modal", function (e) {
       // ensure we don't accidentally intercept hidden events triggered
-      // by children of the current dialog. We shouldn't need to handle this anymore, 
+      // by children of the current dialog. We shouldn't need to handle this anymore,
       // now that Bootstrap namespaces its events, but still worth doing.
       if (e.target === this) {
         dialog.remove();
@@ -370,10 +369,10 @@
     });
 
     dialog.one('shown.bs.modal', function (e) {
-      dialog.find('.bootbox-accept:first').trigger('focus');
+      dialog.find('.bootshine-accept:first').trigger('focus');
     });
 
-    // Bootbox event listeners; used to decouple some
+    // Bootshine event listeners; used to decouple some
     // behaviours from their respective triggers
 
     if (options.backdrop !== 'static') {
@@ -416,7 +415,7 @@
       processCallback(e, dialog, callbacks[callbackKey]);
     });
 
-    dialog.on('click', '.bootbox-close-button', function (e) {
+    dialog.on('click', '.bootshine-close-button', function (e) {
       // onEscape might be falsy but that's fine; the fact is
       // if the user has managed to click the close button we
       // have to close the dialog, callback or not
@@ -451,7 +450,7 @@
 
 
   // Helper function to simulate the native alert() behavior. **NOTE**: This is non-blocking, so any
-  // code that must happen after the alert is dismissed should be placed within the callback function 
+  // code that must happen after the alert is dismissed should be placed within the callback function
   // for this alert.
   exports.alert = function () {
     var options;
@@ -479,7 +478,7 @@
 
 
   // Helper function to simulate the native confirm() behavior. **NOTE**: This is non-blocking, so any
-  // code that must happen after the confirm is dismissed should be placed within the callback function 
+  // code that must happen after the confirm is dismissed should be placed within the callback function
   // for this confirm.
   exports.confirm = function () {
     var options;
@@ -506,7 +505,7 @@
 
 
   // Helper function to simulate the native prompt() behavior. **NOTE**: This is non-blocking, so any
-  // code that must happen after the prompt is dismissed should be placed within the callback function 
+  // code that must happen after the prompt is dismissed should be placed within the callback function
   // for this prompt.
   exports.prompt = function () {
     var options;
@@ -538,7 +537,7 @@
     // spawning the dialog to give us a chance to attach some handlers to
     // it, but we need to make sure we respect a preference not to show it
     shouldShow = (options.show === undefined) ? defaults.show : options.show;
-    // This is required prior to calling the dialog builder below - we need to 
+    // This is required prior to calling the dialog builder below - we need to
     // add an event handler just before the prompt is shown
     options.show = false;
 
@@ -547,7 +546,7 @@
       return options.callback.call(this, null);
     };
 
-    // Prompt submitted - extract the prompt value. This requires a bit of work, 
+    // Prompt submitted - extract the prompt value. This requires a bit of work,
     // given the different input types available.
     options.buttons.confirm.callback = function () {
       var value;
@@ -593,15 +592,15 @@
       case 'email':
       case 'password':
         input.val(options.value);
-        
+
         if (options.placeholder) {
           input.attr('placeholder', options.placeholder);
         }
-    
+
         if (options.pattern) {
           input.attr('pattern', options.pattern);
         }
-    
+
         if (options.maxlength) {
           input.attr('maxlength', options.maxlength);
         }
@@ -618,11 +617,11 @@
       case 'number':
       case 'range':
         input.val(options.value);
-        
+
         if (options.placeholder) {
           input.attr('placeholder', options.placeholder);
         }
-    
+
         if (options.pattern) {
           input.attr('pattern', options.pattern);
         }
@@ -630,9 +629,9 @@
         if (options.required) {
           input.prop({ required: true });
         }
-        
+
         // These input types have extra attributes which affect their input validation.
-        // Warning: For most browsers, date inputs are buggy in their implementation of 'step', so 
+        // Warning: For most browsers, date inputs are buggy in their implementation of 'step', so
         // this attribute will have no effect. Therefore, we don't set the attribute for date inputs.
         // @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date#Setting_maximum_and_minimum_dates
         if (options.inputType !== 'date') {
@@ -645,9 +644,9 @@
             }
           }
         }
-  
+
         input = validateMinOrMaxValue(input, options.inputType, 'min', options.min, options.max, options);
-  
+
         input = validateMinOrMaxValue(input, options.inputType, 'max', options.max, options.min, options);
 
         break;
@@ -670,11 +669,11 @@
         if (options.placeholder) {
           input.attr('placeholder', options.placeholder);
         }
-        
+
         if (options.required) {
           input.prop({ required: true });
         }
-        
+
         each(inputOptions, function (_, option) {
           // assume the element to attach to is the input...
           var elem = input;
@@ -720,7 +719,7 @@
         // checkboxes have to nest within a containing element, so
         // they break the rules a bit and we end up re-assigning
         // our 'input' element to this container instead
-        input = $('<div class="bootbox-checkbox-list"></div>');
+        input = $('<div class="bootshine-checkbox-list"></div>');
 
         each(inputOptions, function (_, option) {
           if (option.value === undefined || option.text === undefined) {
@@ -759,7 +758,7 @@
         // Radiobuttons have to nest within a containing element, so
         // they break the rules a bit and we end up re-assigning
         // our 'input' element to this container instead
-        input = $('<div class="bootbox-radiobutton-list"></div>');
+        input = $('<div class="bootshine-radiobutton-list"></div>');
 
         // Radiobuttons should always have an initial checked input checked in a "group".
         // If value is undefined or doesn't match an input option, select the first radiobutton
@@ -801,7 +800,7 @@
 
       // @TODO can we actually click *the* button object instead?
       // e.g. buttons.confirm.click() or similar
-      promptDialog.find('.bootbox-accept').trigger('click');
+      promptDialog.find('.bootshine-accept').trigger('click');
     });
 
     if ($.trim(options.message) !== '') {
@@ -884,7 +883,7 @@
 
 
   //  This entry-level method makes heavy use of composition to take a simple
-  //  range of inputs and return valid options suitable for passing to bootbox.dialog
+  //  range of inputs and return valid options suitable for passing to bootshine.dialog
   function mergeDialogOptions(className, labels, properties, args) {
     var locale;
     if(args && args[0]){
@@ -898,7 +897,7 @@
 
     //  build up a base set of dialog properties
     var baseOptions = {
-      className: 'bootbox-' + className,
+      className: 'bootshine-' + className,
       buttons: createLabels(labels, locale)
     };
 
@@ -917,8 +916,8 @@
   }
 
 
-  //  Checks each button object to see if key is valid. 
-  //  This function will only be called by the alert, confirm, and prompt helpers. 
+  //  Checks each button object to see if key is valid.
+  //  This function will only be called by the alert, confirm, and prompt helpers.
   function validateButtons(options, buttons) {
     var allowedButtons = {};
     each(buttons, function (key, value) {
@@ -957,7 +956,7 @@
 
 
 
-  //  Get localized text from a locale. Defaults to 'en' locale if no locale 
+  //  Get localized text from a locale. Defaults to 'en' locale if no locale
   //  provided or a non-registered locale is requested
   function getText(key, locale) {
     var labels = locales[locale];
@@ -1014,7 +1013,7 @@
         button.label = key;
       }
 
-      if (!button.className) {     
+      if (!button.className) {
         var isPrimary = false;
         if(options.swapButtonOrder){
           isPrimary = index === 0;
@@ -1077,9 +1076,9 @@
         input.attr(name, value);
 
         if (!/(\d{4})-(\d{2})-(\d{2})/.test(value)) {
-          console.warn('Browsers which natively support the "date" input type expect date values to be of the form "YYYY-MM-DD" ' 
+          console.warn('Browsers which natively support the "date" input type expect date values to be of the form "YYYY-MM-DD" '
             + ' (see ISO-8601 https://www.iso.org/iso-8601-date-and-time-format.html). '
-            + 'Bootbox does not enforce this rule, but your ' + name + ' value may not be enforced by this browser.')
+            + 'Bootshine does not enforce this rule, but your ' + name + ' value may not be enforced by this browser.')
         }
       }
       else if (type === 'time') {
@@ -1122,6 +1121,6 @@
   });
 
 
-  //  The Bootbox object
+  //  The Bootshine object
   return exports;
 }));

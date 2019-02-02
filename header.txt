@@ -1,5 +1,3 @@
 /**
- * bootbox.js v5.0.0
- *
- * http://bootboxjs.com/license.txt
+ * bootshine.js v1.0.0
  */

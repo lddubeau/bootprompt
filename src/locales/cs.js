@@ -1,17 +1,17 @@
-// bootbox.js locale configuration
+// bootshine.js locale configuration
 // locale : Czech
 // author : Lukáš Fryč
 
 (function (global, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['../bootbox'], factory);
+        define(['../bootshine'], factory);
     } else if (typeof module === 'object' && module.exports) {
-        factory(require('../bootbox'));
+        factory(require('../bootshine'));
     } else {
-        factory(global.bootbox);
+        factory(global.bootshine);
     }
-}(this, function (bootbox) {
-    bootbox.addLocale('cs', {
+}(this, function (bootshine) {
+    bootshine.addLocale('cs', {
         OK      : 'OK',
         CANCEL  : 'Zrušit',
         CONFIRM : 'Potvrdit'

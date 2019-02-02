@@ -1,33 +1,33 @@
-describe("Bootbox", function() {
+describe("Bootshine", function() {
 
   "use strict";
 
   it("is attached to the window object", function() {
-    expect(window.bootbox).to.be.an("object");
+    expect(window.bootshine).to.be.an("object");
   });
 
   it("exposes the correct public API", function() {
-    expect(bootbox.alert).to.be.a("function");
-    expect(bootbox.confirm).to.be.a("function");
-    expect(bootbox.dialog).to.be.a("function");
-    expect(bootbox.setDefaults).to.be.a("function");
-    expect(bootbox.setLocale).to.be.a("function");
-    expect(bootbox.removeLocale).to.be.a("function");
-    expect(bootbox.locales).to.be.a("function");
-    expect(bootbox.hideAll).to.be.a("function");
+    expect(bootshine.alert).to.be.a("function");
+    expect(bootshine.confirm).to.be.a("function");
+    expect(bootshine.dialog).to.be.a("function");
+    expect(bootshine.setDefaults).to.be.a("function");
+    expect(bootshine.setLocale).to.be.a("function");
+    expect(bootshine.removeLocale).to.be.a("function");
+    expect(bootshine.locales).to.be.a("function");
+    expect(bootshine.hideAll).to.be.a("function");
   });
 
   describe("hideAll", function() {
     beforeEach(function() {
       this.hidden = sinon.spy($.fn, "modal");
-      bootbox.hideAll();
+      bootshine.hideAll();
     });
 
     afterEach(function() {
       this.hidden.restore();
     });
 
-    it("should hide all .bootbox modals", function() {
+    it("should hide all .bootshine modals", function() {
       expect(this.hidden).to.have.been.calledWithExactly("hide");
     });
   });
@@ -35,7 +35,7 @@ describe("Bootbox", function() {
   describe("event listeners", function() {
     describe("hidden.bs.modal", function() {
       beforeEach(function() {
-        this.dialog = bootbox.alert("hi");
+        this.dialog = bootshine.alert("hi");
 
         this.removed = sinon.stub(this.dialog, "remove");
 
@@ -86,7 +86,7 @@ describe("Bootbox", function() {
     describe("When invoking a dialog", function() {
       beforeEach(function() {
         try {
-          bootbox.alert("Hi", function() {});
+          bootshine.alert("Hi", function() {});
         } catch (e) {
           this.e = e;
         }
@@ -100,11 +100,11 @@ describe("Bootbox", function() {
 
   describe("adding and removing locales", function() {
 
-    describe("bootbox.addLocale", function() {
+    describe("bootshine.addLocale", function() {
       describe("with invalid values", function() {
         beforeEach(function() {
           try {
-            bootbox.addLocale("xy", {
+            bootshine.addLocale("xy", {
               OK: "BTN1"
             });
           } catch (e) {
@@ -119,7 +119,7 @@ describe("Bootbox", function() {
 
       describe("with valid values", function() {
         beforeEach(function() {
-          bootbox
+          bootshine
           .addLocale("xy", {
             OK: "BTN1",
             CANCEL: "BTN2",
@@ -127,8 +127,8 @@ describe("Bootbox", function() {
           })
           .setLocale("xy");
 
-          var d1 = bootbox.alert("foo");
-          var d2 = bootbox.confirm("foo", function() { return true; });
+          var d1 = bootshine.alert("foo");
+          var d2 = bootshine.confirm("foo", function() { return true; });
           this.labels = {
             ok: d1.find(".btn:first").text(),
             cancel: d2.find(".btn:first").text(),
@@ -148,12 +148,12 @@ describe("Bootbox", function() {
       });
     });
 
-    describe("bootbox.removeLocale", function () {
+    describe("bootshine.removeLocale", function () {
       beforeEach(function () {
-        bootbox.removeLocale("xy");
+        bootshine.removeLocale("xy");
 
-        var d1 = bootbox.alert("foo");
-        var d2 = bootbox.confirm("foo", function () { return true; });
+        var d1 = bootshine.alert("foo");
+        var d2 = bootshine.confirm("foo", function () { return true; });
         this.labels = {
           ok: d1.find(".btn:first").text(),
           cancel: d2.find(".btn:first").text(),
@@ -185,7 +185,7 @@ describe("Bootbox", function() {
     describe("with the default value", function() {
       beforeEach(function() {
         this.callback = sinon.spy();
-        this.dialog = bootbox.alert("hi", this.callback);
+        this.dialog = bootshine.alert("hi", this.callback);
       });
 
       describe("When triggering the backdrop click dismiss event", function() {
@@ -202,7 +202,7 @@ describe("Bootbox", function() {
     describe("when set to false", function() {
       beforeEach(function() {
         this.callback = sinon.spy();
-        this.dialog = bootbox.alert({
+        this.dialog = bootshine.alert({
           message: "hi",
           callback: this.callback,
           backdrop: false
@@ -239,7 +239,7 @@ describe("Bootbox", function() {
     describe("when set to true", function() {
       beforeEach(function() {
         this.callback = sinon.spy();
-        this.dialog = bootbox.alert({
+        this.dialog = bootshine.alert({
           message: "hi",
           callback: this.callback,
           backdrop: true

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Examples | Bootbox.js &mdash; alert, confirm and flexible dialogs for the Bootstrap framework</title>
+    <title>Examples | Bootshine.js &mdash; alert, confirm and flexible dialogs for the Bootstrap framework</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -16,7 +16,7 @@
 </head>
 <body class="bb-js bb-sidebar-sticky">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="./">bootbox<span class="text-light">.js</span> <span class="d-none d-lg-inline-block">&mdash; alert, confirm and flexible dialogs for the Bootstrap framework</span></a>
+        <a class="navbar-brand" href="./">bootshine<span class="text-light">.js</span> <span class="d-none d-lg-inline-block">&mdash; alert, confirm and flexible dialogs for the Bootstrap framework</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -63,14 +63,14 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://github.com/tiesont/bootbox">
+                    <a class="nav-link" href="https://github.com/lddubeau/bootshine">
                         <i class="fa fa-github"></i>
                         Github
                     </a>
                 </li>
             </ul>
             <div class="form-inline d-none d-lg-flex">
-                <a class="btn btn-light my-2 my-sm-0" href="#" id="download-bootbox">
+                <a class="btn btn-light my-2 my-sm-0" href="#" id="download-bootshine">
                     <i class="fa fa-download"></i>
                     Download
                 </a>
@@ -145,21 +145,16 @@
                             <div class="bb-masthead">
                                 <h2 class="marque">Examples</h2>
                                 <p class="lead">
-                                    Currently viewing examples for version 5.x.
+                                    Currently viewing examples for version 1.x.
                                 </p>
                                 <div class="bb-meta">
                                     <ul class="bb-meta-list float-md-right">
-                                        <li class="ml-auto"><span>Version 5.0.0</span></li>
+                                        <li class="ml-auto"><span>Version 1.0.0</span></li>
                                         <li>
-                                            <a href="https://github.com/tiesont/bootbox">
+                                            <a href="https://github.com/lddubeau/bootshine">
                                                 <i class="fa fa-github"></i>
                                                 Github
                                             </a>
-                                        </li>
-                                        <li class="d-none d-lg-inline-block">
-                                            <a href="./v4.x/">4.x docs</a> &middot;
-                                            <a href="./v3.x/">3.x docs</a> &middot;
-                                            <a href="./v2.x/">2.x docs</a>
                                         </li>
                                     </ul>
                                     <p>Compatible with Bootstrap <b>3</b> and <b>4</b></p>
@@ -171,11 +166,11 @@
                     <div class="bb-content">
                         <section class="intro">
                             <p>
-                                The examples below attempt to demonstrate the myriad ways in which you can use Bootbox.js. Where functionality amongst the dialogs is nearly identical,
+                                The examples below attempt to demonstrate the myriad ways in which you can use Bootshine.js. Where functionality amongst the dialogs is nearly identical,
                                 the example will indicate to which functions the example applies.
                             </p>
                             <p>
-                                Have an example you'd like to add? <a href="https://github.com/makeusabrew/bootbox/issues">Open a new issue</a>, or add a pull-request with your example 
+                                Have an example you'd like to add? <a href="https://github.com/makeusabrew/bootshine/issues">Open a new issue</a>, or add a pull-request with your example
                                 added to this page.
                             </p>
                             <div class="collapse">
@@ -256,21 +251,21 @@
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-default">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.alert("This is the default alert!");</code></pre>
+                                            <pre class="prettyprint linenums"><code>bootshine.alert("This is the default alert!");</code></pre>
                                         </li>
                                         <li class="bb-example">
                                             <h5 id="alert-basic-callback" class="bb-anchor">Basic usage, with callback</h5>
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-callback">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.alert("This is an alert with a callback!", function(){ console.log('This was logged in the callback!'); });</code></pre>
+                                            <pre class="prettyprint linenums"><code>bootshine.alert("This is an alert with a callback!", function(){ console.log('This was logged in the callback!'); });</code></pre>
                                         </li>
                                         <li class="bb-example">
                                             <h5 id="alert-basic-options" class="bb-anchor">Basic usage, using options object</h5>
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-options">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.alert({
+                                            <pre class="prettyprint linenums"><code>bootshine.alert({
     message: "This is an alert with a callback!",
     callback: function () {
         console.log('This was logged in the callback!');
@@ -287,7 +282,7 @@
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-small">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.alert({
+                                            <pre class="prettyprint linenums"><code>bootshine.alert({
     message: "This is the small alert!",
     size: 'small'
 });</code></pre>
@@ -305,7 +300,7 @@
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-large">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.alert({
+                                            <pre class="prettyprint linenums"><code>bootshine.alert({
     message: "This is the large alert!",
     size: 'large'
 });</code></pre>
@@ -323,7 +318,7 @@
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-custom-class">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.alert({
+                                            <pre class="prettyprint linenums"><code>bootshine.alert({
     message: "This is an alert with additional classes!",
     className: 'rubberBand animated'
 });</code></pre>
@@ -338,7 +333,7 @@
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-overlay-click">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.alert({
+                                            <pre class="prettyprint linenums"><code>bootshine.alert({
     message: "This alert can be dismissed by clicking on the background!",
     backdrop: true
 });</code></pre>
@@ -353,7 +348,7 @@
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-locale">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.alert({
+                                            <pre class="prettyprint linenums"><code>bootshine.alert({
     message: "This alert uses the Arabic locale!",
     locale: 'ar'
 });</code></pre>
@@ -382,7 +377,7 @@
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-default">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.confirm("This is the default confirm!", function(result){ console.log('This was logged in the callback: ' + result); });</code></pre>
+                                            <pre class="prettyprint linenums"><code>bootshine.confirm("This is the default confirm!", function(result){ console.log('This was logged in the callback: ' + result); });</code></pre>
                                         </li>
                                         <li class="bb-example">
                                             <h5 id="confirm-alternate-text-color" class="bb-anchor">
@@ -394,7 +389,7 @@
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-options">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.confirm({
+                                            <pre class="prettyprint linenums"><code>bootshine.confirm({
     message: "This is a confirm with custom button text and color! Do you like it?",
     buttons: {
         confirm: {
@@ -421,7 +416,7 @@
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-button-text">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.confirm({
+                                            <pre class="prettyprint linenums"><code>bootshine.confirm({
     title: "Destroy planet?",
     message: "Do you want to activate the Deathstar now? This cannot be undone.",
     buttons: {
@@ -452,8 +447,8 @@
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-locale">Run example</button>
                                             </p>
                                             <pre class="prettyprint linenums"><code>var locale = $('#locales').val();
-            
-bootbox.confirm({
+
+bootshine.confirm({
     message: "This confirm uses the selected locale. Were the labels what you expected?",
     locale: locale,
     callback: function (result) {
@@ -489,10 +484,10 @@ bootbox.confirm({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-default">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt("This is the default prompt!", function(result){ console.log(result); });</code></pre>
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt("This is the default prompt!", function(result){ console.log(result); });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                If you want to style the input, you can target the <code>.bootbox-input-text</code> class.
+                                                If you want to style the input, you can target the <code>.bootshine-input-text</code> class.
                                             </p>
                                         </li>
                                         <li class="bb-example">
@@ -505,11 +500,11 @@ bootbox.confirm({
     CONFIRM: 'Go Ahead',
     CANCEL: 'Maybe Not'
 };
-            
-bootbox.addLocale('custom', locale);
-            
-bootbox.prompt({ 
-    title: "This is a prompt with a custom locale! What do you think?", 
+
+bootshine.addLocale('custom', locale);
+
+bootshine.prompt({
+    title: "This is a prompt with a custom locale! What do you think?",
     locale: 'custom',
     callback: function (result) {
         Example.show('This was logged in the callback: ' + result);
@@ -521,7 +516,7 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-checkbox">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt({
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt({
     title: "This is a prompt with a set of checkbox inputs!",
     value: ['1', '3'],
     inputType: 'checkbox',
@@ -543,8 +538,8 @@ bootbox.prompt({
 });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                Checkboxes are nested in an element with the class <code>.bootbox-checkbox-list</code>.
-                                                If you want to style the individual checkbox inputs, you can target the <code>.bootbox-input-checkbox</code> class.
+                                                Checkboxes are nested in an element with the class <code>.bootshine-checkbox-list</code>.
+                                                If you want to style the individual checkbox inputs, you can target the <code>.bootshine-input-checkbox</code> class.
                                             </p>
                                         </li>
                                         <li class="bb-example">
@@ -552,7 +547,7 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-radio">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt({
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt({
     title: "This is a prompt with a set of radio inputs!",
     message: '&lt;p&gt;Please select an option below:&lt;/p&gt;',
     inputType: 'radio',
@@ -576,8 +571,8 @@ bootbox.prompt({
 });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                Radio buttons are nested in an element with the class <code>.bootbox-radiobutton-list</code>.
-                                                If you want to style the individual radio inputs, you can target the <code>.bootbox-input-radio</code> class.
+                                                Radio buttons are nested in an element with the class <code>.bootshine-radiobutton-list</code>.
+                                                If you want to style the individual radio inputs, you can target the <code>.bootshine-input-radio</code> class.
                                             </p>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i> When using the <code>radio</code> option, the first radio button
@@ -594,7 +589,7 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-date">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt({
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt({
     title: "This is a prompt with a date input!",
     inputType: 'date',
     callback: function (result) {
@@ -603,7 +598,7 @@ bootbox.prompt({
 });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                If you want to style the input, you can target the <code>.bootbox-input-date</code> class.
+                                                If you want to style the input, you can target the <code>.bootshine-input-date</code> class.
                                             </p>
                                         </li>
                                         <li class="bb-example">
@@ -616,7 +611,7 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-email">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt({
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt({
     title: "This is a prompt with an email input!",
     inputType: 'email',
     callback: function (result) {
@@ -625,7 +620,7 @@ bootbox.prompt({
 });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                If you want to style the input, you can target the <code>.bootbox-input-email</code> class.
+                                                If you want to style the input, you can target the <code>.bootshine-input-email</code> class.
                                             </p>
                                         </li>
                                         <li class="bb-example">
@@ -638,7 +633,7 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-number">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt({
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt({
     title: "This is a prompt with a number input!",
     inputType: 'number',
     callback: function (result) {
@@ -647,7 +642,7 @@ bootbox.prompt({
 });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                If you want to style the input, you can target the <code>.bootbox-input-number</code> class.
+                                                If you want to style the input, you can target the <code>.bootshine-input-number</code> class.
                                             </p>
                                         </li>
                                         <li class="bb-example">
@@ -655,7 +650,7 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-password">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt({
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt({
     title: "This is a prompt with a password input!",
     inputType: 'password',
     callback: function (result) {
@@ -664,7 +659,7 @@ bootbox.prompt({
 });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                If you want to style the input, you can target the <code>.bootbox-input-password</code> class.
+                                                If you want to style the input, you can target the <code>.bootshine-input-password</code> class.
                                             </p>
                                         </li>
                                         <li class="bb-example">
@@ -672,7 +667,7 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-select">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt({
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt({
     title: "This is a prompt with select!",
     inputType: 'select',
     inputOptions: [
@@ -699,7 +694,7 @@ bootbox.prompt({
 });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                If you want to style the select, you can target the <code>.bootbox-input-select</code> class.
+                                                If you want to style the select, you can target the <code>.bootshine-input-select</code> class.
                                             </p>
                                         </li>
                                         <li class="bb-example">
@@ -707,7 +702,7 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-textarea">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt({
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt({
     title: "This is a prompt with a textarea!",
     inputType: 'textarea',
     callback: function (result) {
@@ -716,7 +711,7 @@ bootbox.prompt({
 });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                If you want to style the textarea, you can target the <code>.bootbox-input-textarea</code> class.
+                                                If you want to style the textarea, you can target the <code>.bootshine-input-textarea</code> class.
                                             </p>
                                         </li>
                                         <li class="bb-example">
@@ -729,7 +724,7 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-time">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt({
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt({
     title: "This is a prompt with a time input!",
     inputType: 'time',
     callback: function (result) {
@@ -738,7 +733,7 @@ bootbox.prompt({
 });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                If you want to style the input, you can target the <code>.bootbox-input-time</code> class.
+                                                If you want to style the input, you can target the <code>.bootshine-input-time</code> class.
                                             </p>
                                         </li>
                                         <li class="bb-example">
@@ -751,7 +746,7 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-range">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>bootbox.prompt({
+                                            <pre class="prettyprint linenums"><code>bootshine.prompt({
     title: "This is a prompt with a range input!",
     inputType: 'range',
     min: 0,
@@ -764,7 +759,7 @@ bootbox.prompt({
 });</code></pre>
                                             <p>
                                                 <i class="fa fa-info-circle text-info"></i>
-                                                If you want to style the input, you can target the <code>.bootbox-input-range</code> class.
+                                                If you want to style the input, you can target the <code>.bootshine-input-range</code> class.
                                             </p>
                                         </li>
                                     </ul>
@@ -794,11 +789,11 @@ bootbox.prompt({
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="custom-dialog-as-overlay">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>var dialog = bootbox.dialog({
+                                            <pre class="prettyprint linenums"><code>var dialog = bootshine.dialog({
     message: '&lt;p class="text-center mb-0"&gt;&lt;i class="fa fa-spin fa-cog"&gt;&lt;/i&gt; Please wait while we do something...&lt;/p&gt;',
     closeButton: false
 });
-            
+
 // do something in the background
 dialog.modal('hide');</code></pre>
                                         </li>
@@ -812,14 +807,14 @@ dialog.modal('hide');</code></pre>
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="custom-dialog-init">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>var dialog = bootbox.dialog({
+                                            <pre class="prettyprint linenums"><code>var dialog = bootshine.dialog({
     title: 'A custom dialog with init',
     message: '&lt;p&gt;&lt;i class="fa fa-spin fa-spinner"&gt;&lt;/i&gt; Loading...&lt;/p&gt;'
 });
-            
+
 dialog.init(function(){
     setTimeout(function(){
-        dialog.find('.bootbox-body').html('I was loaded after the dialog was shown!');
+        dialog.find('.bootshine-body').html('I was loaded after the dialog was shown!');
     }, 3000);
 });</code></pre>
                                         </li>
@@ -830,7 +825,7 @@ dialog.init(function(){
                                             <p>
                                                 <button type="button" class="btn btn-primary example-button" data-bb-example-key="custom-dialog-with-buttons">Run example</button>
                                             </p>
-                                            <pre class="prettyprint linenums"><code>var dialog = bootbox.dialog({
+                                            <pre class="prettyprint linenums"><code>var dialog = bootshine.dialog({
     title: 'A custom dialog with buttons and callbacks',
     message: "&lt;p&gt;This dialog has buttons. Each button has it's own callback function.&lt;/p&gt;",
     size: 'large',
@@ -875,7 +870,7 @@ dialog.init(function(){
             <div class="row">
                 <div class="col-12 col-md-9 offset-md-3 col-xl-8 offset-xl-2">
                     <span class="d-block float-right">
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bootboxjs.com" data-via="makeusabrew" data-related="makeusabrew" data-size="large">Tweet</a>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bootshinejs.com" data-via="makeusabrew" data-related="makeusabrew" data-size="large">Tweet</a>
                         <a href="https://twitter.com/makeusabrew" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @makeusabrew</a>
                         <script>
                             !function (d, s, id) {
@@ -886,7 +881,7 @@ dialog.init(function(){
                         </script>
                     </span>
                     <span class="d-block">
-                        Copyright &copy; 2011-2018 <a href="http://twitter.com/makeusabrew">Nick Payne</a>.
+                        Copyright by the Contributor to Bootbox and Bootshine.
                     </span>
                 </div>
             </div>
@@ -900,7 +895,7 @@ dialog.init(function(){
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="./js/bootbox.all.min.js"></script>
+    <script src="./js/bootshine.all.min.js"></script>
 
     <script src="./vendor/js/prettify.min.js"></script>
     <script src="./vendor/js/anchor.min.js"></script>
