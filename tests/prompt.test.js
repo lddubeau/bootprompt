@@ -1163,12 +1163,25 @@ describe("bootshine.prompt", function () {
 
       describe("with default value", function () {
         beforeEach(function () {
+          options.value = "50";
+          create();
+        });
+
+        it("has correct default value", function () {
+          expect(find("input[type='range']").val()).to.equal("50");
+        });
+      });
+
+      describe("with default value over the default 100 max", function () {
+        // A range has a default max of 100. If the user sets an initial value
+        // above this default, then the initial value will be clamped to 100.
+        beforeEach(function () {
           options.value = "300";
           create();
         });
 
         it("has correct default value", function () {
-          expect(find("input[type='range']").val()).to.equal("300");
+          expect(find("input[type='range']").val()).to.equal("100");
         });
       });
 
