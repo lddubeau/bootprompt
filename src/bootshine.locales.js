@@ -236,7 +236,7 @@
     bootshine.addLocale('ru', {
       OK: 'OK',
       CANCEL: 'Отмена',
-      CONFIRM: 'Применить'
+      CONFIRM: 'Подтвердить'
     });
   })();
 
