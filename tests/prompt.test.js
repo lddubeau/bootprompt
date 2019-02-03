@@ -1085,6 +1085,7 @@ describe("bootshine.prompt", function () {
       describe("with step value", function () {
         beforeEach(function () {
           options.step = 10;
+          create();
         });
 
         it("has correct step value", function () {
