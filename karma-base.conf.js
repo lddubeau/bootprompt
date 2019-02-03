@@ -10,9 +10,7 @@ module.exports = function(params) {
       basePath: '',
       frameworks: ['mocha', 'chai'],
       files: Array.prototype.concat([
-        'node_modules/sinon/lib/sinon.js',
-        'node_modules/sinon/lib/sinon/spy.js',
-        'node_modules/sinon/lib/sinon/stub.js',
+        'node_modules/sinon/pkg/sinon.js',
         'node_modules/sinon-chai/lib/sinon-chai.js'],
 
         params.vendor,
@@ -30,7 +28,7 @@ module.exports = function(params) {
       colors: true,
       logLevel: config.LOG_INFO,
       autoWatch: true,
-      browsers: ['PhantomJS'],
+      browsers: ['ChromeHeadless'],
       captureTimeout: 60000,
       singleRun: true,
 
