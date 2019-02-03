@@ -1099,7 +1099,7 @@
           if (compareValue === undefined || options.max > options.min) {
             input.attr(name, value);
           }
-          else {
+          else if (!isNaN(compareValue)) {
             throw new Error('"max" must be greater than "min". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-' + name + ' for more information.');
           }
         }
