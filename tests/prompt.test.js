@@ -851,12 +851,12 @@ describe("bootshine.prompt", function () {
 
       describe("with default value", function () {
         beforeEach(function () {
-          options.value = "17/08/2005";
+          options.value = "2005-08-17";
           create();
         });
 
         it("has correct default value", function () {
-          expect(find("input[type='date']").val()).to.equal("17/08/2005");
+          expect(find("input[type='date']").val()).to.equal("2005-08-17");
         });
       });
 
