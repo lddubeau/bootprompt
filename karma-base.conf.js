@@ -30,13 +30,10 @@ module.exports = function(params) {
       autoWatch: true,
       browsers: ['ChromeHeadless'],
       captureTimeout: 60000,
-      singleRun: true,
-
       coverageReporter: {
         type: 'html',
         dir: 'tests/coverage'
       },
-
       junitReporter: {
         outputDir: 'tests/reports'
       }
