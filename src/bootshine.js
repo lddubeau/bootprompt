@@ -139,7 +139,7 @@
     // dialog container
     container: 'body',
     // default value (used by the prompt helper)
-    value: "",
+    value: undefined,
     // default input type (used by the prompt helper)
     inputType: 'text',
     // switch button order from cancel/confirm (default) to confirm/cancel
@@ -674,6 +674,7 @@
           input.prop({ required: true });
         }
 
+        var firstValue;
         each(inputOptions, function (_, option) {
           // assume the element to attach to is the input...
           var elem = input;
@@ -696,6 +697,9 @@
           var o = $(templates.option);
           o.attr('value', option.value).text(option.text);
           elem.append(o);
+          if (firstValue === undefined) {
+            firstValue = option.value;
+          }
         });
 
         each(groups, function (_, group) {
@@ -703,7 +707,7 @@
         });
 
         // safe to set a select's value as per a normal input
-        input.val(options.value);
+        input.val(options.value !== undefined ? options.value : firstValue);
 
         break;
 
