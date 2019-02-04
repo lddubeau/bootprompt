@@ -6,6 +6,7 @@ module.exports = function(params) {
 
   return function(config) {
 
+    const coverage = !config.debug ? ["coverage"] : [];
     return config.set({
       basePath: '',
       frameworks: ['mocha', 'chai'],
@@ -21,7 +22,7 @@ module.exports = function(params) {
       ),
       exclude: [],
       preprocessors: {
-        'src/bootshine.js': ['coverage']
+        'src/bootshine.js': coverage,
       },
       reporters: ['dots', 'coverage', 'junit'],
       port: 9876,
