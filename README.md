@@ -11,6 +11,25 @@ Nick was no longer active on Github and it seemed that the release of Bootbox 5
 would never happen. Louis-Dominique Dubeau, after consultation with Tieson,
 decided to fork the project, and Bootprompt was born.
 
+## Support
+
+Bootprompt is developed by volunteers. Given our limited resources, we have to
+limit the scope of what we formally support.
+
+### JavaScript packages
+
+Bootprompt supports:
+
+* Bootstrap 4
+* Bootstrap 3.4.x
+* The same range of jQuery versions as supported by Bootstrap 4.
+
+### Browsers
+
+Bootprompt supports the same range of browsers as Bootstrap 4. Note that
+Bootstrap 4 dropped support from some old browsers that Bootstrap 3
+supported. For instance, IE 9.
+
 ## License
 
 (The MIT License)
