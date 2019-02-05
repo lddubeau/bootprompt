@@ -13,7 +13,7 @@ describe("bootprompt.prompt", function () {
     return find(selector).length !== 0;
   }
 
-  beforeEach(() => {
+  beforeEach(function () {
     window.bootprompt = bootprompt.init();
   });
 
