@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-SRC="bootshine.js"
-MIN="/tmp/bootshine.min.js"
+SRC="bootprompt.js"
+MIN="/tmp/bootprompt.min.js"
 
 uglifyjs $SRC -c -m > $MIN
 

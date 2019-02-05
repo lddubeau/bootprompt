@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <title>Bootshine.js &mdash; alert, confirm and flexible dialogs for the Bootstrap framework</title>
+    <title>Bootprompt.js &mdash; alert, confirm and flexible dialogs for the Bootstrap framework</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -16,7 +16,7 @@
 
 <body class="bb-js bb-sidebar-sticky">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="./">bootshine<span class="text-light">.js</span> <span class="d-none d-lg-inline-block">&mdash; alert, confirm and flexible dialogs for the Bootstrap framework</span></a>
+        <a class="navbar-brand" href="./">bootprompt<span class="text-light">.js</span> <span class="d-none d-lg-inline-block">&mdash; alert, confirm and flexible dialogs for the Bootstrap framework</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -63,14 +63,14 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://github.com/tiesont/bootshine">
+                    <a class="nav-link" href="https://github.com/tiesont/bootprompt">
                         <i class="fa fa-github"></i>
                         Github
                     </a>
                 </li>
             </ul>
             <div class="form-inline d-none d-lg-flex">
-                <a class="btn btn-light my-2 my-sm-0" href="#download" id="download-bootshine">
+                <a class="btn btn-light my-2 my-sm-0" href="#download" id="download-bootprompt">
                     <i class="fa fa-download"></i>
                     Download
                 </a>
@@ -144,7 +144,7 @@
                         <div id="content" class="jumbotron jumbotron-fluid" tabindex="-1">
                             <div class="bb-masthead">
                                 <h1 class="marque">
-                                    Bootshine<span class="text-bb-alt text-thin">JS</span>
+                                    Bootprompt<span class="text-bb-alt text-thin">JS</span>
                                 </h1>
                                 <p class="lead">
                                     Bootstrap modals made easy.
@@ -153,7 +153,7 @@
                                     <ul class="bb-meta-list float-md-right">
                                         <li class="ml-auto"><span>Version 1.0.0</span></li>
                                         <li>
-                                            <a href="https://github.com/tiesont/bootshine">
+                                            <a href="https://github.com/tiesont/bootprompt">
                                                 <i class="fa fa-github"></i>
                                                 Github
                                             </a>
@@ -169,7 +169,7 @@
                         <section class="bb-section">
                             <div class="lead-top">
                                 <p class="lead">
-                                    <b>Bootshine.js</b> is a small JavaScript library which allows you to create programmatic dialog boxes
+                                    <b>Bootprompt.js</b> is a small JavaScript library which allows you to create programmatic dialog boxes
                                     using
                                     <a href="https://getbootstrap.com/docs/4.0/components/modal/">Bootstrap modals</a>, without having to worry about
                                     creating, managing or removing any of the required DOM elements or JS event handlers.
@@ -179,7 +179,7 @@
                                 </p>
                                 <div class="text-center">
                                     <p class="hidden-xs bb-code code-leader">
-                                        <code>bootshine.alert(<span class="bb-code-string">"Hello&nbsp;world!"</span>);</code>
+                                        <code>bootprompt.alert(<span class="bb-code-string">"Hello&nbsp;world!"</span>);</code>
                                     </p>
                                     <p>
                                         <button type="button" class="bb-hello-world btn btn-primary btn-lg">Run example</button>
@@ -187,7 +187,7 @@
                                 </div>
                             </div>
                             <p>
-                                <b>Compare that to the code you&rsquo;d have to write without Bootshine:</b>
+                                <b>Compare that to the code you&rsquo;d have to write without Bootprompt:</b>
                             </p>
                             <pre class="prettyprint linenums"><code>&lt;!-- set up the modal to start hidden and fade in and out --&gt;
 &lt;div id="myModal" class="modal fade"&gt;
@@ -232,7 +232,7 @@
                         <section id="getting-started" class="bb-section">
                             <h2 class="page-header">Overview</h2>
                             <p>
-                                Bootshine exposes three functions designed to mimic their native JavaScript equivalents<sup><a href="#note-1">1</a></sup>.
+                                Bootprompt exposes three functions designed to mimic their native JavaScript equivalents<sup><a href="#note-1">1</a></sup>.
                                 Their exact function signatures are flexible, as each can take various parameters to customise labels and specify
                                 defaults, but they are most commonly called like so:
                             </p>
@@ -240,19 +240,19 @@
                                 <div class="col-md-4">
                                     <p><button type="button" class="bb-ex bb-alert-ex btn btn-dark">alert</button></p>
                                     <p>
-                                        <code class="bb-code">bootshine.alert(<i class="bb-code-parameter">message</i>, <i class="bb-code-parameter">callback</i>);</code>
+                                        <code class="bb-code">bootprompt.alert(<i class="bb-code-parameter">message</i>, <i class="bb-code-parameter">callback</i>);</code>
                                     </p>
                                 </div>
                                 <div class="col-md-4">
                                     <p><button type="button" class="bb-ex bb-confirm-ex btn btn-dark">confirm</button></p>
                                     <p>
-                                        <code class="bb-code">bootshine.confirm(<i class="bb-code-parameter">message</i>, <i class="bb-code-parameter">callback</i>)</code>
+                                        <code class="bb-code">bootprompt.confirm(<i class="bb-code-parameter">message</i>, <i class="bb-code-parameter">callback</i>)</code>
                                     </p>
                                 </div>
                                 <div class="col-md-4">
                                     <p><button type="button" class="bb-ex bb-prompt-ex btn btn-dark">prompt</button></p>
                                     <p>
-                                        <code class="bb-code">bootshine.prompt(<i class="bb-code-parameter">message</i>, <i class="bb-code-parameter">callback</i>)</code>
+                                        <code class="bb-code">bootprompt.prompt(<i class="bb-code-parameter">message</i>, <i class="bb-code-parameter">callback</i>)</code>
                                     </p>
                                 </div>
                             </div>
@@ -261,7 +261,7 @@
                                 which you can use to create your own custom dialogs:
                             </p>
                             <div>
-                                <p><code class="bb-code">bootshine.dialog(<i class="bb-code-parameter">options</i>)</code></p>
+                                <p><code class="bb-code">bootprompt.dialog(<i class="bb-code-parameter">options</i>)</code></p>
                             </div>
                             <p>
                                 <a href="./documentation.html">Documentation</a> is available for each of these functions, including the
@@ -269,7 +269,7 @@
                                 named) <a href="./examples.html">Examples</a> page.
                             </p>
                             <p>
-                                Visit the <a href="./getting-started.html">Getting Started</a> page for guidance on how to add Bootshine to
+                                Visit the <a href="./getting-started.html">Getting Started</a> page for guidance on how to add Bootprompt to
                                 your project.
                             </p>
                             <div class="bs-callout bs-callout-danger">
@@ -278,7 +278,7 @@
                                     Please note:
                                 </h5>
                                 <p>
-                                    There are some caveats to using Bootshine dialogs in place of native dialogs. Please see the
+                                    There are some caveats to using Bootprompt dialogs in place of native dialogs. Please see the
                                     <a href="./documentation.html#bb-notes">Known Limitations</a> section in the Documentation page to learn more.
                                 </p>
                             </div>
@@ -287,26 +287,26 @@
                         <section class="bb-section">
                             <h2 class="page-header">About</h2>
                             <p>
-                                Bootshine was <a href="http://paynedigital.com/bootshine">originally created in 2011</a> with the sole purpose
+                                Bootprompt was <a href="http://paynedigital.com/bootprompt">originally created in 2011</a> with the sole purpose
                                 of wrapping JavaScript's low-level dialog functions with Bootstrap's high level modal functionality.
                                 As such it is a small library focused on providing basic programmatic dialogs with minimal fuss and overhead.
                             </p>
                             <p>
-                                Bootshine is authored and maintained by <a href="https://github.com/makeusabrew/bootshine/graphs/contributors">the contributors</a>!
+                                Bootprompt is authored and maintained by <a href="https://github.com/makeusabrew/bootprompt/graphs/contributors">the contributors</a>!
                             </p>
                         </section>
 
                         <section id="more" class="bb-section">
                             <h2 class="page-header">Get involved!</h2>
                             <p>
-                                Bootshine is a free, open source project. As such, you can help out in a number of ways, from simply
-                                <a href="https://github.com/makeusabrew/bootshine/issues">raising an issue</a>
-                                to <a href="https://github.com/makeusabrew/bootshine/fork_select">forking the project</a> and
-                                <a href="https://github.com/makeusabrew/bootshine/pulls">submitting a pull request</a>.
+                                Bootprompt is a free, open source project. As such, you can help out in a number of ways, from simply
+                                <a href="https://github.com/makeusabrew/bootprompt/issues">raising an issue</a>
+                                to <a href="https://github.com/makeusabrew/bootprompt/fork_select">forking the project</a> and
+                                <a href="https://github.com/makeusabrew/bootprompt/pulls">submitting a pull request</a>.
                             </p>
                             <p>
                                 I'm particularly keen to improve the <a href="examples.html">examples</a> and the <a href="documentation.html">API docs</a>,
-                                so pull requests contributing towards the <a href="https://github.com/makeusabrew/bootshine/tree/gh-pages">gh-pages</a>
+                                so pull requests contributing towards the <a href="https://github.com/makeusabrew/bootprompt/tree/gh-pages">gh-pages</a>
                                 branch (which you're looking at!) are extremely welcome.
                             </p>
                             <p>
@@ -324,7 +324,7 @@
             <div class="row">
                 <div class="col-12 col-md-9 offset-md-3 col-xl-8 offset-xl-2">
                     <span class="d-block float-right">
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bootshinejs.com" data-via="makeusabrew" data-related="makeusabrew" data-size="large">Tweet</a>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bootpromptjs.com" data-via="makeusabrew" data-related="makeusabrew" data-size="large">Tweet</a>
                         <a href="https://twitter.com/makeusabrew" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @makeusabrew</a>
                         <script>
                             !function (d, s, id) {
@@ -335,7 +335,7 @@
                         </script>
                     </span>
                     <span class="d-block">
-                        Copyright by the Contributor to Bootbox and Bootshine.
+                        Copyright by the Contributor to Bootbox and Bootprompt.
                     </span>
                 </div>
             </div>
@@ -345,7 +345,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="./js/bootshine.all.min.js"></script>
+    <script src="./js/bootprompt.all.min.js"></script>
 
     <script src="./vendor/js/prettify.min.js"></script>
     <script src="./vendor/js/anchor.min.js"></script>
@@ -353,15 +353,15 @@
     <script>
         $(function () {
             $('.bb-hello-world').on('click', function (e) {
-                bootshine.alert("Hello world!");
+                bootprompt.alert("Hello world!");
             });
 
             $('.bb-alert-ex').on('click', function (e) {
-                bootshine.alert("So long, and thanks for all the fish!");
+                bootprompt.alert("So long, and thanks for all the fish!");
             });
 
             $('.bb-confirm-ex').on('click', function (e) {
-                bootshine.confirm({
+                bootprompt.confirm({
                     message: "Did you bring your towel?",
                     buttons: {
                         cancel: {
@@ -376,7 +376,7 @@
             });
 
             $('.bb-prompt-ex').on('click', function (e) {
-                bootshine.prompt({
+                bootprompt.prompt({
                     title: "What is <i>the</i> answer?",
                     value: 42,
                     callback: function (result) { }

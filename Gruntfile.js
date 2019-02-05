@@ -7,9 +7,9 @@ module.exports = function (grunt) {
             },
             my_target: {
                 files: {
-                    'dist/bootshine.min.js': ['src/bootshine.js'],
-                    'dist/bootshine.locales.min.js': ['src/bootshine.locales.js'],
-                    'dist/bootshine.all.min.js': ['src/bootshine.js', 'src/bootshine.locales.js']
+                    'dist/bootprompt.min.js': ['src/bootprompt.js'],
+                    'dist/bootprompt.locales.min.js': ['src/bootprompt.locales.js'],
+                    'dist/bootprompt.all.min.js': ['src/bootprompt.js', 'src/bootprompt.locales.js']
                 }
             }
         },
@@ -18,7 +18,7 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            all: ['src/bootshine.js']
+            all: ['src/bootprompt.js']
         },
 
         karma: {

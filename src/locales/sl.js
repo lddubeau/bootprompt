@@ -1,17 +1,17 @@
-// bootshine.js locale configuration
+// bootprompt.js locale configuration
 // locale : Slovenian
 // author : @metalcamp
 
 (function (global, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['../bootshine'], factory);
+        define(['../bootprompt'], factory);
     } else if (typeof module === 'object' && module.exports) {
-        factory(require('../bootshine'));
+        factory(require('../bootprompt'));
     } else {
-        factory(global.bootshine);
+        factory(global.bootprompt);
     }
-}(this, function (bootshine) {
-    bootshine.addLocale('sl', {
+}(this, function (bootprompt) {
+    bootprompt.addLocale('sl', {
         OK : 'OK',
         CANCEL : 'Prekliči',
         CONFIRM : 'Potrdi'

@@ -1,33 +1,33 @@
-describe("Bootshine", function() {
+describe("Bootprompt", function() {
 
   "use strict";
 
   it("is attached to the window object", function() {
-    expect(window.bootshine).to.be.an("object");
+    expect(window.bootprompt).to.be.an("object");
   });
 
   it("exposes the correct public API", function() {
-    expect(bootshine.alert).to.be.a("function");
-    expect(bootshine.confirm).to.be.a("function");
-    expect(bootshine.dialog).to.be.a("function");
-    expect(bootshine.setDefaults).to.be.a("function");
-    expect(bootshine.setLocale).to.be.a("function");
-    expect(bootshine.removeLocale).to.be.a("function");
-    expect(bootshine.locales).to.be.a("function");
-    expect(bootshine.hideAll).to.be.a("function");
+    expect(bootprompt.alert).to.be.a("function");
+    expect(bootprompt.confirm).to.be.a("function");
+    expect(bootprompt.dialog).to.be.a("function");
+    expect(bootprompt.setDefaults).to.be.a("function");
+    expect(bootprompt.setLocale).to.be.a("function");
+    expect(bootprompt.removeLocale).to.be.a("function");
+    expect(bootprompt.locales).to.be.a("function");
+    expect(bootprompt.hideAll).to.be.a("function");
   });
 
   describe("hideAll", function() {
     beforeEach(function() {
       this.hidden = sinon.spy($.fn, "modal");
-      bootshine.hideAll();
+      bootprompt.hideAll();
     });
 
     afterEach(function() {
       this.hidden.restore();
     });
 
-    it("should hide all .bootshine modals", function() {
+    it("should hide all .bootprompt modals", function() {
       expect(this.hidden).to.have.been.calledWithExactly("hide");
     });
   });
@@ -35,7 +35,7 @@ describe("Bootshine", function() {
   describe("event listeners", function() {
     describe("hidden.bs.modal", function() {
       beforeEach(function() {
-        this.dialog = bootshine.alert("hi");
+        this.dialog = bootprompt.alert("hi");
 
         this.removed = sinon.stub(this.dialog, "remove");
 
@@ -86,7 +86,7 @@ describe("Bootshine", function() {
     describe("When invoking a dialog", function() {
       beforeEach(function() {
         try {
-          bootshine.alert("Hi", function() {});
+          bootprompt.alert("Hi", function() {});
         } catch (e) {
           this.e = e;
         }
@@ -100,11 +100,11 @@ describe("Bootshine", function() {
 
   describe("adding and removing locales", function() {
 
-    describe("bootshine.addLocale", function() {
+    describe("bootprompt.addLocale", function() {
       describe("with invalid values", function() {
         beforeEach(function() {
           try {
-            bootshine.addLocale("xy", {
+            bootprompt.addLocale("xy", {
               OK: "BTN1"
             });
           } catch (e) {
@@ -119,7 +119,7 @@ describe("Bootshine", function() {
 
       describe("with valid values", function() {
         beforeEach(function() {
-          bootshine
+          bootprompt
           .addLocale("xy", {
             OK: "BTN1",
             CANCEL: "BTN2",
@@ -127,8 +127,8 @@ describe("Bootshine", function() {
           })
           .setLocale("xy");
 
-          var d1 = bootshine.alert("foo");
-          var d2 = bootshine.confirm("foo", function() { return true; });
+          var d1 = bootprompt.alert("foo");
+          var d2 = bootprompt.confirm("foo", function() { return true; });
           this.labels = {
             ok: d1.find(".btn:first").text(),
             cancel: d2.find(".btn:first").text(),
@@ -148,12 +148,12 @@ describe("Bootshine", function() {
       });
     });
 
-    describe("bootshine.removeLocale", function () {
+    describe("bootprompt.removeLocale", function () {
       beforeEach(function () {
-        bootshine.removeLocale("xy");
+        bootprompt.removeLocale("xy");
 
-        var d1 = bootshine.alert("foo");
-        var d2 = bootshine.confirm("foo", function () { return true; });
+        var d1 = bootprompt.alert("foo");
+        var d2 = bootprompt.confirm("foo", function () { return true; });
         this.labels = {
           ok: d1.find(".btn:first").text(),
           cancel: d2.find(".btn:first").text(),
@@ -185,7 +185,7 @@ describe("Bootshine", function() {
     describe("with the default value", function() {
       beforeEach(function() {
         this.callback = sinon.spy();
-        this.dialog = bootshine.alert("hi", this.callback);
+        this.dialog = bootprompt.alert("hi", this.callback);
       });
 
       describe("When triggering the backdrop click dismiss event", function() {
@@ -202,7 +202,7 @@ describe("Bootshine", function() {
     describe("when set to false", function() {
       beforeEach(function() {
         this.callback = sinon.spy();
-        this.dialog = bootshine.alert({
+        this.dialog = bootprompt.alert({
           message: "hi",
           callback: this.callback,
           backdrop: false
@@ -239,7 +239,7 @@ describe("Bootshine", function() {
     describe("when set to true", function() {
       beforeEach(function() {
         this.callback = sinon.spy();
-        this.dialog = bootshine.alert({
+        this.dialog = bootprompt.alert({
           message: "hi",
           callback: this.callback,
           backdrop: true

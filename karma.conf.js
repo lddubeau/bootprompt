@@ -5,5 +5,5 @@ module.exports = baseConfig({
     'tests/vendor/jquery-3.3.1.slim.js',
     'tests/vendor/bootstrap-4.2.1.bundle.js'
   ],
-  src: ['src/bootshine.js', 'src/bootshine.locales.js']
+  src: ['src/bootprompt.js', 'src/bootprompt.locales.js']
 });

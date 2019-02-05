@@ -1,10 +1,10 @@
-describe("bootshine locales", function() {
+describe("bootprompt locales", function() {
   var labels;
   function setLocale(locale) {
     var d1, d2;
-    bootshine.setLocale(locale);
-    d1 = bootshine.alert("foo");
-    d2 = bootshine.confirm("foo", function() {
+    bootprompt.setLocale(locale);
+    d1 = bootprompt.alert("foo");
+    d2 = bootprompt.confirm("foo", function() {
       return true;
     });
 

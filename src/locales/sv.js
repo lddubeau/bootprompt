@@ -1,17 +1,17 @@
-// bootshine.js locale configuration
+// bootprompt.js locale configuration
 // locale : Swedish
 // author : Mattias Reichel
 
 (function (global, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['../bootshine'], factory);
+        define(['../bootprompt'], factory);
     } else if (typeof module === 'object' && module.exports) {
-        factory(require('../bootshine'));
+        factory(require('../bootprompt'));
     } else {
-        factory(global.bootshine);
+        factory(global.bootprompt);
     }
-}(this, function (bootshine) {
-    bootshine.addLocale('sv', {
+}(this, function (bootprompt) {
+    bootprompt.addLocale('sv', {
         OK      : 'OK',
         CANCEL  : 'Avbryt',
         CONFIRM : 'OK'

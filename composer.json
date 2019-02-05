@@ -1,5 +1,5 @@
 {
-  "name": "tiesont/bootshine",
+  "name": "tiesont/bootprompt",
   "type": "component",
   "description": "Wrappers for JavaScript alert(), confirm() and other flexible dialogs using the Bootstrap framework",
   "license": "MIT",
@@ -15,8 +15,8 @@
   "extra": {
     "component": {
       "scripts": [
-        "src/bootshine.js",
-        "src/bootshine.locales.js"
+        "src/bootprompt.js",
+        "src/bootprompt.locales.js"
       ]
     }
   }

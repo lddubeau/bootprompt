@@ -1,17 +1,17 @@
-// bootshine.js locale configuration
+// bootprompt.js locale configuration
 // locale : French
 // author : Nick Payne, Sebastien Andary
 
 (function (global, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['../bootshine'], factory);
+        define(['../bootprompt'], factory);
     } else if (typeof module === 'object' && module.exports) {
-        factory(require('../bootshine'));
+        factory(require('../bootprompt'));
     } else {
-        factory(global.bootshine);
+        factory(global.bootprompt);
     }
-}(this, function (bootshine) {
-    bootshine.addLocale('fr', {
+}(this, function (bootprompt) {
+    bootprompt.addLocale('fr', {
         OK      : 'OK',
         CANCEL  : 'Annuler',
         CONFIRM : 'Confirmer'

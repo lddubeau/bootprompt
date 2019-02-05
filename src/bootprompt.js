@@ -1,8 +1,8 @@
 /*! @preserve
- * bootshine.js
+ * bootprompt.js
  * version: 1.0.0
  * license: MIT
- * http://github.com/lddubeau/bootshine
+ * http://github.com/lddubeau/bootprompt
  */
 
 (function (root, factory) {
@@ -15,7 +15,7 @@
     module.exports = factory(require('jquery'));
   } else {
     // Browser globals (root is window)
-    root.bootshine = factory(root.jQuery);
+    root.bootprompt = factory(root.jQuery);
   }
 }(this, function init($, undefined) {
   'use strict';
@@ -73,10 +73,10 @@
 
   var templates = {
     dialog:
-    '<div class="bootshine modal" tabindex="-1" role="dialog" aria-hidden="true">' +
+    '<div class="bootprompt modal" tabindex="-1" role="dialog" aria-hidden="true">' +
     '<div class="modal-dialog">' +
     '<div class="modal-content">' +
-    '<div class="modal-body"><div class="bootshine-body"></div></div>' +
+    '<div class="modal-body"><div class="bootprompt-body"></div></div>' +
     '</div>' +
     '</div>' +
     '</div>',
@@ -87,38 +87,38 @@
     footer:
     '<div class="modal-footer"></div>',
     closeButton:
-    '<button type="button" class="bootshine-close-button close" aria-hidden="true">&times;</button>',
+    '<button type="button" class="bootprompt-close-button close" aria-hidden="true">&times;</button>',
     form:
-    '<form class="bootshine-form"></form>',
+    '<form class="bootprompt-form"></form>',
     button:
     '<button type="button" class="btn"></button>',
     option:
     '<option></option>',
     promptMessage:
-    '<div class="bootshine-prompt-message"></div>',
+    '<div class="bootprompt-prompt-message"></div>',
     inputs: {
       text:
-      '<input class="bootshine-input bootshine-input-text form-control" autocomplete="off" type="text" />',
+      '<input class="bootprompt-input bootprompt-input-text form-control" autocomplete="off" type="text" />',
       textarea:
-      '<textarea class="bootshine-input bootshine-input-textarea form-control"></textarea>',
+      '<textarea class="bootprompt-input bootprompt-input-textarea form-control"></textarea>',
       email:
-      '<input class="bootshine-input bootshine-input-email form-control" autocomplete="off" type="email" />',
+      '<input class="bootprompt-input bootprompt-input-email form-control" autocomplete="off" type="email" />',
       select:
-      '<select class="bootshine-input bootshine-input-select form-control"></select>',
+      '<select class="bootprompt-input bootprompt-input-select form-control"></select>',
       checkbox:
-      '<div class="form-check checkbox"><label class="form-check-label"><input class="form-check-input bootshine-input bootshine-input-checkbox" type="checkbox" /></label></div>',
+      '<div class="form-check checkbox"><label class="form-check-label"><input class="form-check-input bootprompt-input bootprompt-input-checkbox" type="checkbox" /></label></div>',
       radio:
-      '<div class="form-check radio"><label class="form-check-label"><input class="form-check-input bootshine-input bootshine-input-radio" type="radio" name="bootshine-radio" /></label></div>',
+      '<div class="form-check radio"><label class="form-check-label"><input class="form-check-input bootprompt-input bootprompt-input-radio" type="radio" name="bootprompt-radio" /></label></div>',
       date:
-      '<input class="bootshine-input bootshine-input-date form-control" autocomplete="off" type="date" />',
+      '<input class="bootprompt-input bootprompt-input-date form-control" autocomplete="off" type="date" />',
       time:
-      '<input class="bootshine-input bootshine-input-time form-control" autocomplete="off" type="time" />',
+      '<input class="bootprompt-input bootprompt-input-time form-control" autocomplete="off" type="time" />',
       number:
-      '<input class="bootshine-input bootshine-input-number form-control" autocomplete="off" type="number" />',
+      '<input class="bootprompt-input bootprompt-input-number form-control" autocomplete="off" type="number" />',
       password:
-      '<input class="bootshine-input bootshine-input-password form-control" autocomplete="off" type="password" />',
+      '<input class="bootprompt-input bootprompt-input-password form-control" autocomplete="off" type="password" />',
       range:
-      '<input class="bootshine-input bootshine-input-range form-control-range" autocomplete="off" type="range" />'
+      '<input class="bootprompt-input bootprompt-input-range form-control-range" autocomplete="off" type="range" />'
     }
   };
 
@@ -195,7 +195,7 @@
   }
 
 
-  // Override default value(s) of Bootshine.
+  // Override default value(s) of Bootprompt.
   exports.setDefaults = function () {
     var values = {};
 
@@ -213,9 +213,9 @@
   }
 
 
-  // Hides all currently active Bootshine modals
+  // Hides all currently active Bootprompt modals
   exports.hideAll = function () {
-    $(".bootshine").modal("hide");
+    $(".bootprompt").modal("hide");
 
     return exports;
   }
@@ -252,7 +252,7 @@
       options.bootstrap = '2';
       options.fullBootstrapVersion = '2.3.2';
 
-      console.warn('Bootshine will *mostly* work with Bootstrap 2, but we do not officially support it. Please upgrade, if possible.');
+      console.warn('Bootprompt will *mostly* work with Bootstrap 2, but we do not officially support it. Please upgrade, if possible.');
     }
 
     var dialog = $(templates.dialog);
@@ -266,7 +266,7 @@
       onEscape: options.onEscape
     };
 
-    body.find('.bootshine-body').html(options.message);
+    body.find('.bootprompt-body').html(options.message);
 
     // Only attempt to create buttons if at least one has
     // been defined in the options object
@@ -280,11 +280,11 @@
         {
           case 'ok':
           case 'confirm':
-            button.addClass('bootshine-accept');
+            button.addClass('bootprompt-accept');
             break;
 
           case 'cancel':
-            button.addClass('bootshine-cancel');
+            button.addClass('bootprompt-cancel');
             break;
         }
 
@@ -369,10 +369,10 @@
     });
 
     dialog.one('shown.bs.modal', function (e) {
-      dialog.find('.bootshine-accept:first').trigger('focus');
+      dialog.find('.bootprompt-accept:first').trigger('focus');
     });
 
-    // Bootshine event listeners; used to decouple some
+    // Bootprompt event listeners; used to decouple some
     // behaviours from their respective triggers
 
     if (options.backdrop !== 'static') {
@@ -415,7 +415,7 @@
       processCallback(e, dialog, callbacks[callbackKey]);
     });
 
-    dialog.on('click', '.bootshine-close-button', function (e) {
+    dialog.on('click', '.bootprompt-close-button', function (e) {
       // onEscape might be falsy but that's fine; the fact is
       // if the user has managed to click the close button we
       // have to close the dialog, callback or not
@@ -723,7 +723,7 @@
         // checkboxes have to nest within a containing element, so
         // they break the rules a bit and we end up re-assigning
         // our 'input' element to this container instead
-        input = $('<div class="bootshine-checkbox-list"></div>');
+        input = $('<div class="bootprompt-checkbox-list"></div>');
 
         each(inputOptions, function (_, option) {
           if (option.value === undefined || option.text === undefined) {
@@ -762,7 +762,7 @@
         // Radiobuttons have to nest within a containing element, so
         // they break the rules a bit and we end up re-assigning
         // our 'input' element to this container instead
-        input = $('<div class="bootshine-radiobutton-list"></div>');
+        input = $('<div class="bootprompt-radiobutton-list"></div>');
 
         // Radiobuttons should always have an initial checked input checked in a "group".
         // If value is undefined or doesn't match an input option, select the first radiobutton
@@ -804,7 +804,7 @@
 
       // @TODO can we actually click *the* button object instead?
       // e.g. buttons.confirm.click() or similar
-      promptDialog.find('.bootshine-accept').trigger('click');
+      promptDialog.find('.bootprompt-accept').trigger('click');
     });
 
     if ($.trim(options.message) !== '') {
@@ -887,7 +887,7 @@
 
 
   //  This entry-level method makes heavy use of composition to take a simple
-  //  range of inputs and return valid options suitable for passing to bootshine.dialog
+  //  range of inputs and return valid options suitable for passing to bootprompt.dialog
   function mergeDialogOptions(className, labels, properties, args) {
     var locale;
     if(args && args[0]){
@@ -901,7 +901,7 @@
 
     //  build up a base set of dialog properties
     var baseOptions = {
-      className: 'bootshine-' + className,
+      className: 'bootprompt-' + className,
       buttons: createLabels(labels, locale)
     };
 
@@ -1082,7 +1082,7 @@
         if (!/(\d{4})-(\d{2})-(\d{2})/.test(value)) {
           console.warn('Browsers which natively support the "date" input type expect date values to be of the form "YYYY-MM-DD" '
             + ' (see ISO-8601 https://www.iso.org/iso-8601-date-and-time-format.html). '
-            + 'Bootshine does not enforce this rule, but your ' + name + ' value may not be enforced by this browser.')
+            + 'Bootprompt does not enforce this rule, but your ' + name + ' value may not be enforced by this browser.')
         }
       }
       else if (type === 'time') {
@@ -1125,6 +1125,6 @@
   });
 
 
-  //  The Bootshine object
+  //  The Bootprompt object
   return exports;
 }));

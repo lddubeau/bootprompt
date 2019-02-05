@@ -1,15 +1,15 @@
 (function (global, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['bootshine'], factory);
+    define(['bootprompt'], factory);
   } else if (typeof module === 'object' && module.exports) {
-    factory(require('./bootshine'));
+    factory(require('./bootprompt'));
   } else {
-    factory(global.bootshine);
+    factory(global.bootprompt);
   }
-}(this, function (bootshine) {
+}(this, function (bootprompt) {
 
   (function () {
-    bootshine.addLocale('ar', {
+    bootprompt.addLocale('ar', {
       OK: 'موافق',
       CANCEL: 'الغاء',
       CONFIRM: 'تأكيد'
@@ -17,7 +17,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('az', {
+    bootprompt.addLocale('az', {
       OK: 'OK',
       CANCEL: 'İmtina et',
       CONFIRM: 'Təsdiq et'
@@ -25,7 +25,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('bg_BG', {
+    bootprompt.addLocale('bg_BG', {
       OK: 'Ок',
       CANCEL: 'Отказ',
       CONFIRM: 'Потвърждавам'
@@ -33,7 +33,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('br', {
+    bootprompt.addLocale('br', {
       OK: 'OK',
       CANCEL: 'Cancelar',
       CONFIRM: 'Sim'
@@ -41,7 +41,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('cs', {
+    bootprompt.addLocale('cs', {
       OK: 'OK',
       CANCEL: 'Zrušit',
       CONFIRM: 'Potvrdit'
@@ -49,7 +49,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('da', {
+    bootprompt.addLocale('da', {
       OK: 'OK',
       CANCEL: 'Annuller',
       CONFIRM: 'Accepter'
@@ -57,7 +57,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('de', {
+    bootprompt.addLocale('de', {
       OK: 'OK',
       CANCEL: 'Abbrechen',
       CONFIRM: 'Akzeptieren'
@@ -65,7 +65,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('el', {
+    bootprompt.addLocale('el', {
       OK: 'Εντάξει',
       CANCEL: 'Ακύρωση',
       CONFIRM: 'Επιβεβαίωση'
@@ -73,7 +73,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('en', {
+    bootprompt.addLocale('en', {
       OK: 'OK',
       CANCEL: 'Cancel',
       CONFIRM: 'OK'
@@ -81,7 +81,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('es', {
+    bootprompt.addLocale('es', {
       OK: 'OK',
       CANCEL: 'Cancelar',
       CONFIRM: 'Aceptar'
@@ -89,7 +89,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('eu', {
+    bootprompt.addLocale('eu', {
       OK: 'OK',
       CANCEL: 'Ezeztatu',
       CONFIRM: 'Onartu'
@@ -97,7 +97,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('et', {
+    bootprompt.addLocale('et', {
       OK: 'OK',
       CANCEL: 'Katkesta',
       CONFIRM: 'OK'
@@ -105,7 +105,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('fa', {
+    bootprompt.addLocale('fa', {
       OK: 'قبول',
       CANCEL: 'لغو',
       CONFIRM: 'تایید'
@@ -113,7 +113,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('fi', {
+    bootprompt.addLocale('fi', {
       OK: 'OK',
       CANCEL: 'Peruuta',
       CONFIRM: 'OK'
@@ -121,7 +121,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('fr', {
+    bootprompt.addLocale('fr', {
       OK: 'OK',
       CANCEL: 'Annuler',
       CONFIRM: 'Confirmer'
@@ -129,7 +129,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('he', {
+    bootprompt.addLocale('he', {
       OK: 'אישור',
       CANCEL: 'ביטול',
       CONFIRM: 'אישור'
@@ -137,7 +137,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('hu', {
+    bootprompt.addLocale('hu', {
       OK: 'OK',
       CANCEL: 'Mégsem',
       CONFIRM: 'Megerősít'
@@ -145,7 +145,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('hr', {
+    bootprompt.addLocale('hr', {
       OK: 'OK',
       CANCEL: 'Odustani',
       CONFIRM: 'Potvrdi'
@@ -153,7 +153,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('id', {
+    bootprompt.addLocale('id', {
       OK: 'OK',
       CANCEL: 'Batal',
       CONFIRM: 'OK'
@@ -161,7 +161,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('it', {
+    bootprompt.addLocale('it', {
       OK: 'OK',
       CANCEL: 'Annulla',
       CONFIRM: 'Conferma'
@@ -169,7 +169,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('ja', {
+    bootprompt.addLocale('ja', {
       OK: 'OK',
       CANCEL: 'キャンセル',
       CONFIRM: '確認'
@@ -177,7 +177,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('ko', {
+    bootprompt.addLocale('ko', {
       OK: 'OK',
       CANCEL: '취소',
       CONFIRM: '확인'
@@ -185,7 +185,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('lt', {
+    bootprompt.addLocale('lt', {
       OK: 'Gerai',
       CANCEL: 'Atšaukti',
       CONFIRM: 'Patvirtinti'
@@ -193,7 +193,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('lv', {
+    bootprompt.addLocale('lv', {
       OK: 'Labi',
       CANCEL: 'Atcelt',
       CONFIRM: 'Apstiprināt'
@@ -201,7 +201,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('nl', {
+    bootprompt.addLocale('nl', {
       OK: 'OK',
       CANCEL: 'Annuleren',
       CONFIRM: 'Accepteren'
@@ -209,7 +209,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('no', {
+    bootprompt.addLocale('no', {
       OK: 'OK',
       CANCEL: 'Avbryt',
       CONFIRM: 'OK'
@@ -217,7 +217,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('pl', {
+    bootprompt.addLocale('pl', {
       OK: 'OK',
       CANCEL: 'Anuluj',
       CONFIRM: 'Potwierdź'
@@ -225,7 +225,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('pt', {
+    bootprompt.addLocale('pt', {
       OK: 'OK',
       CANCEL: 'Cancelar',
       CONFIRM: 'Confirmar'
@@ -233,7 +233,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('ru', {
+    bootprompt.addLocale('ru', {
       OK: 'OK',
       CANCEL: 'Отмена',
       CONFIRM: 'Подтвердить'
@@ -241,7 +241,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('sk', {
+    bootprompt.addLocale('sk', {
       OK: 'OK',
       CANCEL: 'Zrušiť',
       CONFIRM: 'Potvrdiť'
@@ -249,7 +249,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('sl', {
+    bootprompt.addLocale('sl', {
       OK: 'OK',
       CANCEL: 'Prekliči',
       CONFIRM: 'Potrdi'
@@ -257,7 +257,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('sq', {
+    bootprompt.addLocale('sq', {
       OK: 'OK',
       CANCEL: 'Anulo',
       CONFIRM: 'Prano'
@@ -265,7 +265,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('sv', {
+    bootprompt.addLocale('sv', {
       OK: 'OK',
       CANCEL: 'Avbryt',
       CONFIRM: 'OK'
@@ -273,7 +273,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('th', {
+    bootprompt.addLocale('th', {
       OK: 'ตกลง',
       CANCEL: 'ยกเลิก',
       CONFIRM: 'ยืนยัน'
@@ -281,7 +281,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('tr', {
+    bootprompt.addLocale('tr', {
       OK: 'Tamam',
       CANCEL: 'İptal',
       CONFIRM: 'Onayla'
@@ -289,7 +289,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('uk', {
+    bootprompt.addLocale('uk', {
       OK: 'OK',
       CANCEL: 'Відміна',
       CONFIRM: 'Прийняти'
@@ -297,7 +297,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('zh_CN', {
+    bootprompt.addLocale('zh_CN', {
       OK: 'OK',
       CANCEL: '取消',
       CONFIRM: '确认'
@@ -305,7 +305,7 @@
   })();
 
   (function () {
-    bootshine.addLocale('zh_TW', {
+    bootprompt.addLocale('zh_TW', {
       OK: 'OK',
       CANCEL: '取消',
       CONFIRM: '確認'

@@ -1,4 +1,4 @@
-describe("bootshine.alert", function() {
+describe("bootprompt.alert", function() {
   "use strict";
 
   var dialog;
@@ -14,7 +14,7 @@ describe("bootshine.alert", function() {
   describe("basic usage tests", function() {
     describe("with no arguments", function() {
       function create() {
-        bootshine.alert();
+        bootprompt.alert();
       }
 
       it("throws an error regarding argument length", function() {
@@ -26,15 +26,15 @@ describe("bootshine.alert", function() {
 
       describe("where the argument is a string", function() {
         beforeEach(function() {
-          dialog = bootshine.alert("Hello world!");
+          dialog = bootprompt.alert("Hello world!");
         });
 
-        it("applies the bootshine-alert class to the dialog", function() {
-          expect(dialog.hasClass("bootshine-alert")).to.be.true;
+        it("applies the bootprompt-alert class to the dialog", function() {
+          expect(dialog.hasClass("bootprompt-alert")).to.be.true;
         });
 
         it("shows the expected body copy", function() {
-          expect(text(".bootshine-body")).to.equal("Hello world!");
+          expect(text(".bootprompt-body")).to.equal("Hello world!");
         });
 
         it("shows an OK button", function() {
@@ -45,8 +45,8 @@ describe("bootshine.alert", function() {
           expect(find(".modal-footer button:first").hasClass("btn-primary")).to.be.true;
         });
 
-        it("applies the bootshine-accept class to the button", function() {
-          expect(find(".modal-footer button:first").hasClass("bootshine-accept")).to.be.true;
+        it("applies the bootprompt-accept class to the button", function() {
+          expect(find(".modal-footer button:first").hasClass("bootprompt-accept")).to.be.true;
         });
 
         it("shows a close button inside the body", function() {
@@ -70,7 +70,7 @@ describe("bootshine.alert", function() {
     describe("with two arguments", function() {
       describe("where the second argument is not a function", function() {
         function create() {
-          bootshine.alert("Hello world!", "not a callback");
+          bootprompt.alert("Hello world!", "not a callback");
         };
 
         it("throws an error requiring a callback", function() {
@@ -80,7 +80,7 @@ describe("bootshine.alert", function() {
 
       describe("where the second argument is a function", function() {
         function create() {
-          self.dialog = bootshine.alert("Hello world!", function() {});
+          self.dialog = bootprompt.alert("Hello world!", function() {});
         }
 
         it("does not throw an error", function() {
@@ -91,7 +91,7 @@ describe("bootshine.alert", function() {
 
     describe("with three arguments", function() {
       function create() {
-        bootshine.alert(1, 2, 3);
+        bootprompt.alert(1, 2, 3);
       }
 
       it("throws an error regarding argument length", function() {
@@ -105,7 +105,7 @@ describe("bootshine.alert", function() {
     var options;
 
     function create() {
-      dialog = bootshine.alert(options);
+      dialog = bootprompt.alert(options);
     }
 
     beforeEach(function() {
@@ -134,7 +134,7 @@ describe("bootshine.alert", function() {
       it("adds the correct ok button", function() {
         expect(button.text()).to.equal("Custom OK");
         expect(button.hasClass("btn-danger")).to.be.true;
-        expect(button.hasClass("bootshine-accept")).to.be.true;
+        expect(button.hasClass("bootprompt-accept")).to.be.true;
       });
     });
 
@@ -170,7 +170,7 @@ describe("bootshine.alert", function() {
 
     describe("with no callback", function() {
       beforeEach(function() {
-        dialog = bootshine.alert({
+        dialog = bootprompt.alert({
           message:"Hello!"
         });
 
@@ -179,7 +179,7 @@ describe("bootshine.alert", function() {
 
       describe("when dismissing the dialog by clicking OK", function() {
         beforeEach(function() {
-          dialog.find(".bootshine-accept").trigger("click");
+          dialog.find(".bootprompt-accept").trigger("click");
         });
 
         it("should hide the modal", function() {
@@ -214,7 +214,7 @@ describe("bootshine.alert", function() {
       beforeEach(function() {
         callback = sinon.spy();
 
-        dialog = bootshine.alert({
+        dialog = bootprompt.alert({
           message:"Hello!",
           callback: callback
         });
@@ -224,7 +224,7 @@ describe("bootshine.alert", function() {
 
       describe("when dismissing the dialog by clicking OK", function() {
         beforeEach(function() {
-          dialog.find(".bootshine-accept").trigger("click");
+          dialog.find(".bootprompt-accept").trigger("click");
         });
 
         it("should invoke the callback", function() {
@@ -283,7 +283,7 @@ describe("bootshine.alert", function() {
         callback = sinon.stub();
         callback.returns(false);
 
-        dialog = bootshine.alert({
+        dialog = bootprompt.alert({
           message:"Hello!",
           callback: callback
         });
@@ -293,7 +293,7 @@ describe("bootshine.alert", function() {
 
       describe("when dismissing the dialog by clicking OK", function() {
         beforeEach(function() {
-          dialog.find(".bootshine-accept").trigger("click");
+          dialog.find(".bootprompt-accept").trigger("click");
         });
 
         it("should invoke the callback", function() {

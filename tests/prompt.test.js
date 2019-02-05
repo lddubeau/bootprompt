@@ -1,4 +1,4 @@
-describe("bootshine.prompt", function () {
+describe("bootprompt.prompt", function () {
   var dialog;
 
   function find(selector) {
@@ -14,7 +14,7 @@ describe("bootshine.prompt", function () {
   }
 
   beforeEach(() => {
-    window.bootshine = bootshine.init();
+    window.bootprompt = bootprompt.init();
   });
 
   // basic tests
@@ -22,7 +22,7 @@ describe("bootshine.prompt", function () {
     describe("with one argument", function () {
       describe("where the argument is not an object", function () {
         function create() {
-          bootshine.prompt("What is your name?");
+          bootprompt.prompt("What is your name?");
         }
 
         it("throws an error", function () {
@@ -34,7 +34,7 @@ describe("bootshine.prompt", function () {
         var options;
 
         function create() {
-          dialog = bootshine.prompt(options);
+          dialog = bootprompt.prompt(options);
         }
 
         beforeEach(function () {
@@ -93,8 +93,8 @@ describe("bootshine.prompt", function () {
             expect(dialog).to.be.an("object");
           });
 
-          it("applies the bootshine-prompt class to the dialog", function () {
-            expect(dialog.hasClass("bootshine-prompt")).to.be.true;
+          it("applies the bootprompt-prompt class to the dialog", function () {
+            expect(dialog.hasClass("bootprompt-prompt")).to.be.true;
           });
 
           it("adds the correct button labels", function () {
@@ -105,10 +105,10 @@ describe("bootshine.prompt", function () {
           it("adds the correct button classes", function () {
             expect(dialog.find(".btn:first").hasClass("btn-default")).to.be.true;
             expect(dialog.find(".btn:first").hasClass("btn-secondary")).to.be.true;
-            expect(dialog.find(".btn:first").hasClass("bootshine-cancel")).to.be.true;
+            expect(dialog.find(".btn:first").hasClass("bootprompt-cancel")).to.be.true;
 
             expect(dialog.find(".btn:last").hasClass("btn-primary")).to.be.true;
-            expect(dialog.find(".btn:last").hasClass("bootshine-accept")).to.be.true;
+            expect(dialog.find(".btn:last").hasClass("bootprompt-accept")).to.be.true;
           });
         });
       });
@@ -117,7 +117,7 @@ describe("bootshine.prompt", function () {
     describe("with two arguments", function () {
       describe("where the second argument is not a function", function () {
         function create() {
-          dialog = bootshine.prompt("What is your name?", "callback here");
+          dialog = bootprompt.prompt("What is your name?", "callback here");
         }
 
         it("throws an error requiring a callback", function () {
@@ -127,7 +127,7 @@ describe("bootshine.prompt", function () {
 
       describe("where the second argument is a function", function () {
         function create() {
-          dialog = bootshine.prompt("What is your name?", function () {
+          dialog = bootprompt.prompt("What is your name?", function () {
             return true;
           });
         }
@@ -148,10 +148,10 @@ describe("bootshine.prompt", function () {
         it("adds the correct button classes", function () {
           expect(dialog.find(".btn:first").hasClass("btn-default")).to.be.true;
           expect(dialog.find(".btn:first").hasClass("btn-secondary")).to.be.true;
-          expect(dialog.find(".btn:first").hasClass("bootshine-cancel")).to.be.true;
+          expect(dialog.find(".btn:first").hasClass("bootprompt-cancel")).to.be.true;
 
           expect(dialog.find(".btn:last").hasClass("btn-primary")).to.be.true;
-          expect(dialog.find(".btn:last").hasClass("bootshine-accept")).to.be.true;
+          expect(dialog.find(".btn:last").hasClass("bootprompt-accept")).to.be.true;
         });
 
         it("adds the expected dialog title", function () {
@@ -183,7 +183,7 @@ describe("bootshine.prompt", function () {
     var button;
 
     function create() {
-      dialog = bootshine.prompt(options);
+      dialog = bootprompt.prompt(options);
     }
 
     beforeEach(function () {
@@ -255,7 +255,7 @@ describe("bootshine.prompt", function () {
       beforeEach(function () {
         options.show = false;
         shown = sinon.spy();
-        sinon.stub(bootshine, "dialog").callsFake(function () {
+        sinon.stub(bootprompt, "dialog").callsFake(function () {
           return {
             on: function () { },
             off: function () { },
@@ -297,8 +297,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("input[type='text']").hasClass("bootshine-input")).to.be.ok;
-          expect(find("input[type='text']").hasClass("bootshine-input-text")).to.be.ok;
+          expect(find("input[type='text']").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("input[type='text']").hasClass("bootprompt-input-text")).to.be.ok;
         });
       });
 
@@ -362,8 +362,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("textarea").hasClass("bootshine-input")).to.be.ok;
-          expect(find("textarea").hasClass("bootshine-input-textarea")).to.be.ok;
+          expect(find("textarea").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("textarea").hasClass("bootprompt-input-textarea")).to.be.ok;
         });
       });
 
@@ -405,8 +405,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("input[type='email']").hasClass("bootshine-input")).to.be.ok;
-          expect(find("input[type='email']").hasClass("bootshine-input-email")).to.be.ok;
+          expect(find("input[type='email']").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("input[type='email']").hasClass("bootprompt-input-email")).to.be.ok;
         });
       });
 
@@ -458,8 +458,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("input[type='password']").hasClass("bootshine-input")).to.be.ok;
-          expect(find("input[type='password']").hasClass("bootshine-input-password")).to.be.ok;
+          expect(find("input[type='password']").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("input[type='password']").hasClass("bootprompt-input-password")).to.be.ok;
         });
       });
 
@@ -593,8 +593,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("select").hasClass("bootshine-input")).to.be.ok;
-          expect(find("select").hasClass("bootshine-input-select")).to.be.ok;
+          expect(find("select").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("select").hasClass("bootprompt-input-select")).to.be.ok;
         });
 
         it("with three options", function () {
@@ -666,8 +666,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("select").hasClass("bootshine-input")).to.be.ok;
-          expect(find("select").hasClass("bootshine-input-select")).to.be.ok;
+          expect(find("select").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("select").hasClass("bootprompt-input-select")).to.be.ok;
         });
 
         it("with two option group", function () {
@@ -732,8 +732,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("input[type='checkbox']").hasClass("bootshine-input")).to.be.ok;
-          expect(find("input[type='checkbox']").hasClass("bootshine-input-checkbox")).to.be.ok;
+          expect(find("input[type='checkbox']").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("input[type='checkbox']").hasClass("bootprompt-input-checkbox")).to.be.ok;
         });
 
         it("with three checkboxes", function () {
@@ -794,8 +794,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("input[type='radio']").hasClass("bootshine-input")).to.be.ok;
-          expect(find("input[type='radio']").hasClass("bootshine-input-radio")).to.be.ok;
+          expect(find("input[type='radio']").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("input[type='radio']").hasClass("bootprompt-input-radio")).to.be.ok;
         });
 
         it("with three radios", function () {
@@ -844,8 +844,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("input[type='date']").hasClass("bootshine-input")).to.be.ok;
-          expect(find("input[type='date']").hasClass("bootshine-input-date")).to.be.ok;
+          expect(find("input[type='date']").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("input[type='date']").hasClass("bootprompt-input-date")).to.be.ok;
         });
       });
 
@@ -900,8 +900,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("input[type='time']").hasClass("bootshine-input")).to.be.ok;
-          expect(find("input[type='time']").hasClass("bootshine-input-time")).to.be.ok;
+          expect(find("input[type='time']").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("input[type='time']").hasClass("bootprompt-input-time")).to.be.ok;
         });
       });
 
@@ -1033,8 +1033,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("input[type='number']").hasClass("bootshine-input")).to.be.ok;
-          expect(find("input[type='number']").hasClass("bootshine-input-number")).to.be.ok;
+          expect(find("input[type='number']").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("input[type='number']").hasClass("bootprompt-input-number")).to.be.ok;
         });
       });
 
@@ -1157,8 +1157,8 @@ describe("bootshine.prompt", function () {
         });
 
         it("has proper class", function () {
-          expect(find("input[type='range']").hasClass("bootshine-input")).to.be.ok;
-          expect(find("input[type='range']").hasClass("bootshine-input-range")).to.be.ok;
+          expect(find("input[type='range']").hasClass("bootprompt-input")).to.be.ok;
+          expect(find("input[type='range']").hasClass("bootprompt-input-range")).to.be.ok;
         });
       });
 
@@ -1278,7 +1278,7 @@ describe("bootshine.prompt", function () {
 
       beforeEach(function () {
         callback = sinon.spy();
-        dialog = bootshine.prompt({
+        dialog = bootprompt.prompt({
           title: "What is your name?",
           callback: callback
         });
@@ -1289,7 +1289,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1311,7 +1311,7 @@ describe("bootshine.prompt", function () {
 
         describe("when submitting the form", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-form").trigger("submit");
+            dialog.find(".bootprompt-form").trigger("submit");
           });
 
           it("invokes the callback with the correct value", function () {
@@ -1330,12 +1330,12 @@ describe("bootshine.prompt", function () {
 
       describe("when entering a value in the text input", function () {
         beforeEach(function () {
-          dialog.find(".bootshine-input").val("Test input");
+          dialog.find(".bootprompt-input").val("Test input");
         });
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1357,7 +1357,7 @@ describe("bootshine.prompt", function () {
 
         describe("when submitting the form", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-form").trigger("submit");
+            dialog.find(".bootprompt-form").trigger("submit");
           });
 
           it("invokes the callback with the correct value", function () {
@@ -1376,7 +1376,7 @@ describe("bootshine.prompt", function () {
 
       describe("when dismissing the dialog by clicking Cancel", function () {
         beforeEach(function () {
-          dialog.find(".bootshine-cancel").trigger("click");
+          dialog.find(".bootprompt-cancel").trigger("click");
         });
 
         it("should invoke the callback", function () {
@@ -1450,7 +1450,7 @@ describe("bootshine.prompt", function () {
       beforeEach(function () {
         callback = sinon.stub();
         callback.returns(false);
-        dialog = bootshine.prompt({
+        dialog = bootprompt.prompt({
           title: "What is your name?",
           callback: callback
         });
@@ -1461,7 +1461,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1484,12 +1484,12 @@ describe("bootshine.prompt", function () {
 
       describe("when entering a value in the text input", function () {
         beforeEach(function () {
-          dialog.find(".bootshine-input").val("Test input");
+          dialog.find(".bootprompt-input").val("Test input");
         });
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1512,7 +1512,7 @@ describe("bootshine.prompt", function () {
 
       describe("when dismissing the dialog by clicking Cancel", function () {
         beforeEach(function () {
-          dialog.find(".bootshine-cancel").trigger("click");
+          dialog.find(".bootprompt-cancel").trigger("click");
         });
 
         it("should invoke the callback", function () {
@@ -1585,7 +1585,7 @@ describe("bootshine.prompt", function () {
 
       beforeEach(function () {
         callback = sinon.spy();
-        dialog = bootshine.prompt({
+        dialog = bootprompt.prompt({
           title: "What is your name?",
           value: "Bob",
           callback: callback
@@ -1594,14 +1594,14 @@ describe("bootshine.prompt", function () {
       });
 
       it("populates the input with the default value", function () {
-        expect(dialog.find(".bootshine-input").val()).to.equal("Bob");
+        expect(dialog.find(".bootprompt-input").val()).to.equal("Bob");
       });
 
       describe("when entering no value in the text input", function () {
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1619,7 +1619,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking Cancel", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-cancel").trigger("click");
+            dialog.find(".bootprompt-cancel").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1638,12 +1638,12 @@ describe("bootshine.prompt", function () {
 
       describe("when entering a value in the text input", function () {
         beforeEach(function () {
-          dialog.find(".bootshine-input").val("Alice");
+          dialog.find(".bootprompt-input").val("Alice");
         });
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1661,7 +1661,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking Cancel", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-cancel").trigger("click");
+            dialog.find(".bootprompt-cancel").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1686,7 +1686,7 @@ describe("bootshine.prompt", function () {
 
       beforeEach(function () {
         callback = sinon.spy();
-        dialog = bootshine.prompt({
+        dialog = bootprompt.prompt({
           title: "What is your name?",
           placeholder: "e.g. Bob Smith",
           callback: function () {
@@ -1696,7 +1696,7 @@ describe("bootshine.prompt", function () {
       });
 
       it("populates the input with the placeholder attribute", function () {
-        expect(dialog.find(".bootshine-input").attr("placeholder")).to.equal("e.g. Bob Smith");
+        expect(dialog.find(".bootprompt-input").attr("placeholder")).to.equal("e.g. Bob Smith");
       });
     });
 
@@ -1710,7 +1710,7 @@ describe("bootshine.prompt", function () {
 
         beforeEach(function () {
           callback = sinon.spy();
-          dialog = bootshine.prompt({
+          dialog = bootprompt.prompt({
             title: "What is your IDE?",
             callback: callback,
             inputType: "select",
@@ -1737,12 +1737,12 @@ describe("bootshine.prompt", function () {
         });
 
         it("has correct number values in list", function () {
-          expect(find(".bootshine-input-select option").length).to.equal(5);
+          expect(find(".bootprompt-input-select option").length).to.equal(5);
         });
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1760,7 +1760,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking Cancel", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-cancel").trigger("click");
+            dialog.find(".bootprompt-cancel").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1783,7 +1783,7 @@ describe("bootshine.prompt", function () {
 
         beforeEach(function () {
           callback = sinon.spy();
-          dialog = bootshine.prompt({
+          dialog = bootprompt.prompt({
             title: "What is your IDE?",
             callback: callback,
             value: 1,
@@ -1811,12 +1811,12 @@ describe("bootshine.prompt", function () {
         });
 
         it("specified option is selected", function () {
-          expect(dialog.find(".bootshine-input-select").val()).to.equal("1");
+          expect(dialog.find(".bootprompt-input-select").val()).to.equal("1");
         });
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1834,7 +1834,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking Cancel", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-cancel").trigger("click");
+            dialog.find(".bootprompt-cancel").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1852,8 +1852,8 @@ describe("bootshine.prompt", function () {
 
         describe("when changing the selected option and dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-input-select").val(3);
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-input-select").val(3);
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1877,7 +1877,7 @@ describe("bootshine.prompt", function () {
 
         beforeEach(function () {
           callback = sinon.spy();
-          dialog = bootshine.prompt({
+          dialog = bootprompt.prompt({
             title: "What is your email?",
             inputType: "email",
             callback: callback
@@ -1887,7 +1887,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1909,7 +1909,7 @@ describe("bootshine.prompt", function () {
 
         describe("when submitting the form", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-form").trigger("submit");
+            dialog.find(".bootprompt-form").trigger("submit");
           });
 
           it("invokes the callback with the correct value", function () {
@@ -1923,12 +1923,12 @@ describe("bootshine.prompt", function () {
 
         describe("when entering a value in the email input", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-input-email").val("john@smith.com");
+            dialog.find(".bootprompt-input-email").val("john@smith.com");
           });
 
           describe("when dismissing the dialog by clicking OK", function () {
             beforeEach(function () {
-              dialog.find(".bootshine-accept").trigger("click");
+              dialog.find(".bootprompt-accept").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -1946,7 +1946,7 @@ describe("bootshine.prompt", function () {
 
           describe("when dismissing the dialog by clicking Cancel", function () {
             beforeEach(function () {
-              dialog.find(".bootshine-cancel").trigger("click");
+              dialog.find(".bootprompt-cancel").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -1966,7 +1966,7 @@ describe("bootshine.prompt", function () {
 
         beforeEach(function () {
           callback = sinon.spy();
-          dialog = bootshine.prompt({
+          dialog = bootprompt.prompt({
             title: "What is your email?",
             inputType: "email",
             value: "john@smith.com",
@@ -1977,7 +1977,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -1995,7 +1995,7 @@ describe("bootshine.prompt", function () {
 
         describe("when submitting the form", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-form").trigger("submit");
+            dialog.find(".bootprompt-form").trigger("submit");
           });
 
           it("invokes the callback with the correct value", function () {
@@ -2009,12 +2009,12 @@ describe("bootshine.prompt", function () {
 
         describe("when changing a value in the email input", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-input-email").val("smith@john.com");
+            dialog.find(".bootprompt-input-email").val("smith@john.com");
           });
 
           describe("when dismissing the dialog by clicking OK", function () {
             beforeEach(function () {
-              dialog.find(".bootshine-accept").trigger("click");
+              dialog.find(".bootprompt-accept").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2028,7 +2028,7 @@ describe("bootshine.prompt", function () {
 
           describe("when dismissing the dialog by clicking Cancel", function () {
             beforeEach(function () {
-              dialog.find(".bootshine-cancel").trigger("click");
+              dialog.find(".bootprompt-cancel").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2053,7 +2053,7 @@ describe("bootshine.prompt", function () {
 
         beforeEach(function () {
           callback = sinon.spy();
-          dialog = bootshine.prompt({
+          dialog = bootprompt.prompt({
             title: "What is your IDE?",
             inputType: 'checkbox',
             inputOptions: [
@@ -2078,7 +2078,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -2096,7 +2096,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking Cancel", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-cancel").trigger("click");
+            dialog.find(".bootprompt-cancel").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -2117,7 +2117,7 @@ describe("bootshine.prompt", function () {
 
           beforeEach(function () {
             callback = sinon.spy();
-            dialog = bootshine.prompt({
+            dialog = bootprompt.prompt({
               title: "What is your IDE?",
               callback: callback,
               value: 2,
@@ -2147,7 +2147,7 @@ describe("bootshine.prompt", function () {
 
           describe("when dismissing the dialog by clicking OK", function () {
             beforeEach(function () {
-              dialog.find(".bootshine-accept").trigger("click");
+              dialog.find(".bootprompt-accept").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2161,7 +2161,7 @@ describe("bootshine.prompt", function () {
 
           describe("when dismissing the dialog by clicking Cancel", function () {
             beforeEach(function () {
-              dialog.find(".bootshine-cancel").trigger("click");
+              dialog.find(".bootprompt-cancel").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2177,7 +2177,7 @@ describe("bootshine.prompt", function () {
             beforeEach(function () {
               dialog.find("input:checkbox:checked").prop('checked', false);
               dialog.find("input:checkbox[value=3]").prop('checked', true);
-              dialog.find(".bootshine-cancel").trigger("click");
+              dialog.find(".bootprompt-cancel").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2193,7 +2193,7 @@ describe("bootshine.prompt", function () {
             beforeEach(function () {
               dialog.find("input:checkbox:checked").prop('checked', false);
               dialog.find("input:checkbox[value=3]").prop('checked', true);
-              dialog.find(".bootshine-accept").trigger("click");
+              dialog.find(".bootprompt-accept").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2212,7 +2212,7 @@ describe("bootshine.prompt", function () {
 
           beforeEach(function () {
             callback = sinon.spy();
-            dialog = bootshine.prompt({
+            dialog = bootprompt.prompt({
               title: "What is your IDE?",
               callback: callback,
               value: [2, 3],
@@ -2247,7 +2247,7 @@ describe("bootshine.prompt", function () {
 
           describe("when dismissing the dialog by clicking OK", function () {
             beforeEach(function () {
-              dialog.find(".bootshine-accept").trigger("click");
+              dialog.find(".bootprompt-accept").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2261,7 +2261,7 @@ describe("bootshine.prompt", function () {
 
           describe("when dismissing the dialog by clicking Cancel", function () {
             beforeEach(function () {
-              dialog.find(".bootshine-cancel").trigger("click");
+              dialog.find(".bootprompt-cancel").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2278,7 +2278,7 @@ describe("bootshine.prompt", function () {
               dialog.find("input:checkbox:checked").prop('checked', false);
               dialog.find("input:checkbox[value=1]").prop('checked', true);
               dialog.find("input:checkbox[value=4]").prop('checked', true);
-              dialog.find(".bootshine-cancel").trigger("click");
+              dialog.find(".bootprompt-cancel").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2295,7 +2295,7 @@ describe("bootshine.prompt", function () {
               dialog.find("input:checkbox:checked").prop('checked', false);
               dialog.find("input:checkbox[value=1]").prop('checked', true);
               dialog.find("input:checkbox[value=4]").prop('checked', true);
-              dialog.find(".bootshine-accept").trigger("click");
+              dialog.find(".bootprompt-accept").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2320,7 +2320,7 @@ describe("bootshine.prompt", function () {
 
         beforeEach(function () {
           callback = sinon.spy();
-          dialog = bootshine.prompt({
+          dialog = bootprompt.prompt({
             title: "What is your IDE?",
             inputType: 'radio',
             inputOptions: [
@@ -2345,7 +2345,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking OK", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-accept").trigger("click");
+            dialog.find(".bootprompt-accept").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -2363,7 +2363,7 @@ describe("bootshine.prompt", function () {
 
         describe("when dismissing the dialog by clicking Cancel", function () {
           beforeEach(function () {
-            dialog.find(".bootshine-cancel").trigger("click");
+            dialog.find(".bootprompt-cancel").trigger("click");
           });
 
           it("should invoke the callback", function () {
@@ -2384,7 +2384,7 @@ describe("bootshine.prompt", function () {
 
           beforeEach(function () {
             callback = sinon.spy();
-            dialog = bootshine.prompt({
+            dialog = bootprompt.prompt({
               title: "What is your IDE?",
               callback: callback,
               value: 2,
@@ -2414,7 +2414,7 @@ describe("bootshine.prompt", function () {
 
           describe("when dismissing the dialog by clicking OK", function () {
             beforeEach(function () {
-              dialog.find(".bootshine-accept").trigger("click");
+              dialog.find(".bootprompt-accept").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2428,7 +2428,7 @@ describe("bootshine.prompt", function () {
 
           describe("when dismissing the dialog by clicking Cancel", function () {
             beforeEach(function () {
-              dialog.find(".bootshine-cancel").trigger("click");
+              dialog.find(".bootprompt-cancel").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2443,7 +2443,7 @@ describe("bootshine.prompt", function () {
           describe("when changing the checked option and dismissing the dialog by clicking Cancel", function () {
             beforeEach(function () {
               dialog.find("input:radio[value=3]").prop('checked', true);
-              dialog.find(".bootshine-cancel").trigger("click");
+              dialog.find(".bootprompt-cancel").trigger("click");
             });
 
             it("should invoke the callback", function () {
@@ -2458,7 +2458,7 @@ describe("bootshine.prompt", function () {
           describe("when changing the selected option and dismissing the dialog by clicking OK", function () {
             beforeEach(function () {
               dialog.find("input:radio[value=3]").prop('checked', true);
-              dialog.find(".bootshine-accept").trigger("click");
+              dialog.find(".bootprompt-accept").trigger("click");
             });
 
             it("should invoke the callback", function () {

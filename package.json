@@ -1,5 +1,5 @@
 {
-  "name": "bootshine",
+  "name": "bootprompt",
   "version": "1.0.0",
   "description": "Wrappers for JavaScript alert(), confirm() and other flexible dialogs using the Bootstrap framework",
   "directories": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/lddubeau/bootshine.git"
+    "url": "git://github.com/lddubeau/bootprompt.git"
   },
   "author": "Louis-Dominique Dubeau <ldd@lddubeau.com>",
   "contributors": [
@@ -18,7 +18,7 @@
     "Nick Payne <nick@kurai.co.uk>"
   ],
   "license": "MIT",
-  "main": "src/bootshine.js",
+  "main": "src/bootprompt.js",
   "devDependencies": {
     "chai": "^4.2.0",
     "grunt": "~0.4.1",

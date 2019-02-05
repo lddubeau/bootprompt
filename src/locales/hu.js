@@ -1,17 +1,17 @@
-// bootshine.js locale configuration
+// bootprompt.js locale configuration
 // locale : Hungarian
 // author : Márk Sági-Kazár
 
 (function (global, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['../bootshine'], factory);
+        define(['../bootprompt'], factory);
     } else if (typeof module === 'object' && module.exports) {
-        factory(require('../bootshine'));
+        factory(require('../bootprompt'));
     } else {
-        factory(global.bootshine);
+        factory(global.bootprompt);
     }
-}(this, function (bootshine) {
-    bootshine.addLocale('hu', {
+}(this, function (bootprompt) {
+    bootprompt.addLocale('hu', {
         OK      : 'OK',
         CANCEL  : 'Mégsem',
         CONFIRM : 'Megerősít'

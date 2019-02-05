@@ -1,4 +1,4 @@
-describe("bootshine.setDefaults", function() {
+describe("bootprompt.setDefaults", function() {
 
   beforeEach(function() {
     this.find = function(selector) {
@@ -9,10 +9,10 @@ describe("bootshine.setDefaults", function() {
   describe("animate", function() {
     describe("when set to false", function() {
       beforeEach(function() {
-        bootshine.setDefaults({
+        bootprompt.setDefaults({
           animate: false
         });
-        this.dialog = bootshine.dialog({
+        this.dialog = bootprompt.dialog({
           message: "test"
         });
       });
@@ -38,10 +38,10 @@ describe("bootshine.setDefaults", function() {
 
     describe("when set to true", function() {
       beforeEach(function() {
-        bootshine.setDefaults({
+        bootprompt.setDefaults({
           animate: true
         });
-        this.dialog = bootshine.dialog({
+        this.dialog = bootprompt.dialog({
           message: "test"
         });
       });
@@ -55,17 +55,17 @@ describe("bootshine.setDefaults", function() {
   describe("className", function() {
     describe("when passed as a string", function() {
       beforeEach(function() {
-        bootshine.setDefaults({
+        bootprompt.setDefaults({
           className: "my-class"
         });
 
-        this.dialog = bootshine.dialog({
+        this.dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("adds the extra class to the outer dialog", function() {
-        expect(this.dialog.hasClass("bootshine")).to.be.true;
+        expect(this.dialog.hasClass("bootprompt")).to.be.true;
         expect(this.dialog.hasClass("my-class")).to.be.true;
       });
     });
@@ -74,11 +74,11 @@ describe("bootshine.setDefaults", function() {
   describe("size", function() {
     describe("when set to large", function() {
       beforeEach(function() {
-        bootshine.setDefaults({
+        bootprompt.setDefaults({
           size: "large"
         });
 
-        this.dialog = bootshine.dialog({
+        this.dialog = bootprompt.dialog({
           message: "test"
         });
       });
@@ -89,11 +89,11 @@ describe("bootshine.setDefaults", function() {
     });
     describe("when set to small", function() {
       beforeEach(function() {
-        bootshine.setDefaults({
+        bootprompt.setDefaults({
           size: "small"
         });
 
-        this.dialog = bootshine.dialog({
+        this.dialog = bootprompt.dialog({
           message: "test"
         });
       });
@@ -107,11 +107,11 @@ describe("bootshine.setDefaults", function() {
   describe("backdrop", function() {
     describe("when set to false", function() {
       beforeEach(function() {
-        bootshine.setDefaults({
+        bootprompt.setDefaults({
           backdrop: false
         });
 
-        this.dialog = bootshine.dialog({
+        this.dialog = bootprompt.dialog({
           message: "test"
         });
       });
@@ -125,11 +125,11 @@ describe("bootshine.setDefaults", function() {
   describe("centerVertical", function() {
     describe("when set to true", function() {
       beforeEach(function() {
-        bootshine.setDefaults({
+        bootprompt.setDefaults({
           centerVertical: true
         });
 
-        this.dialog = bootshine.dialog({
+        this.dialog = bootprompt.dialog({
           message: "test"
         });
       });
@@ -142,14 +142,14 @@ describe("bootshine.setDefaults", function() {
 
   describe("when passed two arguments", function() {
     beforeEach(function() {
-      bootshine.setDefaults("className", "my-class");
-      this.dialog = bootshine.dialog({
+      bootprompt.setDefaults("className", "my-class");
+      this.dialog = bootprompt.dialog({
         message: "test"
       });
     });
 
     it("applies the arguments as a key/value pair", function() {
-      expect(this.dialog.hasClass("bootshine")).to.be.true;
+      expect(this.dialog.hasClass("bootprompt")).to.be.true;
       expect(this.dialog.hasClass("my-class")).to.be.true;
     });
   });
@@ -157,7 +157,7 @@ describe("bootshine.setDefaults", function() {
   describe("container", function () {
     describe("when not explicitly set", function() {
       beforeEach(function() {
-        this.dialog = bootshine.dialog({
+        this.dialog = bootprompt.dialog({
           message: "test"
         });
       });
@@ -169,11 +169,11 @@ describe("bootshine.setDefaults", function() {
 
     describe("when explicitly set to body", function() {
       beforeEach(function() {
-        bootshine.setDefaults({
+        bootprompt.setDefaults({
           container: "body"
         });
 
-        this.dialog = bootshine.dialog({
+        this.dialog = bootprompt.dialog({
           message: "test"
         });
       });
@@ -187,11 +187,11 @@ describe("bootshine.setDefaults", function() {
 
       beforeEach(function() {
         this.container = $("<div></div>");
-        bootshine.setDefaults({
+        bootprompt.setDefaults({
           container: this.container
         });
 
-        this.dialog = bootshine.dialog({
+        this.dialog = bootprompt.dialog({
           message: "test"
         });
       });

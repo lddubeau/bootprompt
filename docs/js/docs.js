@@ -20,14 +20,14 @@ $(function () {
     try {
         window.prettyPrint && prettyPrint();
 
-        $('#download-bootshine').on('click', function(e){
+        $('#download-bootprompt').on('click', function(e){
             e.preventDefault();
             e.stopPropagation();
 
-            bootshine.alert({
-                title: 'Bootshine.js',
-                message: '<h3>Hey there!</h3> <p>Thank you for your interest. Unfortunately, Bootshine 5 is not ready for distribution yet. '
-                    + 'If you want to start testing it, grab <a href="https://github.com/tiesont/bootshine">the source code</a> and '
+            bootprompt.alert({
+                title: 'Bootprompt.js',
+                message: '<h3>Hey there!</h3> <p>Thank you for your interest. Unfortunately, Bootprompt 5 is not ready for distribution yet. '
+                    + 'If you want to start testing it, grab <a href="https://github.com/tiesont/bootprompt">the source code</a> and '
                     + 'report any issues you find.</p>'
             });
         });

@@ -1,4 +1,4 @@
-describe("bootshine.confirm", function() {
+describe("bootprompt.confirm", function() {
 
   describe("basic usage tests", function() {
 
@@ -6,7 +6,7 @@ describe("bootshine.confirm", function() {
 
       describe("where the argument is not an object", function() {
         function create() {
-          bootshine.confirm("Are you sure?");
+          bootprompt.confirm("Are you sure?");
         }
 
         it("throws an error", function() {
@@ -18,7 +18,7 @@ describe("bootshine.confirm", function() {
         var options;
 
         function create() {
-          dialog = bootshine.confirm(options);
+          dialog = bootprompt.confirm(options);
         }
 
         beforeEach(function () {
@@ -86,10 +86,10 @@ describe("bootshine.confirm", function() {
           it("adds the correct button classes", function() {
             expect(dialog.find(".btn:first").hasClass("btn-default")).to.be.true;
             expect(dialog.find(".btn:first").hasClass("btn-secondary")).to.be.true;
-            expect(dialog.find(".btn:first").hasClass("bootshine-cancel")).to.be.true;
+            expect(dialog.find(".btn:first").hasClass("bootprompt-cancel")).to.be.true;
 
             expect(dialog.find(".btn:last").hasClass("btn-primary")).to.be.true;
-            expect(dialog.find(".btn:last").hasClass("bootshine-accept")).to.be.true;
+            expect(dialog.find(".btn:last").hasClass("bootprompt-accept")).to.be.true;
           });
         });
       });
@@ -97,7 +97,7 @@ describe("bootshine.confirm", function() {
     describe("with two arguments", function() {
       describe("where the second argument is not a function", function() {
         function create() {
-          dialog = bootshine.confirm("Are you sure?", "callback here");
+          dialog = bootprompt.confirm("Are you sure?", "callback here");
         }
 
         it("throws an error requiring a callback", function() {
@@ -107,7 +107,7 @@ describe("bootshine.confirm", function() {
 
       describe("where the second argument is a function", function() {
         function create() {
-          dialog = bootshine.confirm("Are you sure?", function() {
+          dialog = bootprompt.confirm("Are you sure?", function() {
             return true;
           });
         }
@@ -120,8 +120,8 @@ describe("bootshine.confirm", function() {
           expect(dialog).to.be.an("object");
         });
 
-        it("applies the bootshine-confirm class to the dialog", function() {
-          expect(dialog.hasClass("bootshine-confirm")).to.be.true;
+        it("applies the bootprompt-confirm class to the dialog", function() {
+          expect(dialog.hasClass("bootprompt-confirm")).to.be.true;
         });
 
         it("adds the correct button labels", function() {
@@ -132,10 +132,10 @@ describe("bootshine.confirm", function() {
         it("adds the correct button classes", function() {
           expect(dialog.find(".btn:first").hasClass("btn-default")).to.be.true;
           expect(dialog.find(".btn:first").hasClass("btn-secondary")).to.be.true;
-          expect(dialog.find(".btn:first").hasClass("bootshine-cancel")).to.be.true;
+          expect(dialog.find(".btn:first").hasClass("bootprompt-cancel")).to.be.true;
 
           expect(dialog.find(".btn:last").hasClass("btn-primary")).to.be.true;
-          expect(dialog.find(".btn:last").hasClass("bootshine-accept")).to.be.true;
+          expect(dialog.find(".btn:last").hasClass("bootprompt-accept")).to.be.true;
         });
 
         it("shows the dialog", function() {
@@ -146,7 +146,7 @@ describe("bootshine.confirm", function() {
   });
   describe("configuration options tests", function() {
     function create() {
-      dialog = bootshine.confirm(options);
+      dialog = bootprompt.confirm(options);
     }
 
     beforeEach(function() {
@@ -221,7 +221,7 @@ describe("bootshine.confirm", function() {
 
       beforeEach(function() {
         callback = sinon.spy();
-        dialog = bootshine.confirm({
+        dialog = bootprompt.confirm({
           message: "Are you sure?",
           callback: callback
         });
@@ -231,7 +231,7 @@ describe("bootshine.confirm", function() {
 
       describe("when dismissing the dialog by clicking OK", function() {
         beforeEach(function() {
-          dialog.find(".bootshine-accept").trigger("click");
+          dialog.find(".bootprompt-accept").trigger("click");
         });
 
         it("should invoke the callback", function() {
@@ -253,7 +253,7 @@ describe("bootshine.confirm", function() {
 
       describe("when dismissing the dialog by clicking Cancel", function() {
         beforeEach(function() {
-          dialog.find(".bootshine-cancel").trigger("click");
+          dialog.find(".bootprompt-cancel").trigger("click");
         });
 
         it("should invoke the callback", function() {
@@ -302,7 +302,7 @@ describe("bootshine.confirm", function() {
       beforeEach(function() {
         callback = sinon.stub();
         callback.returns(false);
-        dialog = bootshine.confirm({
+        dialog = bootprompt.confirm({
           message: "Are you sure?",
           callback: callback
         });
@@ -311,7 +311,7 @@ describe("bootshine.confirm", function() {
 
       describe("when dismissing the dialog by clicking OK", function() {
         beforeEach(function() {
-          dialog.find(".bootshine-accept").trigger("click");
+          dialog.find(".bootprompt-accept").trigger("click");
         });
 
         it("should invoke the callback", function() {
@@ -333,7 +333,7 @@ describe("bootshine.confirm", function() {
 
       describe("when dismissing the dialog by clicking Cancel", function() {
         beforeEach(function() {
-          dialog.find(".bootshine-cancel").trigger("click");
+          dialog.find(".bootprompt-cancel").trigger("click");
         });
 
         it("should invoke the callback", function() {

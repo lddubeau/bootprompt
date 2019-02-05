@@ -16,13 +16,13 @@ module.exports = function(params) {
 
         params.vendor,
 
-        params.src || 'bootshine.js',
+        params.src || 'bootprompt.js',
 
         ['tests/**/*.test.js']
       ),
       exclude: [],
       preprocessors: {
-        'src/bootshine.js': coverage,
+        'src/bootprompt.js': coverage,
       },
       reporters: ['dots', 'coverage', 'junit'],
       port: 9876,

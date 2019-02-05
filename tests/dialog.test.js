@@ -1,4 +1,4 @@
-describe("bootshine.dialog", function() {
+describe("bootprompt.dialog", function() {
   var dialog;
   function find(s) {
     return dialog.find(s);
@@ -19,7 +19,7 @@ describe("bootshine.dialog", function() {
   describe("invalid usage tests", function() {
     describe("with no arguments", function() {
       function create() {
-        bootshine.dialog();
+        bootprompt.dialog();
       }
 
       it("throws an error", function() {
@@ -30,7 +30,7 @@ describe("bootshine.dialog", function() {
     describe("with one argument", function() {
       describe("where the argument is not an object", function() {
         function create() {
-          bootshine.dialog("test");
+          bootprompt.dialog("test");
         }
 
         it("throws an error", function() {
@@ -40,7 +40,7 @@ describe("bootshine.dialog", function() {
 
       describe("where the argument has no message property", function() {
         function create() {
-          bootshine.dialog({
+          bootprompt.dialog({
             invalid: "options"
           });
         }
@@ -52,7 +52,7 @@ describe("bootshine.dialog", function() {
 
       describe("where the argument has a button with an invalid value", function() {
         function create() {
-          bootshine.dialog({
+          bootprompt.dialog({
             message: "test",
             buttons: {
               ok: "foo"
@@ -68,13 +68,13 @@ describe("bootshine.dialog", function() {
   });
   describe("when creating a minimal dialog", function() {
     beforeEach(function() {
-      dialog = bootshine.dialog({
+      dialog = bootprompt.dialog({
         message: "test"
       });
     });
 
-    it("adds the bootshine class to the dialog", function() {
-      expect(dialog.hasClass("bootshine")).to.be.true;
+    it("adds the bootprompt class to the dialog", function() {
+      expect(dialog.hasClass("bootprompt")).to.be.true;
     });
 
     it("adds the bootstrap modal class to the dialog", function() {
@@ -86,7 +86,7 @@ describe("bootshine.dialog", function() {
     });
 
     it("shows the expected message", function() {
-      expect(text(".bootshine-body")).to.equal("test");
+      expect(text(".bootprompt-body")).to.equal("test");
     });
 
     it("does not have a header", function() {
@@ -112,7 +112,7 @@ describe("bootshine.dialog", function() {
         button = {};
       }
 
-      dialog = bootshine.dialog({
+      dialog = bootprompt.dialog({
         message: "test",
         buttons: {
           one: button
@@ -250,7 +250,7 @@ describe("bootshine.dialog", function() {
 
     describe("when the button has no explicit label", function() {
       function create(buttons) {
-        dialog = bootshine.dialog({
+        dialog = bootprompt.dialog({
             message: "test",
             buttons: buttons
         });
@@ -322,7 +322,7 @@ describe("bootshine.dialog", function() {
 
   describe("when creating a dialog with a title", function() {
     beforeEach(function() {
-      dialog = bootshine.dialog({
+      dialog = bootprompt.dialog({
         title: "My Title",
         message: "test"
       });
@@ -343,7 +343,7 @@ describe("bootshine.dialog", function() {
 
   describe("when creating a dialog with no backdrop", function() {
     beforeEach(function() {
-      dialog = bootshine.dialog({
+      dialog = bootprompt.dialog({
         message: "No backdrop in sight",
         backdrop: false
       });
@@ -356,7 +356,7 @@ describe("bootshine.dialog", function() {
 
   describe("when creating a dialog with no close button", function() {
     beforeEach(function() {
-      dialog = bootshine.dialog({
+      dialog = bootprompt.dialog({
         message: "No backdrop in sight",
         closeButton: false
       });
@@ -381,7 +381,7 @@ describe("bootshine.dialog", function() {
 
       beforeEach(function() {
         callback = sinon.spy();
-        dialog = bootshine.dialog({
+        dialog = bootprompt.dialog({
           message: "Are you sure?",
           onEscape: callback
         });
@@ -434,7 +434,7 @@ describe("bootshine.dialog", function() {
 
       beforeEach(function() {
         callback = sinon.stub().returns(false);
-        dialog = bootshine.dialog({
+        dialog = bootprompt.dialog({
           message: "Are you sure?",
           onEscape: callback
         });
@@ -482,7 +482,7 @@ describe("bootshine.dialog", function() {
   describe("with size option", function() {
     describe("when the size option is set to large", function() {
       beforeEach(function() {
-        dialog = bootshine.dialog({
+        dialog = bootprompt.dialog({
           message: "test",
           size: "large"
         });
@@ -495,7 +495,7 @@ describe("bootshine.dialog", function() {
 
     describe("when the size option is set to small", function() {
       beforeEach(function() {
-        dialog = bootshine.dialog({
+        dialog = bootprompt.dialog({
           message: "test",
           size: "small"
         });
