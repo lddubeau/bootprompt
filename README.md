@@ -7,9 +7,17 @@ Bootprompt is a fork of Nick Payne's
 asking for a release of Bootbox compatible with Bootstrap 4. [Tieson
 Trowbridge](https://github.com/tiesont) put together a version 5 of Bootbox that
 worked with Bootstrap 4. Unfortunately, Tieson did not have release powers and
-Nick was no longer active on Github and it seemed that the release of Bootbox 5
-would never happen. Louis-Dominique Dubeau, after consultation with Tieson,
-decided to fork the project, and Bootprompt was born.
+Nick was no longer active on Github. So it seemed that a formal release of
+Bootbox 5 would never happen. Louis-Dominique Dubeau, after consultation with
+Tieson, decided to fork the project, and Bootprompt was born.
+
+## Versioning
+
+Bootprompt's first version is 5 because Bootbox got up to version 4 before
+Bootprompt was forked from it. If we had restarted version numbering from 1, we
+would have had to rename tags, etc. Too much trouble.
+
+Do note that this project does not provide support for any version prior to 5.
 
 ## Support
 
