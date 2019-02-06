@@ -1,6 +1,6 @@
 /*! @preserve
  * bootprompt.js
- * version: 5.0.0-alpha1
+ * version: 5.0.0-alpha.1
  * license: MIT
  * http://github.com/lddubeau/bootprompt
  */
@@ -22,7 +22,7 @@
 
   var exports = {};
 
-  var VERSION = '5.0.0-alpha1';
+  var VERSION = '5.0.0-alpha.1';
   exports.VERSION = VERSION;
 
   var locales = {};
