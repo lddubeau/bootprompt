@@ -1,3 +1,5 @@
 language: node_js
+# There isn't much gained from testing on old versions of Node. This package is
+# meant to run in a browser.
 node_js:
-  - "6"
+  - "node"
