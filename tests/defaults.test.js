@@ -1,10 +1,9 @@
 describe("bootprompt.setDefaults", function() {
+  var dialog;
 
-  beforeEach(function() {
-    this.find = function(selector) {
-      return this.dialog.find(selector);
-    };
-  });
+  function find(selector) {
+    return dialog.find(selector);
+  }
 
   describe("animate", function() {
     describe("when set to false", function() {
@@ -12,13 +11,13 @@ describe("bootprompt.setDefaults", function() {
         bootprompt.setDefaults({
           animate: false
         });
-        this.dialog = bootprompt.dialog({
+        dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("does not add the fade class to the dialog", function() {
-        expect(this.dialog.hasClass("fade")).to.be.false;
+        expect(dialog.hasClass("fade")).to.be.false;
       });
 
       it("applies the correct class to the body", function() {
@@ -27,7 +26,7 @@ describe("bootprompt.setDefaults", function() {
 
       describe("when clicking the close button", function() {
         beforeEach(function() {
-          this.dialog.find(".close").trigger("click");
+          dialog.find(".close").trigger("click");
         });
 
         it("removes the modal-open class from the body", function() {
@@ -41,13 +40,13 @@ describe("bootprompt.setDefaults", function() {
         bootprompt.setDefaults({
           animate: true
         });
-        this.dialog = bootprompt.dialog({
+        dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("adds the fade class to the dialog", function() {
-        expect(this.dialog.hasClass("fade")).to.be.true;
+        expect(dialog.hasClass("fade")).to.be.true;
       });
     });
   });
@@ -59,14 +58,14 @@ describe("bootprompt.setDefaults", function() {
           className: "my-class"
         });
 
-        this.dialog = bootprompt.dialog({
+        dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("adds the extra class to the outer dialog", function() {
-        expect(this.dialog.hasClass("bootprompt")).to.be.true;
-        expect(this.dialog.hasClass("my-class")).to.be.true;
+        expect(dialog.hasClass("bootprompt")).to.be.true;
+        expect(dialog.hasClass("my-class")).to.be.true;
       });
     });
   });
@@ -78,13 +77,13 @@ describe("bootprompt.setDefaults", function() {
           size: "large"
         });
 
-        this.dialog = bootprompt.dialog({
+        dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("adds the large class to the innerDialog", function() {
-        expect(this.dialog.children(".modal-dialog").hasClass("modal-lg")).to.be.true;
+        expect(dialog.children(".modal-dialog").hasClass("modal-lg")).to.be.true;
       });
     });
     describe("when set to small", function() {
@@ -93,13 +92,13 @@ describe("bootprompt.setDefaults", function() {
           size: "small"
         });
 
-        this.dialog = bootprompt.dialog({
+        dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("adds the small class to the innerDialog", function() {
-        expect(this.dialog.children(".modal-dialog").hasClass("modal-sm")).to.be.true;
+        expect(dialog.children(".modal-dialog").hasClass("modal-sm")).to.be.true;
       });
     });
   });
@@ -111,13 +110,13 @@ describe("bootprompt.setDefaults", function() {
           backdrop: false
         });
 
-        this.dialog = bootprompt.dialog({
+        dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("does not show a backdrop", function() {
-        expect(this.dialog.next(".modal-backdrop").length).to.equal(0);
+        expect(dialog.next(".modal-backdrop").length).to.equal(0);
       });
     });
   });
@@ -129,13 +128,13 @@ describe("bootprompt.setDefaults", function() {
           centerVertical: true
         });
 
-        this.dialog = bootprompt.dialog({
+        dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("adds the modal-dialog-centered class to the innerDialog", function() {
-        expect(this.dialog.children(".modal-dialog").hasClass("modal-dialog-centered")).to.be.true;
+        expect(dialog.children(".modal-dialog").hasClass("modal-dialog-centered")).to.be.true;
       });
     });
   });
@@ -143,27 +142,27 @@ describe("bootprompt.setDefaults", function() {
   describe("when passed two arguments", function() {
     beforeEach(function() {
       bootprompt.setDefaults("className", "my-class");
-      this.dialog = bootprompt.dialog({
+      dialog = bootprompt.dialog({
         message: "test"
       });
     });
 
     it("applies the arguments as a key/value pair", function() {
-      expect(this.dialog.hasClass("bootprompt")).to.be.true;
-      expect(this.dialog.hasClass("my-class")).to.be.true;
+      expect(dialog.hasClass("bootprompt")).to.be.true;
+      expect(dialog.hasClass("my-class")).to.be.true;
     });
   });
 
   describe("container", function () {
     describe("when not explicitly set", function() {
       beforeEach(function() {
-        this.dialog = bootprompt.dialog({
+        dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("defaults to the body element", function() {
-        expect(this.dialog.parent().is("body")).to.be.true;
+        expect(dialog.parent().is("body")).to.be.true;
       });
     });
 
@@ -173,31 +172,32 @@ describe("bootprompt.setDefaults", function() {
           container: "body"
         });
 
-        this.dialog = bootprompt.dialog({
+        dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("sets the correct parent element", function() {
-        expect(this.dialog.parent().is("body")).to.be.true;
+        expect(dialog.parent().is("body")).to.be.true;
       });
     });
 
     describe("when set to another dom element", function() {
+      var container;
 
       beforeEach(function() {
-        this.container = $("<div></div>");
+        container = $("<div></div>");
         bootprompt.setDefaults({
-          container: this.container
+          container: container
         });
 
-        this.dialog = bootprompt.dialog({
+        dialog = bootprompt.dialog({
           message: "test"
         });
       });
 
       it("sets the correct parent element", function() {
-        expect(this.dialog.parent().is(this.container)).to.be.true;
+        expect(dialog.parent().is(container)).to.be.true;
       });
     });
   });

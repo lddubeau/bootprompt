@@ -18,82 +18,81 @@ describe("Bootprompt", function() {
   });
 
   describe("hideAll", function() {
+    var hidden;
+
     beforeEach(function() {
-      this.hidden = sinon.spy($.fn, "modal");
+      hidden = sinon.spy($.fn, "modal");
       bootprompt.hideAll();
     });
 
     afterEach(function() {
-      this.hidden.restore();
+      hidden.restore();
     });
 
     it("should hide all .bootprompt modals", function() {
-      expect(this.hidden).to.have.been.calledWithExactly("hide");
+      expect(hidden).to.have.been.calledWithExactly("hide");
     });
   });
 
   describe("event listeners", function() {
     describe("hidden.bs.modal", function() {
+      var dialog;
+      var removed;
+
+      function e(target) {
+        $(dialog).trigger($.Event("hidden.bs.modal", {
+          target: target
+        }));
+      }
+
       beforeEach(function() {
-        this.dialog = bootprompt.alert("hi");
-
-        this.removed = sinon.stub(this.dialog, "remove");
-
-        this.e = function(target) {
-
-          $(this.dialog).trigger($.Event("hidden.bs.modal", {
-            target: target
-          }));
-        };
+        dialog = bootprompt.alert("hi");
+        removed = sinon.stub(dialog, "remove");
       });
 
       afterEach(function() {
-        this.removed.restore();
+        removed.restore();
       });
 
       describe("when triggered with the wrong target", function() {
         beforeEach(function() {
-          this.e({an: "object"});
+          e({an: "object"});
         });
 
         it("does not remove the dialog", function() {
-          expect(this.removed).not.to.have.been.called;
+          expect(removed).not.to.have.been.called;
         });
       });
 
       describe("when triggered with the correct target", function() {
         beforeEach(function() {
-          this.e(this.dialog.get(0));
+          e(dialog.get(0));
         });
 
         it("removes the dialog", function() {
-          expect(this.removed).to.have.been.called;
+          expect(removed).to.have.been.called;
         });
       });
     });
   });
 
   describe("If $.fn.modal is undefined", function() {
+    var oldModal;
+
     beforeEach(function() {
-      this.oldModal = window.jQuery.fn.modal;
+      oldModal = window.jQuery.fn.modal;
       window.jQuery.fn.modal = undefined;
     });
 
     afterEach(function() {
-      window.jQuery.fn.modal = this.oldModal;
+      window.jQuery.fn.modal = oldModal;
     });
 
     describe("When invoking a dialog", function() {
-      beforeEach(function() {
-        try {
-          bootprompt.alert("Hi", function() {});
-        } catch (e) {
-          this.e = e;
-        }
-      });
-
       it("throws the correct error", function() {
-        expect(this.e.message).to.contain('$.fn.modal" is not defined');
+        expect(function () {
+          bootprompt.alert("Hi", function() {});
+        }).to.throw(Error, '$.fn.modal" is not defined');
       });
     });
   });
@@ -102,22 +101,18 @@ describe("Bootprompt", function() {
 
     describe("bootprompt.addLocale", function() {
       describe("with invalid values", function() {
-        beforeEach(function() {
-          try {
+        it("throws the expected error", function() {
+          expect(function () {
             bootprompt.addLocale("xy", {
               OK: "BTN1"
             });
-          } catch (e) {
-            this.e = e;
-          }
-        });
-
-        it("throws the expected error", function() {
-          expect(this.e.message).to.equal('Please supply a translation for "CANCEL"');
+          }).to.throw(Error, 'Please supply a translation for "CANCEL"');
         });
       });
 
       describe("with valid values", function() {
+        var labels;
+
         beforeEach(function() {
           bootprompt
           .addLocale("xy", {
@@ -129,7 +124,7 @@ describe("Bootprompt", function() {
 
           var d1 = bootprompt.alert("foo");
           var d2 = bootprompt.confirm("foo", function() { return true; });
-          this.labels = {
+          labels = {
             ok: d1.find(".btn:first").text(),
             cancel: d2.find(".btn:first").text(),
             confirm: d2.find(".btn:last").text()
@@ -137,24 +132,26 @@ describe("Bootprompt", function() {
         });
 
         it("shows the expected OK translation", function() {
-          expect(this.labels.ok).to.equal("BTN1");
+          expect(labels.ok).to.equal("BTN1");
         });
         it("shows the expected CANCEL translation", function() {
-          expect(this.labels.cancel).to.equal("BTN2");
+          expect(labels.cancel).to.equal("BTN2");
         });
         it("shows the expected PROMPT translation", function() {
-          expect(this.labels.confirm).to.equal("BTN3");
+          expect(labels.confirm).to.equal("BTN3");
         });
       });
     });
 
     describe("bootprompt.removeLocale", function () {
+      var labels;
+
       beforeEach(function () {
         bootprompt.removeLocale("xy");
 
         var d1 = bootprompt.alert("foo");
         var d2 = bootprompt.confirm("foo", function () { return true; });
-        this.labels = {
+        labels = {
           ok: d1.find(".btn:first").text(),
           cancel: d2.find(".btn:first").text(),
           confirm: d2.find(".btn:last").text()
@@ -162,49 +159,51 @@ describe("Bootprompt", function() {
       });
 
       it("falls back to the default OK translation", function () {
-        expect(this.labels.ok).to.equal("OK");
+        expect(labels.ok).to.equal("OK");
       });
       it("falls back to the default CANCEL translation", function () {
-        expect(this.labels.cancel).to.equal("Cancel");
+        expect(labels.cancel).to.equal("Cancel");
       });
       it("falls back to the default PROMPT translation", function () {
-        expect(this.labels.confirm).to.equal("OK");
+        expect(labels.confirm).to.equal("OK");
       });
     });
   });
 
   describe("backdrop variations", function() {
-    beforeEach(function() {
-      this.e = function(target) {
-        $(this.dialog).trigger($.Event("click.dismiss.bs.modal", {
-          target: target
-        }));
-      };
-    });
+    function e(target) {
+      $(dialog).trigger($.Event("click.dismiss.bs.modal", {
+        target: target
+      }));
+    }
 
     describe("with the default value", function() {
+      var callback;
+
       beforeEach(function() {
-        this.callback = sinon.spy();
-        this.dialog = bootprompt.alert("hi", this.callback);
+        callback = sinon.spy();
+        dialog = bootprompt.alert("hi", callback);
       });
 
       describe("When triggering the backdrop click dismiss event", function() {
         beforeEach(function() {
-          this.e({an: "object"});
+          e({an: "object"});
         });
 
         it("does not invoke the callback", function() {
-          expect(this.callback).not.to.have.been.called;
+          expect(callback).not.to.have.been.called;
         });
       });
     });
 
     describe("when set to false", function() {
+      var callback;
+
       beforeEach(function() {
-        this.callback = sinon.spy();
-        this.dialog = bootprompt.alert({
+        callback = sinon.spy();
+        dialog = bootprompt.alert({
           message: "hi",
-          callback: this.callback,
+          callback: callback,
           backdrop: false
         });
       });
@@ -212,36 +211,38 @@ describe("Bootprompt", function() {
       describe("When triggering the backdrop click dismiss event", function() {
         describe("With the wrong target", function() {
           beforeEach(function() {
-            this.e({an: "object"});
+            e({an: "object"});
           });
 
           it("does not invoke the callback", function() {
-            expect(this.callback).not.to.have.been.called;
+            expect(callback).not.to.have.been.called;
           });
         });
 
         describe("With the correct target", function() {
           beforeEach(function() {
-            this.e(this.dialog.get(0));
+            e(dialog.get(0));
           });
 
           it("invokes the callback", function() {
-            expect(this.callback).to.have.been.called;
+            expect(callback).to.have.been.called;
           });
 
           it('should pass the dialog as "this"', function() {
-            expect(this.callback.thisValues[0]).to.equal(this.dialog);
+            expect(callback.thisValues[0]).to.equal(dialog);
           });
         });
       });
     });
 
     describe("when set to true", function() {
+      var callback;
+
       beforeEach(function() {
-        this.callback = sinon.spy();
-        this.dialog = bootprompt.alert({
+        callback = sinon.spy();
+        dialog = bootprompt.alert({
           message: "hi",
-          callback: this.callback,
+          callback: callback,
           backdrop: true
         });
       });
@@ -249,25 +250,25 @@ describe("Bootprompt", function() {
       describe("When triggering the backdrop click dismiss event", function() {
         describe("With the wrong target", function() {
           beforeEach(function() {
-            this.e({an: "object"});
+            e({an: "object"});
           });
 
           it("does not invoke the callback", function() {
-            expect(this.callback).not.to.have.been.called;
+            expect(callback).not.to.have.been.called;
           });
         });
 
         describe("With the correct target", function() {
           beforeEach(function() {
-            this.e(this.dialog.children(".modal-backdrop").get(0));
+            e(dialog.children(".modal-backdrop").get(0));
           });
 
           it("invokes the callback", function() {
-            expect(this.callback).to.have.been.called;
+            expect(callback).to.have.been.called;
           });
 
           it('should pass the dialog as "this"', function() {
-            expect(this.callback.thisValues[0]).to.equal(this.dialog);
+            expect(callback.thisValues[0]).to.equal(dialog);
           });
         });
       });
