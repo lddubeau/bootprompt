@@ -325,7 +325,7 @@
     });
 
     dialog.one('shown.bs.modal', function (e) {
-      dialog.find('.bootprompt-accept:first').trigger('focus');
+      dialog.find('.btn-primary:first').trigger('focus');
     });
 
     // Bootprompt event listeners; used to decouple some
