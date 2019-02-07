@@ -17,8 +17,8 @@ describe("bootprompt.alert", function() {
         bootprompt.alert();
       }
 
-      it("throws an error regarding argument length", function() {
-        expect(create).to.throw(/argument length/);
+      it("throws an error", function() {
+        expect(create).to.throw();
       });
     });
 
@@ -88,17 +88,6 @@ describe("bootprompt.alert", function() {
         });
       });
     });
-
-    describe("with three arguments", function() {
-      function create() {
-        bootprompt.alert(1, 2, 3);
-      }
-
-      it("throws an error regarding argument length", function() {
-        expect(create).to.throw(/argument length/);
-      });
-    });
-
   });
 
   describe("configuration options tests", function() {

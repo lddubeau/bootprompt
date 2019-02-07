@@ -6,7 +6,18 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "karma start --single-run"
+    "tsc": "tsc -p src/tsconfig.json --outDir build/js",
+    "rollup": "rollup -c rollup.config.js",
+    "copy": "cp -p build/js/*.d.ts package.json README.md LICENSE.md build/dist",
+    "build": "npm run tsc && npm run rollup && npm run copy",
+    "lint": "tslint --format verbose -p src/tsconfig.json",
+    "test": "karma start --single-run",
+    "posttest": "npm run lint",
+    "build-and-test": "npm run build && npm run test",
+    "self:publish": "cd build/dist && npm publish",
+    "self:pack": "cd build/dist && npm pack && mv *.tgz ..",
+    "postversion": "npm run build-and-test && npm run self-publish",
+    "postpublish": "git push origin --follow-tags"
   },
   "repository": {
     "type": "git",
@@ -18,10 +29,13 @@
     "Nick Payne <nick@kurai.co.uk>"
   ],
   "license": "MIT",
-  "main": "src/bootprompt.js",
+  "main": "bootprompt.js",
   "devDependencies": {
+    "@types/bootstrap": "^4.2.1",
+    "@types/jquery": "^3.3.29",
     "chai": "^4.2.0",
     "core-js": "^2.6.3",
+    "deepcopy": "^1.0.1",
     "eslint": "^5.13.0",
     "eslint-config-lddubeau-base": "^3.0.1",
     "karma": "^4.0.0",
@@ -33,8 +47,15 @@
     "karma-junit-reporter": "^1.2.0",
     "karma-mocha": "^1.3.0",
     "mocha": "^5.2.0",
+    "popper.js": "^1.14.7",
+    "rollup": "^1.1.2",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-terser": "^4.0.4",
     "semver": "^5.6.0",
     "sinon": "^7.2.3",
-    "sinon-chai": "^3.3.0"
+    "sinon-chai": "^3.3.0",
+    "tslint": "^5.12.1",
+    "tslint-config-lddubeau": "^2.1.0",
+    "typescript": "^3.3.3"
   }
 }

@@ -1,7 +1,4 @@
 describe("Bootprompt", function() {
-
-  "use strict";
-
   it("is attached to the window object", function() {
     expect(window.bootprompt).to.be.an("object");
   });
@@ -76,27 +73,6 @@ describe("Bootprompt", function() {
     });
   });
 
-  describe("If $.fn.modal is undefined", function() {
-    var oldModal;
-
-    beforeEach(function() {
-      oldModal = window.jQuery.fn.modal;
-      window.jQuery.fn.modal = undefined;
-    });
-
-    afterEach(function() {
-      window.jQuery.fn.modal = oldModal;
-    });
-
-    describe("When invoking a dialog", function() {
-      it("throws the correct error", function() {
-        expect(function () {
-          bootprompt.alert("Hi", function() {});
-        }).to.throw(Error, '$.fn.modal" is not defined');
-      });
-    });
-  });
-
   describe("adding and removing locales", function() {
 
     describe("bootprompt.addLocale", function() {
@@ -119,8 +95,8 @@ describe("Bootprompt", function() {
             OK: "BTN1",
             CANCEL: "BTN2",
             CONFIRM: "BTN3"
-          })
-          .setLocale("xy");
+          });
+          bootprompt.setLocale("xy");
 
           var d1 = bootprompt.alert("foo");
           var d2 = bootprompt.confirm("foo", function() { return true; });

@@ -13,8 +13,33 @@ describe("bootprompt.prompt", function () {
     return find(selector).length !== 0;
   }
 
-  beforeEach(function () {
-    window.bootprompt = bootprompt.init();
+  before(function (done) {
+    //
+    // What we are doing here is essentially resetting bootprompt.
+    //
+
+    // Look for the path to bootprompt.
+    var files = Object.keys(__karma__.files);
+    var src;
+    for (var i = 0; i < files.length; ++i) {
+      var candidate = files[i];
+      if (/\/bootprompt\..*\.js$/.test(candidate)) {
+        src = candidate;
+        break;
+      }
+    }
+
+    if (src === undefined) {
+      throw new Error("couldn't find the path to bootprompt!");
+    }
+
+    // Reload it. We don't need to load the locales here.
+    var script = document.createElement("script");
+    script.addEventListener("load", function () {
+      done();
+    });
+    script.src = src;
+    document.body.appendChild(script);
   });
 
   // basic tests
@@ -271,13 +296,13 @@ describe("bootprompt.prompt", function () {
     });
 
     // invalif prompt type
-    describe("invalid prompt type", function () {
+    describe("unknown input type", function () {
       beforeEach(function () {
         options.inputType = 'foobar';
       });
 
       it("throws an error", function () {
-        expect(create).to.throw("Invalid prompt type");
+        expect(create).to.throw("Unknown input type: foobar");
       });
     });
 

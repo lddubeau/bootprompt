@@ -73,9 +73,10 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
       "node_modules/sinon-chai/lib/sinon-chai.js",
       jQueryURL,
       bootstrapURL,
-      "src/bootprompt.js",
-      "src/bootprompt.locales.js",
+      "build/dist/bootprompt.min.js",
+      "build/dist/bootprompt.locales.min.js",
       "tests/**/*.test.js",
+      { pattern: "build/dist/**/*.map", included: false },
     ],
     client: {
       mocha: {

@@ -158,7 +158,7 @@ describe("bootprompt locales", function() {
 
   describe("Portuguese", function() {
     beforeEach(function() {
-      setLocale("br");
+      setLocale("pt-br");
     });
 
     it("shows the correct OK translation", function() {
