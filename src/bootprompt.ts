@@ -9,7 +9,11 @@ import "bootstrap";
 // tslint:disable-next-line:import-name match-default-export-name
 import $ from "jquery";
 
-export const VERSION = "5.0.0-alpha.1";
+// We use this to keep versync happy.
+const version = "5.0.0-alpha.1";
+
+// But export this.
+export const VERSION = version;
 
 export type LocaleField = "OK" | "CANCEL" | "CONFIRM";
 export type LocaleSpec = Record<LocaleField, string>;

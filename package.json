@@ -16,9 +16,11 @@
     "build-and-test": "npm run build && npm run test",
     "self:publish": "cd build/dist && npm publish",
     "self:pack": "cd build/dist && npm pack && mv *.tgz ..",
+    "version": "versync -b sync -a",
     "postversion": "npm run build-and-test && npm run self-publish",
     "postpublish": "git push origin --follow-tags"
   },
+  "versionedSources": "src/bootprompt.ts",
   "repository": {
     "type": "git",
     "url": "git://github.com/lddubeau/bootprompt.git"
@@ -56,6 +58,7 @@
     "sinon-chai": "^3.3.0",
     "tslint": "^5.12.1",
     "tslint-config-lddubeau": "^2.1.0",
-    "typescript": "^3.3.3"
+    "typescript": "^3.3.3",
+    "versync": "^4.1.0"
   }
 }
