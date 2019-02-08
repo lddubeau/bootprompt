@@ -166,6 +166,13 @@ export type PromptOptions = TextPromptOptions | SelectPromptOptions |
   NumericPromptOptions | TimePromptOptions | DatePromptOptions |
   EtcPromptOptions;
 
+// On platforms that support Object.assign, use it.
+// tslint:disable:no-any
+const assign = (Object as any).assign !== undefined ?
+  ((a: {}, b: {}) => (Object as any).assign(a, b)) :
+  ((a: any, b: any) => $.extend(a, b));
+// tslint:enable:no-any
+
 const templates = {
   dialog: `\
 <div class="bootprompt modal" tabindex="-1" role="dialog" aria-hidden="true">\
@@ -302,7 +309,7 @@ export function setDefaults(name: string | Record<string, unknown>,
     defaults[name as string] = value;
   } else {
     // ... and as an object too
-    Object.assign(defaults, name);
+    assign(defaults, name);
   }
 }
 
@@ -1031,7 +1038,7 @@ function makeButtons(labels: string[], locale: string): Buttons {
     const value = label.toUpperCase();
 
     // tslint:disable-next-line:no-any
-    if (!LOCALE_FIELDS.includes(value as any)) {
+    if (LOCALE_FIELDS.indexOf(value as any) === -1) {
       throw new Error(`${value} is not a valid locale field`);
     }
 
@@ -1115,7 +1122,7 @@ function mergeDialogOptions<T extends SpecializedOptions>(
   // that for very small arrays, there's no benefit to creating a table for
   // lookup.
   for (const key in merged.buttons) {
-    if (!orderedLabels.includes(key)) {
+    if (orderedLabels.indexOf(key) === -1) {
       throw new Error(`button key "${key}" is not allowed (options are \
 ${orderedLabels.join(" ")})`);
     }
