@@ -18,7 +18,8 @@
     "self:pack": "cd build/dist && npm pack && mv *.tgz ..",
     "version": "versync -b sync -a",
     "postversion": "npm run build-and-test && npm run self:publish",
-    "postpublish": "git push origin --follow-tags"
+    "postpublish": "git push origin --follow-tags",
+    "clean": "rm -rf build"
   },
   "versionedSources": "src/bootprompt.ts",
   "repository": {
