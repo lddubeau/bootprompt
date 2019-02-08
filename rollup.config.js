@@ -22,6 +22,14 @@ function alsoMinified(input) {
   return ret;
 }
 
+function onwarn(warning, warn) {
+  // This warning is not useful. Yes, this is undefined. It's always been
+  // undefined.
+  if (warning.code === "THIS_IS_UNDEFINED") return;
+
+  warn(warning);
+}
+
 export default alsoMinified([{
   input: "build/js/bootprompt.js",
   output: {
@@ -34,9 +42,11 @@ export default alsoMinified([{
       bootstrap: "",
     },
   },
+  external: ["jquery", "bootstrap"],
   plugins: [
     sourceMaps(),
   ],
+  onwarn,
 }, {
   input: "build/js/locales/*.js",
   output: {
@@ -55,6 +65,7 @@ export default alsoMinified([{
     sourceMaps(),
     multiEntry(),
   ],
+  onwarn,
 }, ...fs.readdirSync("build/js/locales").filter(x => /.js$/.test(x)).map(x => ({
   input: `build/js/locales/${x}`,
   output: {
@@ -74,4 +85,5 @@ export default alsoMinified([{
   plugins: [
     sourceMaps(),
   ],
+  onwarn,
 }))]);
