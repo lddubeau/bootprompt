@@ -4,6 +4,9 @@ import fs from "fs";
 import path from "path";
 import deepcopy from "deepcopy";
 import { terser } from "rollup-plugin-terser";
+import multiEntry from "rollup-plugin-multi-entry";
+
+const resolvedBootprompt = path.resolve(__dirname, "./build/js/bootprompt");
 
 function alsoMinified(input) {
   const bundles = Array.isArray(input) ? input : [input];
@@ -35,15 +38,22 @@ export default alsoMinified([{
     sourceMaps(),
   ],
 }, {
-  input: "build/js/bootprompt.locales.js",
+  input: "build/js/locales/*.js",
   output: {
     file: "build/dist/bootprompt.locales.js",
     format: "umd",
     sourcemap: true,
+    paths: {
+      [resolvedBootprompt]: "./bootprompt",
+    },
+    globals: {
+      [resolvedBootprompt]: "bootprompt",
+    },
   },
   external: ["../bootprompt"],
   plugins: [
     sourceMaps(),
+    multiEntry(),
   ],
 }, ...fs.readdirSync("build/js/locales").filter(x => /.js$/.test(x)).map(x => ({
   input: `build/js/locales/${x}`,
@@ -54,10 +64,10 @@ export default alsoMinified([{
     // Somehow the path for loading bootprompt is messed up if this paths entry
     // is not used.
     paths: {
-      [path.resolve(__dirname, "./build/js/bootprompt")]: "../bootprompt",
+      [resolvedBootprompt]: "../bootprompt",
     },
     globals: {
-      [path.resolve(__dirname, "./build/js/bootprompt")]: "bootprompt",
+      [resolvedBootprompt]: "bootprompt",
     },
   },
   external: ["../bootprompt"],
