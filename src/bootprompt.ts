@@ -30,7 +30,7 @@ export type StringOrDocumentContent =
   string | Element | DocumentFragment | Text | JQuery;
 
 export type GeneralCallback =
-  (this: JQuery, event: JQuery.TriggeredEvent) => boolean | undefined;
+  (this: JQuery, event: JQuery.TriggeredEvent) => boolean | void;
 
 export interface Button {
   label?: string;
@@ -67,7 +67,7 @@ export interface ConfirmCancelButtons extends Buttons {
 export interface CommonOptions<T extends any[]> {
   message?: StringOrDocumentContent;
   title?: StringOrDocumentContent;
-  callback?(...args: T): boolean | undefined;
+  callback?(...args: T): boolean | void;
   onEscape?: boolean | GeneralCallback;
   show?: boolean;
   backdrop?: boolean | "static";
@@ -93,7 +93,7 @@ interface SanitizedDialogOptions extends DialogOptions {
 }
 
 export interface AlertOptions extends CommonOptions<[]> {
-  callback?(): boolean | undefined;
+  callback?(): boolean | void;
   buttons?: OkButton;
 }
 
@@ -104,7 +104,7 @@ export interface ConfirmOptions extends CommonOptions<[boolean]> {
 
 export interface PromptCommonOptions extends CommonOptions<[string]> {
   title: StringOrDocumentContent;
-  callback?(result: string | string[] | null): boolean | undefined;
+  callback?(result: string | string[] | null): boolean | void;
   value?: string | number | string[];
   buttons?: ConfirmCancelButtons;
   pattern?: string;
@@ -583,7 +583,7 @@ provided");
   // single user-supplied one (if provided)
   // tslint:disable-next-line:no-non-null-assertion
   (finalOptions.buttons.ok as Button).callback = finalOptions.onEscape =
-    function (): boolean | undefined {
+    function (): boolean | void {
       // tslint:disable-next-line:no-invalid-this
       return $.isFunction(finalCallback) ? finalCallback.call(this) : true;
     };
@@ -614,13 +614,13 @@ export function confirm(messageOrOptions: string | ConfirmOptions,
   // overrides; undo anything the user tried to set they shouldn't have
   // tslint:disable-next-line:no-non-null-assertion
   (buttons.cancel as Button).callback = finalOptions.onEscape =
-    function (): boolean | undefined {
+    function (): boolean | void {
       // tslint:disable-next-line:no-invalid-this
       return finalCallback.call(this, false);
     };
 
   // tslint:disable-next-line:no-non-null-assertion
-  (buttons.confirm as Button).callback = function (): boolean | undefined {
+  (buttons.confirm as Button).callback = function (): boolean | void {
     // tslint:disable-next-line:no-invalid-this
     return finalCallback.call(this, true);
   };
@@ -918,7 +918,7 @@ export function prompt(messageOrOptions: string | PromptOptions,
 
   // Handles the 'cancel' action
   (buttons.cancel as Button).callback = finalOptions.onEscape =
-    function (): boolean | undefined {
+    function (): boolean | void {
       // tslint:disable-next-line:no-invalid-this
       return finalCallback.call(this, null);
     };
@@ -926,7 +926,7 @@ export function prompt(messageOrOptions: string | PromptOptions,
   // Prompt submitted - extract the prompt value. This requires a bit of work,
   // given the different input types available.
   // tslint:disable-next-line:no-non-null-assertion
-  (buttons.confirm as Button).callback = function (): boolean | undefined {
+  (buttons.confirm as Button).callback = function (): boolean | void {
     let value: string | string[];
 
     switch (finalOptions.inputType) {
@@ -1197,7 +1197,7 @@ function processCallback(e: JQuery.TriggeredEvent,
                          forDialog: JQuery,
                          callback:
                          ((this: JQuery,
-                           e: JQuery.TriggeredEvent) => boolean | undefined) |
+                           e: JQuery.TriggeredEvent) => boolean | void) |
                          boolean | undefined):
 void {
   e.stopPropagation();
