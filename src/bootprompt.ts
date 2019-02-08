@@ -38,10 +38,9 @@ export interface Button {
   callback?: GeneralCallback;
 }
 
-interface SanitizedButton {
+interface SanitizedButton extends Button {
   label: string;
   className: string;
-  callback?: GeneralCallback;
 }
 
 export type ButtonSpec = Button | GeneralCallback;
@@ -89,11 +88,10 @@ export interface DialogOptions extends CommonOptions<any[]>{
 
 interface SanitizedDialogOptions extends DialogOptions {
   container: string | Element | JQuery;
-  buttons?: SanitizedButtons;
+  buttons: SanitizedButtons;
 }
 
 export interface AlertOptions extends CommonOptions<[]> {
-  callback?(): boolean | void;
   buttons?: OkButton;
 }
 
@@ -102,22 +100,24 @@ export interface ConfirmOptions extends CommonOptions<[boolean]> {
   buttons?: ConfirmCancelButtons;
 }
 
-export interface PromptCommonOptions extends CommonOptions<[string]> {
+// tslint:disable-next-line:no-any
+export interface PromptCommonOptions<T extends any[]> extends CommonOptions<T> {
   title: StringOrDocumentContent;
-  callback?(result: string | string[] | null): boolean | void;
   value?: string | number | string[];
   buttons?: ConfirmCancelButtons;
   pattern?: string;
 }
 
-export interface TextPromptOptions extends PromptCommonOptions {
+export interface TextPromptOptions extends
+PromptCommonOptions<[string | null]> {
   inputType: "text" | "password" | "textarea" | "email";
   maxlength?: number;
   placeholder?: string;
   required?: boolean;
 }
 
-export interface NumericPromptOptions extends PromptCommonOptions {
+export interface NumericPromptOptions extends
+PromptCommonOptions<[string | null]> {
   inputType: "number" | "range";
   placeholder?: string;
   min?: string | number;
@@ -126,7 +126,8 @@ export interface NumericPromptOptions extends PromptCommonOptions {
   required?: boolean;
 }
 
-export interface TimePromptOptions extends PromptCommonOptions {
+export interface TimePromptOptions
+extends PromptCommonOptions<[string | null]> {
   inputType: "time";
   placeholder?: string;
   min?: string;
@@ -135,7 +136,8 @@ export interface TimePromptOptions extends PromptCommonOptions {
   required?: boolean;
 }
 
-export interface DatePromptOptions extends PromptCommonOptions {
+export interface DatePromptOptions
+extends PromptCommonOptions<[string | null]> {
   inputType: "date";
   placeholder?: string;
   min?: string;
@@ -149,7 +151,8 @@ export interface InputOption {
   group?: string;
 }
 
-export interface SelectPromptOptions extends PromptCommonOptions {
+export interface SelectPromptOptions
+extends PromptCommonOptions<[string | string[] | null]> {
   inputType: "select";
   placeholder?: string;
   inputOptions: InputOption[];
@@ -157,14 +160,21 @@ export interface SelectPromptOptions extends PromptCommonOptions {
   multiple?: boolean;
 }
 
-export interface EtcPromptOptions extends PromptCommonOptions {
-  inputType: "checkbox" | "radio";
+export interface CheckboxPromptOptions
+extends PromptCommonOptions<[string | string[] | null]> {
+  inputType: "checkbox";
+  inputOptions: InputOption[];
+}
+
+export interface RadioPromptOptions
+extends PromptCommonOptions<[string | null]> {
+  inputType: "radio";
   inputOptions: InputOption[];
 }
 
 export type PromptOptions = TextPromptOptions | SelectPromptOptions |
   NumericPromptOptions | TimePromptOptions | DatePromptOptions |
-  EtcPromptOptions;
+  CheckboxPromptOptions | RadioPromptOptions;
 
 // On platforms that support Object.assign, use it.
 // tslint:disable:no-any
@@ -767,7 +777,7 @@ value");
   input.val(options.value !== undefined ? options.value : firstValue);
 }
 
-function setupCheckbox(input: JQuery, options: EtcPromptOptions,
+function setupCheckbox(input: JQuery, options: CheckboxPromptOptions,
                        inputTemplate: string): void {
   const checkboxValues =
     Array.isArray(options.value) ? options.value : [options.value];
@@ -796,7 +806,7 @@ function setupCheckbox(input: JQuery, options: EtcPromptOptions,
   }
 }
 
-function setupRadio(input: JQuery, options: EtcPromptOptions,
+function setupRadio(input: JQuery, options: RadioPromptOptions,
                     inputTemplate: string): void {
   // Make sure that value is not an array (only a single radio can ever be
   // checked)
