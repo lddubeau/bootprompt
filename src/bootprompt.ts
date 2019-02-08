@@ -363,13 +363,12 @@ export function dialog(options: DialogOptions): JQuery {
   const innerDialog = $dialog.find(".modal-dialog");
   const body = $dialog.find(".modal-body");
   const footer = $(templates.footer);
-  const buttons = finalOptions.buttons;
 
   const callbacks: Record<string, GeneralCallback | boolean | undefined> = {
     onEscape: finalOptions.onEscape,
   };
 
-  const { backdrop, className, closeButton, message, size,
+  const { buttons, backdrop, className, closeButton, message, size,
           title } = finalOptions;
   if (typeof message === "string") {
     body.find(".bootprompt-body").html(message);
@@ -405,8 +404,8 @@ export function dialog(options: DialogOptions): JQuery {
     callbacks[key] = b.callback;
   }
 
-  // Only attempt to create buttons if at least one has
-  // been defined in the options object
+  // Only attempt to create buttons if at least one has been defined in the
+  // options object.
   if (hadButtons) {
     body.after(footer);
   }
