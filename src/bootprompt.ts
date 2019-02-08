@@ -10,7 +10,7 @@ import "bootstrap";
 import $ from "jquery";
 
 // We use this to keep versync happy.
-const version = "5.0.0-alpha.2";
+const version = "5.0.0-alpha.3";
 
 // But export this.
 export const VERSION = version;
