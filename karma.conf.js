@@ -1,20 +1,9 @@
 /* eslint-env node */
 
-"use strict";
-
 const path = require("path");
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const semver = require("semver");
-
-// Minimal localConfig if there is not one locally.
-let localConfig = {
-  browserStack: {},
-};
-try {
-  // eslint-disable-next-line import/no-unresolved, global-require
-  localConfig = require("./localConfig");
-}
-catch (ex) {} // eslint-disable-line no-empty
 
 function coreJS(files) {
   files.unshift({
@@ -186,6 +175,31 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
       outputDir: "tests/reports",
     },
   };
+
+  let localConfig = {
+    browserStack: {},
+  };
+
+  if (process.env.CONTINUOUS_INTEGRATION) {
+    // Running on Travis. Grab the configuration from Travis.
+    localConfig.browserStack = {
+      // Travis provides the tunnel.
+      startTunnel: false,
+      tunnelIdentifier: process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
+      // Travis adds "-travis" to the name, which mucks things up.
+      username: process.env.BROWSERSTACK_USER.replace("-travis", ""),
+      accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
+    };
+  }
+  else {
+    // Running outside Travis: we get our configuration from ./local-config, if
+    // it exists.
+    try {
+      // eslint-disable-next-line import/no-unresolved, global-require
+      localConfig = require("./localConfig");
+    }
+    catch (ex) {} // eslint-disable-line no-empty
+  }
 
   // Bring in the options from the localConfig file.
   Object.assign(options.browserStack, localConfig.browserStack);
