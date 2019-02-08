@@ -38,6 +38,14 @@ Bootprompt supports the same range of browsers as Bootstrap 4. Note that
 Bootstrap 4 dropped support from some old browsers that Bootstrap 3
 supported. For instance, IE 9.
 
+#### Browser Testing
+
+[![Browser Stack](https://www.browserstack.com/images/mail/browserstack-logo-footer.png)](https://www.browserstack.com)
+
+Bootprompt is tested on various browsers using
+[BrowserStack](https://www.browserstack.com). BrowserStack provides this service
+for free under their program for supporting open-source software.
+
 ## License
 
 (The MIT License)
