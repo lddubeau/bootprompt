@@ -13,7 +13,7 @@
     "lint": "tslint --format verbose -p src/tsconfig.json",
     "test": "karma start --single-run",
     "posttest": "npm run lint",
-    "build-and-test": "npm run build && npm run test",
+    "build-and-test": "npm run build && npm test --",
     "self:publish": "cd build/dist && npm publish",
     "self:pack": "cd build/dist && npm pack && mv *.tgz ..",
     "version": "versync -b sync -a",
