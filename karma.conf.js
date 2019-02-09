@@ -166,9 +166,6 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
       // testing. They do support it with Selenium/Appium but we're not using
       // that.
     },
-    // Limit concurrency to 5 browsers at a time, which is the maximum that
-    // browserstack allows.
-    concurrency: 5,
     captureTimeout: 60000,
     coverageReporter: {
       type: "html",
