@@ -97,6 +97,9 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
         browser: "Firefox",
         os: "Windows",
         os_version: "10",
+        // Right now, letting this field empty or setting it to "65" does not
+        // work.
+        browser_version: "64",
       },
       OperaWin: {
         base: "BrowserStack",
