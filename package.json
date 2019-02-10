@@ -37,7 +37,7 @@
     "@types/bootstrap": "^4.2.1",
     "@types/jquery": "^3.3.29",
     "chai": "^4.2.0",
-    "core-js": "^2.6.3",
+    "core-js": "^2.6.4",
     "deepcopy": "^1.0.1",
     "eslint": "^5.13.0",
     "eslint-config-lddubeau-base": "^3.0.1",
