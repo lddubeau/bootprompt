@@ -41,6 +41,9 @@ module.exports = (config) => {
         `${cdn}/bootstrap${bootstrapSpecifier}/dist/js/bootstrap.\
 ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
 "bundle." : ""}js`;
+  const bootstrapCSS =
+        `${cdn}/bootstrap${bootstrapSpecifier}/dist/css/bootstrap.css`;
+
 
   // eslint-disable-next-line no-console
   console.log(`Using Bootstrap ${useBootstrap || "latest"}`);
@@ -60,6 +63,7 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
     files: [
       "node_modules/sinon/pkg/sinon.js",
       "node_modules/sinon-chai/lib/sinon-chai.js",
+      bootstrapCSS,
       jQueryURL,
       bootstrapURL,
       "build/dist/bootprompt.min.js",
