@@ -837,11 +837,9 @@ for "value".`);
     radio.find("input").attr("value", value);
     radio.find("label").append(`\n${text}`);
 
-    if (initialValue !== undefined) {
-      if (value === initialValue) {
-        radio.find("input").prop("checked", true);
-        checkFirstRadio = false;
-      }
+    if (initialValue !== undefined && value === initialValue) {
+      radio.find("input").prop("checked", true);
+      checkFirstRadio = false;
     }
 
     input.append(radio);
