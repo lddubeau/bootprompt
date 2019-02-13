@@ -359,10 +359,11 @@ if (bootstrapVersion < 3) {
 export function dialog(options: DialogOptions): JQuery {
   const finalOptions = sanitize(options);
 
-  const $dialog = $(templates.dialog);
-  const innerDialog = $dialog.find(".modal-dialog");
-  const body = $dialog.find(".modal-body");
-  const footer = $(templates.footer);
+  const $modal = $(templates.dialog);
+  const modal = $modal[0];
+  const innerDialog = modal.getElementsByClassName("modal-dialog")[0];
+  const body = modal.getElementsByClassName("modal-body")[0] as HTMLElement;
+  const footer = $(templates.footer)[0];
 
   const callbacks: Record<string, GeneralCallback | boolean | undefined> = {
     onEscape: finalOptions.onEscape,
@@ -370,11 +371,16 @@ export function dialog(options: DialogOptions): JQuery {
 
   const { buttons, backdrop, className, closeButton, message, size,
           title } = finalOptions;
+  // tslint:disable-next-line:no-non-null-assertion
+  const bpBody = body.getElementsByClassName("bootprompt-body")[0];
   if (typeof message === "string") {
-    body.find(".bootprompt-body").html(message);
+    // tslint:disable-next-line:no-inner-html
+    bpBody.innerHTML = message;
   }
   else {
-    body.find(".bootprompt-body").empty().append(message);
+    // tslint:disable-next-line:no-inner-html
+    bpBody.innerHTML = "";
+    $(bpBody).append(message);
   }
 
   let hadButtons = false;
@@ -382,24 +388,29 @@ export function dialog(options: DialogOptions): JQuery {
   for (const key in buttons) {
     hadButtons = true;
     const b = buttons[key];
-    const button = $(templates.button);
-    button.data("bb-handler", key);
-    button.addClass(b.className);
+    const $button = $(templates.button);
+    const button = $button[0];
+    $button.data("bb-handler", key);
+    // On IE10/11 it is not possible to just do x.classList.add(a, b, c).
+    for (const cl of b.className.split(" ")) {
+      button.classList.add(cl);
+    }
 
     switch (key) {
       case "ok":
       case "confirm":
-        button.addClass("bootprompt-accept");
+        button.classList.add("bootprompt-accept");
         break;
 
       case "cancel":
-        button.addClass("bootprompt-cancel");
+        button.classList.add("bootprompt-cancel");
         break;
       default:
     }
 
-    button.html(b.label);
-    footer.append(button);
+    // tslint:disable-next-line:no-inner-html
+    button.innerHTML = b.label;
+    footer.appendChild(button);
 
     callbacks[key] = b.callback;
   }
@@ -407,15 +418,19 @@ export function dialog(options: DialogOptions): JQuery {
   // Only attempt to create buttons if at least one has been defined in the
   // options object.
   if (hadButtons) {
-    body.after(footer);
+    // tslint:disable-next-line:no-non-null-assertion
+    body.parentNode!.insertBefore(footer, body.nextSibling);
   }
 
   if (finalOptions.animate === true) {
-    $dialog.addClass("fade");
+    modal.classList.add("fade");
   }
 
   if (className !== undefined) {
-    $dialog.addClass(className);
+    // On IE10/11 it is not possible to just do x.classList.add(a, b, c).
+    for (const cl of className.split(" ")) {
+      modal.classList.add(cl);
+    }
   }
 
   if (size !== undefined) {
@@ -425,36 +440,45 @@ export function dialog(options: DialogOptions): JQuery {
 to be using ${fullBootstrapVersion}. Please upgrade to use this option.`);
     }
 
-    if (size === "large") {
-      innerDialog.addClass("modal-lg");
-    } else if (size === "small") {
-      innerDialog.addClass("modal-sm");
+    switch (size) {
+      case "large":
+        innerDialog.classList.add("modal-lg");
+        break;
+      case "small":
+        innerDialog.classList.add("modal-sm");
+        break;
+      default:
     }
   }
 
   if (title !== undefined) {
-    body.before(templates.header);
+    // tslint:disable-next-line:no-non-null-assertion
+    body.parentNode!.insertBefore($(templates.header)[0], body);
+    const modalTitle = modal.getElementsByClassName("modal-title")[0];
     if (typeof title === "string") {
       // tslint:disable-next-line:no-inner-html
-      $dialog.find(".modal-title").html(title);
+      modalTitle.innerHTML = title;
     }
     else {
-      $dialog.find(".modal-title").empty().append(title);
+      // tslint:disable-next-line:no-inner-html
+      modalTitle.innerHTML = "";
+      $(modalTitle).append(title);
     }
   }
 
   if (closeButton === true) {
-    const closeButtonEl = $(templates.closeButton);
+    const closeButtonEl = $(templates.closeButton)[0];
 
     if (title !== undefined) {
+      const modalHeader = modal.getElementsByClassName("modal-header")[0];
       if (bootstrapVersion > 3) {
-        $dialog.find(".modal-header").append(closeButtonEl);
+        modalHeader.appendChild(closeButtonEl);
       }
       else {
-        $dialog.find(".modal-header").prepend(closeButtonEl);
+        modalHeader.insertBefore(closeButtonEl, modalHeader.firstChild);
       }
     } else {
-      closeButtonEl.prependTo(body);
+      body.insertBefore(closeButtonEl, body.firstChild);
     }
   }
 
@@ -466,7 +490,7 @@ higher. You appear to be using ${fullBootstrapVersion}. Please upgrade to use \
 this option.`);
     }
 
-    innerDialog.addClass("modal-dialog-centered");
+    innerDialog.classList.add("modal-dialog-centered");
   }
 
   // Bootstrap event listeners; these handle extra setup & teardown required
@@ -474,26 +498,27 @@ this option.`);
 
   // make sure we unbind any listeners once the dialog has definitively been
   // dismissed
-  $dialog.one("hide.bs.modal", function (e: JQuery.TriggeredEvent): void {
+  $modal.one("hide.bs.modal", function (e: JQuery.TriggeredEvent): void {
     // tslint:disable-next-line:no-invalid-this
     if (e.target === this) {
-      $dialog.off("escape.close.bb");
-      $dialog.off("click");
+      $modal.off("escape.close.bb");
+      $modal.off("click");
     }
   });
 
-  $dialog.one("hidden.bs.modal", function (e: JQuery.TriggeredEvent): void {
+  $modal.one("hidden.bs.modal", function (e: JQuery.TriggeredEvent): void {
     // ensure we don't accidentally intercept hidden events triggered by
     // children of the current dialog. We shouldn't need to handle this anymore,
     // now that Bootstrap namespaces its events, but still worth doing.
     // tslint:disable-next-line:no-invalid-this
     if (e.target === this) {
-      $dialog.remove();
+      $modal.remove();
     }
   });
 
-  $dialog.one("shown.bs.modal", () => {
-    $dialog.find(".btn-primary:first").trigger("focus");
+  $modal.one("shown.bs.modal", () => {
+    // tslint:disable-next-line:no-non-null-assertion
+    $(modal.querySelector(".btn-primary")!).trigger("focus");
   });
 
   // Bootprompt event listeners; used to decouple some
@@ -508,69 +533,71 @@ this option.`);
     // this event (the .modal-backdrop swallows it)
     // However, we still want to sort of respect true
     // and invoke the escape mechanism instead
-    $dialog.on("click.dismiss.bs.modal",
-               function (e: JQuery.TriggeredEvent): void {
-                 // @NOTE: the target varies in >= 3.3.x releases since the
-                 // modal backdrop moved *inside* the outer dialog rather than
-                 // *alongside* it
-                 if ($dialog.children(".modal-backdrop").length !== 0) {
-                   e.currentTarget = $dialog.children(".modal-backdrop").get(0);
-                 }
+    $modal.on("click.dismiss.bs.modal",
+              function (e: JQuery.TriggeredEvent): void {
+                // @NOTE: the target varies in >= 3.3.x releases since the
+                // modal backdrop moved *inside* the outer dialog rather than
+                // *alongside* it
+                const backdrops =
+                  modal.getElementsByClassName("modal-backdrop");
 
-                 if (e.target !== e.currentTarget) {
-                   return;
-                 }
+                const target = backdrops.length !== 0 ? backdrops[0] :
+                  e.currentTarget;
 
-                 $dialog.trigger("escape.close.bb");
-               });
+                if (e.target !== target) {
+                  return;
+                }
+
+                $modal.trigger("escape.close.bb");
+              });
   }
 
-  $dialog.on("escape.close.bb", (e: JQuery.TriggeredEvent) => {
+  $modal.on("escape.close.bb", (e: JQuery.TriggeredEvent) => {
     // the if statement looks redundant but it isn't; without it
     // if we *didn't* have an onEscape handler then processCallback
     // would automatically dismiss the dialog
     if (callbacks.onEscape === true ||
         typeof callbacks.onEscape === "function") {
-      processCallback(e, $dialog, callbacks.onEscape);
+      processCallback(e, $modal, callbacks.onEscape);
     }
   });
 
-  $dialog.on("click", ".modal-footer button",
+  $modal.on("click", ".modal-footer button",
              function (e: JQuery.TriggeredEvent): void {
                // tslint:disable-next-line:no-invalid-this
                const callbackKey = $(this).data("bb-handler");
 
-               processCallback(e, $dialog, callbacks[callbackKey]);
+               processCallback(e, $modal, callbacks[callbackKey]);
              });
 
-  $dialog.on("click", ".bootprompt-close-button", (e) => {
+  $modal.on("click", ".bootprompt-close-button", (e) => {
     // onEscape might be falsy but that's fine; the fact is
     // if the user has managed to click the close button we
     // have to close the dialog, callback or not
-    processCallback(e, $dialog, callbacks.onEscape);
+    processCallback(e, $modal, callbacks.onEscape);
   });
 
-  $dialog.on("keyup", (e) => {
+  $modal.on("keyup", (e) => {
     if (e.which === 27) {
-      $dialog.trigger("escape.close.bb");
+      $modal.trigger("escape.close.bb");
     }
   });
 
   // The interface defined for $ messes up type inferrence so we have to assert
   // the type here.
-  $(finalOptions.container as JQuery).append($dialog);
+  $(finalOptions.container as JQuery).append($modal);
 
-  $dialog.modal({
+  $modal.modal({
     backdrop: (backdrop === true || backdrop === "static") ? "static" : false,
     keyboard: false,
     show: false,
   });
 
   if (finalOptions.show === true) {
-    $dialog.modal("show");
+    $modal.modal("show");
   }
 
-  return $dialog;
+  return $modal;
 }
 
 // Helper function to simulate the native alert() behavior. **NOTE**: This is
@@ -738,10 +765,10 @@ value");
   }
 
   let firstValue: string | undefined;
-  const groups: Record<string, JQuery> = Object.create(null);
+  const groups: Record<string, HTMLElement> = Object.create(null);
   for (const { value, text, group } of inputOptions) {
     // assume the element to attach to is the input...
-    let elem = input;
+    let elem = input[0];
 
     if (value === undefined || text === undefined) {
       throw new Error(`each option needs a "value" and a "text" property`);
@@ -750,16 +777,18 @@ value");
     // ... but override that element if this option sits in a group
 
     if (group !== undefined && group !== "") {
-      if (groups[group] === undefined) {
-        groups[group] = $("<optgroup />").attr("label", group);
+      let groupEl = groups[group];
+      if (groupEl === undefined) {
+        groups[group] = groupEl = document.createElement("optgroup");
+        groupEl.setAttribute("label", group);
       }
 
-      elem = groups[group];
+      elem = groupEl;
     }
 
     const o = $(templates.option);
     o.attr("value", value).text(text);
-    elem.append(o);
+    elem.appendChild(o[0]);
     if (firstValue === undefined) {
       firstValue = value;
     }
@@ -1209,7 +1238,7 @@ for more information.`);
 
 //  Handle the invoked dialog callback
 function processCallback(e: JQuery.TriggeredEvent,
-                         forDialog: JQuery,
+                         $forDialog: JQuery,
                          callback:
                          ((this: JQuery,
                            e: JQuery.TriggeredEvent) => boolean | void) |
@@ -1223,8 +1252,8 @@ void {
   // and it *explicitly returns false* then we keep the dialog active...
   // otherwise we'll bin it
   if (!(typeof callback === "function" &&
-        callback.call(forDialog, e) === false)) {
-    forDialog.modal("hide");
+        callback.call($forDialog, e) === false)) {
+    $forDialog.modal("hide");
   }
 }
 
