@@ -590,7 +590,7 @@ export function alert(messageOrOptions: string | AlertOptions,
   // tslint:disable-next-line:no-suspicious-comment
   // @TODO: can this move inside exports.dialog when we're iterating over each
   // button and checking its button.callback value instead?
-  if (finalCallback !== undefined && !$.isFunction(finalCallback)) {
+  if (finalCallback !== undefined && typeof finalCallback !== "function") {
     throw new Error("alert requires callback property to be a function when \
 provided");
   }
@@ -600,8 +600,9 @@ provided");
   // tslint:disable-next-line:no-non-null-assertion
   (finalOptions.buttons.ok as Button).callback = finalOptions.onEscape =
     function (): boolean | void {
-      // tslint:disable-next-line:no-invalid-this
-      return $.isFunction(finalCallback) ? finalCallback.call(this) : true;
+      return typeof finalCallback === "function" ?
+        // tslint:disable-next-line:no-invalid-this
+        finalCallback.call(this) : true;
     };
 
   return dialog(finalOptions);
@@ -623,7 +624,7 @@ export function confirm(messageOrOptions: string | ConfirmOptions,
 
   // confirm specific validation; they don't make sense without a callback so
   // make sure it's present
-  if (!$.isFunction(finalCallback)) {
+  if (typeof finalCallback !== "function") {
     throw new Error("confirm requires a callback");
   }
 
@@ -715,7 +716,7 @@ function setupSelectInput(input: JQuery, options: SelectPromptOptions): void {
   const inputOptions = options.inputOptions !== undefined ?
     options.inputOptions : [];
 
-  if (!$.isArray(inputOptions)) {
+  if (!Array.isArray(inputOptions)) {
     throw new Error("Please pass an array of input options");
   }
 
@@ -810,7 +811,7 @@ function setupRadio(input: JQuery, options: RadioPromptOptions,
   // Make sure that value is not an array (only a single radio can ever be
   // checked)
   const { value: initialValue } = options;
-  if (initialValue !== undefined && $.isArray(initialValue)) {
+  if (initialValue !== undefined && Array.isArray(initialValue)) {
     throw new Error(`prompt with radio requires a single, non-array value \
 for "value".`);
   }
@@ -888,7 +889,7 @@ export function prompt(messageOrOptions: string | PromptOptions,
   }
 
   const { callback: finalCallback, buttons } = finalOptions;
-  if (!$.isFunction(finalCallback)) {
+  if (typeof finalCallback !== "function") {
     throw new Error("prompt requires a callback");
   }
 
@@ -1166,7 +1167,7 @@ function sanitize(options: DialogOptions): SanitizedDialogOptions {
   // tslint:disable-next-line:forin
   for (const key in buttons) {
     let button = buttons[key];
-    if ($.isFunction(button)) {
+    if (typeof button === "function") {
       // short form, assume value is our callback. Since button
       // isn't an object it isn't a reference either so re-assign it
       button = buttons[key] = {
@@ -1175,7 +1176,7 @@ function sanitize(options: DialogOptions): SanitizedDialogOptions {
     }
 
     // before any further checks make sure by now button is the correct type
-    if ($.type(button) !== "object") {
+    if (typeof button !== "object") {
       throw new Error(`button with key "${key}" must be an object`);
     }
 
@@ -1221,7 +1222,8 @@ void {
   // given the opportunity to override this so, if the callback can be invoked
   // and it *explicitly returns false* then we keep the dialog active...
   // otherwise we'll bin it
-  if (!($.isFunction(callback) && callback.call(forDialog, e) === false)) {
+  if (!(typeof callback === "function" &&
+        callback.call(forDialog, e) === false)) {
     forDialog.modal("hide");
   }
 }
