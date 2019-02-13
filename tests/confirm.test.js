@@ -1,5 +1,9 @@
 describe("bootprompt.confirm", function() {
 
+  before(function () {
+    bootprompt.setDefaults("animate", false);
+  });
+
   describe("basic usage tests", function() {
 
     describe("with one argument", function() {

@@ -42,6 +42,10 @@ describe("bootprompt.prompt", function () {
     document.body.appendChild(script);
   });
 
+  before(function () {
+    bootprompt.setDefaults("animate", false);
+  });
+
   // basic tests
   describe("basic usage tests", function () {
     describe("with one argument", function () {
