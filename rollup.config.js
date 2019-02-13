@@ -66,6 +66,24 @@ export default alsoMinified([{
     multiEntry(),
   ],
   onwarn,
+}, {
+  input: ["build/js/bootprompt.js", "build/js/locales/*.js"],
+  output: {
+    file: "build/dist/bootprompt.all.js",
+    format: "umd",
+    sourcemap: true,
+    name: "bootprompt",
+    globals: {
+      jquery: "$",
+      bootstrap: "",
+    },
+  },
+  external: ["jquery", "bootstrap"],
+  plugins: [
+    sourceMaps(),
+    multiEntry(),
+  ],
+  onwarn,
 }, ...fs.readdirSync("build/js/locales").filter(x => /.js$/.test(x)).map(x => ({
   input: `build/js/locales/${x}`,
   output: {
