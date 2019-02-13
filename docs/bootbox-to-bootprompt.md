@@ -28,7 +28,7 @@ major differences between the two libraries:
   to do it for you.
 
 * For the ``value`` option, Bootprompt accepts an array but only an array of
-  strings. Bootbox was ambiguous about what the array count contain. (The value
+  strings. Bootbox was ambiguous about what the array could contain. (The value
   is passed to ``$().val(...)``. The documentation for it does not mention
   passing arrays of things other than *strings*.)
 
