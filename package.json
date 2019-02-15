@@ -39,7 +39,7 @@
     "chai": "^4.2.0",
     "core-js": "^2.6.5",
     "deepcopy": "^1.0.1",
-    "eslint": "^5.13.0",
+    "eslint": "^5.14.0",
     "eslint-config-lddubeau-base": "^3.0.1",
     "karma": "^4.0.0",
     "karma-browserstack-launcher": "^1.4.0",
