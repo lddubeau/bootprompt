@@ -50,7 +50,7 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
   // eslint-disable-next-line no-console
   console.log(`Using jQuery ${useJQuery || "latest"}`);
 
-  const coverage = !config.debug ? ["coverage"] : [];
+  // const coverage = !config.debug ? ["coverage"] : [];
   const options = {
     basePath: "",
     frameworks: ["mocha", "chai", "inline-core-js"],
@@ -68,8 +68,9 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
       bootstrapURL,
       "build/dist/bootprompt.min.js",
       "build/dist/bootprompt.locales.min.js",
-      "tests/**/*.test.js",
       { pattern: "build/dist/**/*.map", included: false },
+      "tests/util.ts",
+      "tests/**/*.test.ts",
     ],
     client: {
       mocha: {
@@ -78,7 +79,18 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
     },
     exclude: [],
     preprocessors: {
-      "src/bootprompt.js": coverage,
+      "tests/*.ts": ["typescript"],
+    },
+    typescriptPreprocessor: {
+      tsconfigPath: "./tests/tsconfig.json",
+      compilerOptions: {
+        // eslint-disable-next-line global-require, import/no-extraneous-dependencies
+        typescript: require("typescript"),
+        sourceMap: false,
+        // We have to have them inline for the browser to find them.
+        inlineSourceMap: true,
+        inlineSources: true,
+      },
     },
     reporters: ["dots", "coverage", "junit"],
     port: 9876,

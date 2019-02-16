@@ -1,0 +1,11 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "no-unused-expression": [false, "False positives with chai."],
+    "chai-vague-errors": [false, "Too much trouble."],
+    "missing-jsdoc": [false, "Don't document test 'modules'."],
+    "no-void-expression": [false,
+                           "We use a lot of void expressions in testing.",
+                           "So we turn it off there."]
+  }
+}

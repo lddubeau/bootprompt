@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "types": ["mocha", "chai", "sinon", "sinon-chai"],
+    "baseUrl": "../build",
+    "paths": {
+      "bootprompt": ["dist"]
+    }
+  },
+  "include": [
+    "../src/**/*.ts",
+    "*.ts"
+  ]
+}
