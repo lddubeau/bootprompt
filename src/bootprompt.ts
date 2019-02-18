@@ -46,7 +46,9 @@ interface SanitizedButton extends Button {
 export type ButtonSpec = Button | GeneralCallback;
 
 export interface Buttons {
-  [key: string]:  ButtonSpec;
+  // We want | undefined here so that we can declare specific names as being
+  // optional.
+  [key: string]:  ButtonSpec | undefined;
 }
 
 interface SanitizedButtons extends Buttons {
@@ -58,8 +60,8 @@ export interface OkButton extends Buttons {
 }
 
 export interface ConfirmCancelButtons extends Buttons {
-  confirm: ButtonSpec;
-  cancel: ButtonSpec;
+  confirm?: ButtonSpec;
+  cancel?: ButtonSpec;
 }
 
 // tslint:disable-next-line:no-any
