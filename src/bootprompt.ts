@@ -112,7 +112,7 @@ export interface PromptCommonOptions<T extends any[]> extends CommonOptions<T> {
 
 export interface TextPromptOptions extends
 PromptCommonOptions<[string | null]> {
-  inputType: "text" | "password" | "textarea" | "email";
+  inputType?: "text" | "password" | "textarea" | "email";
   maxlength?: number;
   placeholder?: string;
   required?: boolean;
@@ -922,6 +922,10 @@ export function prompt(messageOrOptions: string | PromptOptions,
   const { callback: finalCallback, buttons } = finalOptions;
   if (typeof finalCallback !== "function") {
     throw new Error("prompt requires a callback");
+  }
+
+  if (finalOptions.inputType === undefined) {
+    finalOptions.inputType = "text";
   }
 
   const inputTemplate = templates.inputs[finalOptions.inputType];
