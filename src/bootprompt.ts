@@ -319,9 +319,9 @@ export function setLocale(name: string): void {
 }
 
 export function setDefaults(defaults: Record<string, unknown>): void;
-export function setDefaults(name: string, value: string): void;
+export function setDefaults(name: string, value: unknown): void;
 export function setDefaults(name: string | Record<string, unknown>,
-                            value?: string): void {
+                            value?: unknown): void {
   if (arguments.length === 2) {
     // allow passing of single key/value...
     defaults[name as string] = value;
