@@ -541,23 +541,21 @@ this option.`);
     // this event (the .modal-backdrop swallows it)
     // However, we still want to sort of respect true
     // and invoke the escape mechanism instead
-    $modal.on("click.dismiss.bs.modal",
-              function (e: JQuery.TriggeredEvent): void {
-                // @NOTE: the target varies in >= 3.3.x releases since the
-                // modal backdrop moved *inside* the outer dialog rather than
-                // *alongside* it
-                const backdrops =
-                  modal.getElementsByClassName("modal-backdrop");
+    $modal.on("click.dismiss.bs.modal", (e: JQuery.TriggeredEvent) => {
+      // The target varies in 3.3.x releases since the modal backdrop moved
+      // *inside* the outer dialog rather than *alongside* it
+      const backdrops =
+        modal.getElementsByClassName("modal-backdrop");
 
-                const target = backdrops.length !== 0 ? backdrops[0] :
-                  e.currentTarget;
+      const target = backdrops.length !== 0 ? backdrops[0] :
+        e.currentTarget;
 
-                if (e.target !== target) {
-                  return;
-                }
+      if (e.target !== target) {
+        return;
+      }
 
-                $modal.trigger("escape.close.bb");
-              });
+      $modal.trigger("escape.close.bb");
+    });
   }
 
   $modal.on("escape.close.bb", (e: JQuery.TriggeredEvent) => {
