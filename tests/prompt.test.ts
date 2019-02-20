@@ -235,8 +235,7 @@ confirm)`);
           // tslint:disable-next-line:no-empty
           off: () => {},
           modal: shown,
-          // tslint:disable-next-line:no-any
-        } as any as JQuery));
+        } as unknown as JQuery));
 
         $dialog = bootprompt.prompt({
           title: "What is your name?",
@@ -1203,8 +1202,7 @@ more information.`);
       describe("with an number as value", () => {
         it("throws an error", () => {
           expect(() => createDialog({
-            // tslint:disable-next-line:no-any
-            value: 1 as any as string,
+            value: 1 as unknown as string,
           })).to.throw("bootprompt does not allow numbers as values");
         });
       });
