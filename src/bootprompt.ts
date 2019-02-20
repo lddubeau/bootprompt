@@ -102,8 +102,8 @@ export interface ConfirmOptions extends CommonOptions<[boolean]> {
   buttons?: ConfirmCancelButtons;
 }
 
-// tslint:disable-next-line:no-any
-export interface PromptCommonOptions<T extends any[]> extends CommonOptions<T> {
+export interface PromptCommonOptions<T extends unknown[]>
+  extends CommonOptions<T> {
   title: StringOrDocumentContent;
   buttons?: ConfirmCancelButtons;
   pattern?: string;
@@ -156,15 +156,28 @@ export interface InputOption {
   group?: string;
 }
 
-export interface SelectPromptOptions
-extends PromptCommonOptions<[string | string[] | null]> {
+export interface CommonSelectOptions<T extends unknown[]>
+  extends PromptCommonOptions<T> {
   inputType: "select";
   placeholder?: string;
-  value?: string | string[];
   inputOptions: InputOption[];
   required?: boolean;
-  multiple?: boolean;
 }
+
+export interface MultipleSelectPromptOptions
+extends CommonSelectOptions<[string[] | null]> {
+  value?: string[] | string;
+  multiple: true;
+}
+
+export interface SingleSelectPromptOptions
+extends CommonSelectOptions<[string | null]> {
+  value?: string;
+  multiple?: false;
+}
+
+export type SelectPromptOptions =
+  MultipleSelectPromptOptions | SingleSelectPromptOptions;
 
 export interface CheckboxPromptOptions
 extends PromptCommonOptions<[string | string[] | null]> {
@@ -277,6 +290,8 @@ const defaults: Record<string, any> = {
   swapButtonOrder: false,
   // center modal vertically in page
   centerVertical: false,
+  // Append `multiple` property to the select when using the `prompt` helper
+  multiple: false,
 };
 
 //
@@ -398,7 +413,7 @@ export function dialog(options: DialogOptions): JQuery {
     const b = buttons[key];
     const $button = $(templates.button);
     const button = $button[0];
-    $button.data("bb-handler", key);
+    $button.data("bp-handler", key);
     // On IE10/11 it is not possible to just do x.classList.add(a, b, c).
     for (const cl of b.className.split(" ")) {
       button.classList.add(cl);
@@ -509,7 +524,7 @@ this option.`);
   $modal.one("hide.bs.modal", function (e: JQuery.TriggeredEvent): void {
     // tslint:disable-next-line:no-invalid-this
     if (e.target === this) {
-      $modal.off("escape.close.bb");
+      $modal.off("escape.close.bp");
       $modal.off("click");
     }
   });
@@ -554,11 +569,11 @@ this option.`);
         return;
       }
 
-      $modal.trigger("escape.close.bb");
+      $modal.trigger("escape.close.bp");
     });
   }
 
-  $modal.on("escape.close.bb", (e: JQuery.TriggeredEvent) => {
+  $modal.on("escape.close.bp", (e: JQuery.TriggeredEvent) => {
     // the if statement looks redundant but it isn't; without it
     // if we *didn't* have an onEscape handler then processCallback
     // would automatically dismiss the dialog
@@ -571,7 +586,7 @@ this option.`);
   $modal.on("click", ".modal-footer button",
              function (e: JQuery.TriggeredEvent): void {
                // tslint:disable-next-line:no-invalid-this
-               const callbackKey = $(this).data("bb-handler");
+               const callbackKey = $(this).data("bp-handler");
 
                processCallback(e, $modal, callbacks[callbackKey]);
              });
@@ -585,7 +600,7 @@ this option.`);
 
   $modal.on("keyup", (e) => {
     if (e.which === 27) {
-      $modal.trigger("escape.close.bb");
+      $modal.trigger("escape.close.bp");
     }
   });
 
@@ -774,7 +789,7 @@ function setupSelectInput(input: JQuery, options: SelectPromptOptions): void {
 value");
   }
 
-  const { placeholder, required } = options;
+  const { placeholder, required, multiple } = options;
 
   // placeholder is not actually a valid attribute for select, but we'll
   // allow it, assuming it might be used for a plugin
@@ -784,6 +799,10 @@ value");
 
   if (required === true) {
     input.prop({ required: true });
+  }
+
+  if (multiple === true) {
+    input.prop({ multiple: true });
   }
 
   validateInputOptions(inputOptions);
@@ -1013,7 +1032,16 @@ export function prompt(messageOrOptions: string | PromptOptions,
           return false;
         }
 
-        value = input.val() as string;
+        if (finalOptions.inputType === "select" &&
+            finalOptions.multiple === true) {
+          value = input.find("option:selected").map(function (): string {
+            // tslint:disable-next-line:no-invalid-this
+            return $(this).val() as string;
+          }).get();
+        }
+        else {
+          value = input.val() as string;
+        }
     }
 
     // tslint:disable-next-line:no-invalid-this

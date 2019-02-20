@@ -266,7 +266,7 @@ cancel confirm)`);
       describe("when triggering the escape event", () => {
         before(() => {
           createDialog();
-          $dialog.trigger("escape.close.bb");
+          $dialog.trigger("escape.close.bp");
         });
 
         it("should invoke the callback", () => {
@@ -351,7 +351,7 @@ cancel confirm)`);
       describe("when triggering the escape event", () => {
         before(() => {
           createDialog();
-          $dialog.trigger("escape.close.bb");
+          $dialog.trigger("escape.close.bp");
         });
 
         it("should invoke the callback", () => {

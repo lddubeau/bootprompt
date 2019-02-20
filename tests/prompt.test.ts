@@ -618,7 +618,8 @@ inputOptions`);
         });
       });
 
-      function createDialog(opts: Partial<bootprompt.SelectPromptOptions> &
+      function createDialog(opts:
+                            Partial<bootprompt.SelectPromptOptions> &
                             { inputOptions: bootprompt.InputOption[] }):
       void {
         $dialog = bootprompt.prompt({
@@ -626,7 +627,8 @@ inputOptions`);
           callback: () => true,
           inputType: "select",
           ...opts,
-        });
+          // TS type inference seems to fail here.
+        } as bootprompt.SelectPromptOptions);
       }
 
       describe("with valid options", () => {
@@ -705,6 +707,45 @@ inputOptions`);
 
         it("with four options", () => {
           expect($dialog[0].getElementsByTagName("option")).to.be.lengthOf(4);
+        });
+      });
+
+      describe("with multiple", () => {
+        let select: HTMLSelectElement;
+        before(() => {
+          createDialog({
+            multiple: true,
+            inputOptions: [{
+              value: "1",
+              text: "foo",
+            }, {
+              value: "2",
+              text: "bar",
+            }, {
+              value: "3",
+              text: "foobar",
+            }],
+          });
+
+          select = $dialog[0].getElementsByTagName("select")[0];
+        });
+
+        it("shows select input", () => {
+          expect(select).to.not.be.undefined;
+        });
+
+        it("select input has multiple turned on", () => {
+          expect(select.multiple).to.be.true;
+        });
+
+        it("has proper class", () => {
+          expect(select.classList.contains("bootprompt-input")).to.be.true;
+          expect(select.classList.contains("bootprompt-input-select")).to.be
+            .true;
+        });
+
+        it("with three options", () => {
+          expect($dialog[0].getElementsByTagName("option")).to.be.lengthOf(3);
         });
       });
     });
@@ -1531,7 +1572,7 @@ for more information.`);
       describe("when triggering the escape event", () => {
         before(() => {
           createDialog();
-          $dialog.trigger("escape.close.bb");
+          $dialog.trigger("escape.close.bp");
         });
 
         it("should invoke the callback", () => {
@@ -1668,7 +1709,7 @@ for more information.`);
       describe("when triggering the escape event", () => {
         before(() => {
           createDialog();
-          $dialog.trigger("escape.close.bb");
+          $dialog.trigger("escape.close.bp");
         });
 
         it("should invoke the callback", () => {
@@ -2002,6 +2043,50 @@ for more information.`);
           it("with the correct value", () => {
             expect(callback).to.have.been.calledWithExactly("3");
           });
+        });
+      });
+
+      describe("with multiple", () => {
+        let options: HTMLCollectionOf<HTMLOptionElement>;
+        let callback: sinon.SinonSpy;
+
+        function createDialog(): void {
+          callback = sinon.spy();
+          $dialog = bootprompt.prompt({
+            title: "What is your IDE?",
+            callback,
+            value: "1",
+            inputType: "select",
+            multiple: true,
+            inputOptions: [{
+              value: "1",
+              text: "foo",
+            }, {
+              value: "2",
+              text: "bar",
+            }, {
+              value: "3",
+              text: "foobar",
+            }],
+          });
+        }
+
+        before(() => {
+          createDialog();
+          options = $dialog[0].getElementsByTagName("option");
+          options[1].selected = true;
+          $($dialog[0].getElementsByClassName("bootprompt-accept"))
+            .trigger("click");
+        });
+
+        it("specified option is selected", () => {
+          expect($dialog.find(".bootprompt-input-select").val()).to
+            .have.members(["1", "2"]);
+          expect(options[0]).to.have.property("selected").true;
+        });
+
+        it("the callback is called with proper values", () => {
+          expect(callback).to.have.been.calledWithExactly(["1", "2"]);
         });
       });
     });

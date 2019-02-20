@@ -190,7 +190,7 @@ function when provided"));
       describe("when triggering the escape event", () => {
         before(() => {
           createDialog();
-          $dialog.trigger("escape.close.bb");
+          $dialog.trigger("escape.close.bp");
         });
 
         it("should hide the modal", () => {
@@ -256,7 +256,7 @@ function when provided"));
       describe("when triggering the escape event", () => {
         before(() => {
           createDialog();
-          $dialog.trigger("escape.close.bb");
+          $dialog.trigger("escape.close.bp");
         });
 
         it("should invoke the callback", () => {
@@ -331,7 +331,7 @@ function when provided"));
       describe("when triggering the escape event", () => {
         before(() => {
           createDialog();
-          $dialog.trigger("escape.close.bb");
+          $dialog.trigger("escape.close.bp");
         });
 
         it("should invoke the callback", () => {

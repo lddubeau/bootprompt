@@ -129,7 +129,7 @@ describe("bootprompt.dialog", () => {
         before(() => {
           create();
           hidden = sinon.spy($dialog, "modal");
-          $dialog.trigger("escape.close.bb");
+          $dialog.trigger("escape.close.bp");
         });
 
         it("should not hide the modal", () => {
@@ -209,7 +209,7 @@ describe("bootprompt.dialog", () => {
         before(() => {
           create();
           hidden = sinon.spy($dialog, "modal");
-          $dialog.trigger("escape.close.bb");
+          $dialog.trigger("escape.close.bp");
         });
 
         it("should not invoke the callback", () => {
@@ -421,7 +421,7 @@ describe("bootprompt.dialog", () => {
           onEscape: callback,
         });
         hidden = sinon.spy($dialog, "modal");
-        trigger = sinon.spy($dialog, "trigger").withArgs("escape.close.bb");
+        trigger = sinon.spy($dialog, "trigger").withArgs("escape.close.bp");
       }
 
       describe("when triggering the keyup event", () => {
@@ -447,7 +447,7 @@ describe("bootprompt.dialog", () => {
           });
 
           it("triggers the escape event", () => {
-            expect(trigger).to.have.been.calledWithExactly("escape.close.bb");
+            expect(trigger).to.have.been.calledWithExactly("escape.close.bp");
           });
 
           it("should invoke the callback", () => {
