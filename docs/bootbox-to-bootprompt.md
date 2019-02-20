@@ -41,3 +41,32 @@ major differences between the two libraries:
   instead. These are different JS values. Bootbox did not systematically
   distinguish the two values (and would in some cases also treat ``false``,
   ``""``, ``0`` and other falsy values the same as ``undefined`` or ``null``).
+
+* Bootprompt does not allow numbers as values for the various input types that
+  ``prompt`` supports. The TS declarations disallow numbers. So if you are using
+  TS, the type-checking will prevent you from passing numbers. If you are using
+  plain JS with Bootprompt and pass numbers instead of strings, it may or may
+  not work. The safe thing to do when you upgrade is to change all number values
+  to strings.
+
+  Why this? Bootbox relied on "magic" happening at the DOM level (or jQuery, but
+  the distinction is not relevant here). Suppose the input element ``el``. If
+  you do ``el.value = 1``, it works fine. However, when you read ``el.value``
+  back you **always** get a string, not a number. This violates the principle of
+  least astonishment. A developer might specify a prompt with radio buttons
+  associated with numbers for possible values, but would always get a string
+  when reading back the selected value. Etc.
+
+  Note that this is *also* true when creating a prompt with ``number`` or
+  ``range`` input. Even there, the values are strings, not number.
+
+  And this is also true when specifying ``min`` ``max`` and ``step``. In the
+  DOM, those values are strings, so we accept strings.
+
+  The mishmash of values that Bootbox accepted was not only leading to confusing
+  results, it also caused bugs. If the logic is going to compare two values that
+  could be strings, or numbers or a mix, it has to take into account these
+  various cases. Bootbox had bugs due to this.
+
+  Bootprompt will throw an error if the default value is a number, or if any of
+  the values passed as the ``value`` field of ``inputOptions`` is a number.

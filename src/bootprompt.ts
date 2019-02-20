@@ -105,7 +105,6 @@ export interface ConfirmOptions extends CommonOptions<[boolean]> {
 // tslint:disable-next-line:no-any
 export interface PromptCommonOptions<T extends any[]> extends CommonOptions<T> {
   title: StringOrDocumentContent;
-  value?: string | number | string[];
   buttons?: ConfirmCancelButtons;
   pattern?: string;
 }
@@ -113,6 +112,7 @@ export interface PromptCommonOptions<T extends any[]> extends CommonOptions<T> {
 export interface TextPromptOptions extends
 PromptCommonOptions<[string | null]> {
   inputType?: "text" | "password" | "textarea" | "email";
+  value?: string;
   maxlength?: number;
   placeholder?: string;
   required?: boolean;
@@ -122,9 +122,10 @@ export interface NumericPromptOptions extends
 PromptCommonOptions<[string | null]> {
   inputType: "number" | "range";
   placeholder?: string;
-  min?: string | number;
-  max?: string | number;
-  step?: string | number;
+  value?: string;
+  min?: string;
+  max?: string;
+  step?: string;
   required?: boolean;
 }
 
@@ -132,9 +133,10 @@ export interface TimePromptOptions
 extends PromptCommonOptions<[string | null]> {
   inputType: "time";
   placeholder?: string;
+  value?: string;
   min?: string;
   max?: string;
-  step?: string | number;
+  step?: string;
   required?: boolean;
 }
 
@@ -142,6 +144,7 @@ export interface DatePromptOptions
 extends PromptCommonOptions<[string | null]> {
   inputType: "date";
   placeholder?: string;
+  value?: string;
   min?: string;
   max?: string;
   required?: boolean;
@@ -157,6 +160,7 @@ export interface SelectPromptOptions
 extends PromptCommonOptions<[string | string[] | null]> {
   inputType: "select";
   placeholder?: string;
+  value?: string | string[];
   inputOptions: InputOption[];
   required?: boolean;
   multiple?: boolean;
@@ -165,12 +169,14 @@ extends PromptCommonOptions<[string | string[] | null]> {
 export interface CheckboxPromptOptions
 extends PromptCommonOptions<[string | string[] | null]> {
   inputType: "checkbox";
+  value?: string | string[];
   inputOptions: InputOption[];
 }
 
 export interface RadioPromptOptions
 extends PromptCommonOptions<[string | null]> {
   inputType: "radio";
+  value?: string;
   inputOptions: InputOption[];
 }
 
@@ -698,11 +704,13 @@ function setupTextualInput(input: JQuery,
 }
 
 function setupNumberLikeInput(input: JQuery,
-                              options: NumericPromptOptions | DatePromptOptions
-                              | TimePromptOptions): void {
+                              options: NumericPromptOptions |
+                              DatePromptOptions | TimePromptOptions): void {
   const { value, placeholder, pattern, required, inputType } = options;
 
-  input.val(value as string);
+  if (value !== undefined) {
+    input.val(String(value));
+  }
 
   if (placeholder !== undefined) {
     input.attr("placeholder", placeholder);
@@ -725,7 +733,8 @@ function setupNumberLikeInput(input: JQuery,
   if (inputType !== "date") {
     const step = (options as TimePromptOptions | NumericPromptOptions).step;
     if (step !== undefined) {
-      if (step === "any" || (!isNaN(step as number) && step > 0)) {
+      const stepNumber = Number(step);
+      if (step === "any" || (!isNaN(stepNumber) && stepNumber > 0)) {
         input.attr("step", step);
       }
       else {
@@ -739,6 +748,19 @@ for more information.`);
 
   validateMinOrMaxValue(input, "min", options);
   validateMinOrMaxValue(input, "max", options);
+}
+
+function validateInputOptions(inputOptions: InputOption[]): void {
+  for (const { value, text } of inputOptions) {
+    if (value === undefined || text === undefined) {
+      throw new Error(`each option needs a "value" and a "text" property`);
+    }
+
+    if (typeof value === "number") {
+      throw new Error(`bootprompt does not allow numbers for "value" in \
+inputOptions`);
+    }
+  }
 }
 
 function setupSelectInput(input: JQuery, options: SelectPromptOptions): void {
@@ -766,18 +788,15 @@ value");
     input.prop({ required: true });
   }
 
+  validateInputOptions(inputOptions);
+
   let firstValue: string | undefined;
   const groups: Record<string, HTMLElement> = Object.create(null);
   for (const { value, text, group } of inputOptions) {
     // assume the element to attach to is the input...
     let elem = input[0];
 
-    if (value === undefined || text === undefined) {
-      throw new Error(`each option needs a "value" and a "text" property`);
-    }
-
     // ... but override that element if this option sits in a group
-
     if (group !== undefined && group !== "") {
       let groupEl = groups[group];
       if (groupEl === undefined) {
@@ -819,11 +838,9 @@ function setupCheckbox(input: JQuery, options: CheckboxPromptOptions,
     throw new Error("prompt with checkbox requires options");
   }
 
-  for (const { value, text } of inputOptions) {
-    if (value === undefined || text === undefined) {
-      throw new Error(`each option needs a "value" and a "text" property`);
-    }
+  validateInputOptions(inputOptions);
 
+  for (const { value, text } of inputOptions) {
     const checkbox = $(inputTemplate);
 
     checkbox.find("input").attr("value", value);
@@ -854,16 +871,14 @@ for "value".`);
     throw new Error("prompt with radio requires options");
   }
 
+  validateInputOptions(inputOptions);
+
   // Radiobuttons should always have an initial checked input checked in a
   // "group".  If value is undefined or doesn't match an input option,
   // select the first radiobutton
   let checkFirstRadio = true;
 
   for (const { value, text } of inputOptions) {
-    if (value === undefined || text === undefined) {
-      throw new Error(`each option needs a "value" and a "text" property`);
-    }
-
     const radio = $(inputTemplate);
 
     radio.find("input").attr("value", value);
@@ -898,6 +913,10 @@ export function prompt(messageOrOptions: string | PromptOptions,
                                           messageOrOptions, callback);
   if (finalOptions.value === undefined) {
     finalOptions.value = defaults.value;
+  }
+
+  if (typeof finalOptions.value === "number") {
+    throw new Error("bootprompt does not allow numbers as values");
   }
 
   if (finalOptions.inputType === undefined) {
@@ -1277,10 +1296,12 @@ function validateMinOrMaxValue(input: JQuery,
   const compareValue = options[name === "min" ? "max" : "min"];
   input.attr(name, value);
 
+  const { min , max } = options;
+
   // Type inference fails to realize the real type of value...
   switch (options.inputType) {
     case "date":
-      if (!/(\d{4})-(\d{2})-(\d{2})/.test(value as string)) {
+      if (!/(\d{4})-(\d{2})-(\d{2})/.test(value)) {
         console.warn(`Browsers which natively support the "date" input type \
 expect date values to be of the form "YYYY-MM-DD" (see ISO-8601 \
 https://www.iso.org/iso-8601-date-and-time-format.html). Bootprompt does not \
@@ -1289,27 +1310,32 @@ browser.`);
       }
       break;
     case "time":
-      if (!/([01][0-9]|2[0-3]):[0-5][0-9]?:[0-5][0-9]/.test(value as string)) {
+      if (!/([01][0-9]|2[0-3]):[0-5][0-9]?:[0-5][0-9]/.test(value)) {
         throw new Error(`"${name}" is not a valid time. See \
 https://www.w3.org/TR/2012/WD-html-markup-20120315/datatypes.html\
 #form.data.time for more information.`);
       }
 
       // tslint:disable-next-line:no-non-null-assertion
-      if (!(compareValue === undefined || options.max! > options.min!)) {
+      if (!(compareValue === undefined || max! > min!)) {
         return throwMaxMinError(name);
       }
       break;
     default:
-      if (isNaN(value as number)) {
+      // Yes we force the string into isNaN. It works.
+      if (isNaN(value as unknown as number)) {
         throw new Error(`"${name}" must be a valid number. See \
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-${name} \
 for more information.`);
       }
 
+      const minNumber = Number(min);
+      const maxNumber = Number(max);
+
       // tslint:disable-next-line:no-non-null-assertion
-      if (!(compareValue === undefined || options.max! > options.min!) &&
-          !isNaN(compareValue as number)) {
+      if (!(compareValue === undefined || maxNumber > minNumber) &&
+          // Yes we force the string into isNaN. It works.
+          !isNaN(compareValue as unknown as number)) {
         return throwMaxMinError(name);
       }
   }
