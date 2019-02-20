@@ -1,5 +1,14 @@
 describe("bootprompt.setDefaults", () => {
+  before(() => {
+    bootprompt.setDefaults("animate", false);
+  });
+
   describe("animate", () => {
+    after(() => {
+      // We need to reset it to false after we're done testing it.
+      bootprompt.setDefaults("animate", false);
+    });
+
     describe("when set to false", () => {
       let $dialog: JQuery;
 
@@ -39,13 +48,27 @@ describe("bootprompt.setDefaults", () => {
     describe("when set to true", () => {
       let $dialog: JQuery;
 
-      before(() => {
+      before((done) => {
         bootprompt.setDefaults({
           animate: true,
         });
         $dialog = bootprompt.dialog({
           message: "test",
         });
+
+        // We need to wait until the modal is shown. Otherwise, the after hook
+        // will run too early.
+        $dialog.one("shown.bs.modal", () => {
+          done();
+        });
+      });
+
+      after((done) => {
+        $dialog.one("hidden.bs.modal", () => {
+          done();
+        });
+
+        $dialog.modal("hide");
       });
 
       it("adds the fade class to the dialog", () => {
@@ -117,20 +140,23 @@ describe("bootprompt.setDefaults", () => {
 
   describe("backdrop", () => {
     describe("when set to false", () => {
-      let $dialog: JQuery;
-
       before(() => {
+        // The suite does not systematically cleanup old modals.
+        bootprompt.hideAll();
+        const backdrops = document.getElementsByClassName("modal-backdrop");
+        expect(backdrops).to.be.lengthOf(0);
         bootprompt.setDefaults({
           backdrop: false,
         });
 
-        $dialog = bootprompt.dialog({
+        bootprompt.dialog({
           message: "test",
         });
       });
 
       it("does not show a backdrop", () => {
-        expect($dialog.next(".modal-backdrop")).to.be.lengthOf(0);
+        expect(document.getElementsByClassName("modal-backdrop")).to.be
+          .lengthOf(0);
       });
     });
   });

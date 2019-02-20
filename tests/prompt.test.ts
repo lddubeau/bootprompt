@@ -2,32 +2,7 @@ describe("bootprompt.prompt", () => {
   let $dialog: JQuery;
 
   before((done) => {
-    //
-    // What we are doing here is essentially resetting bootprompt.
-    //
-
-    // Look for the path to bootprompt.
-    // tslint:disable-next-line:no-any
-    const files = Object.keys((window as any).__karma__.files);
-    let src: string | undefined;
-    for (const candidate of files) {
-      if (/\/bootprompt\..*\.js$/.test(candidate)) {
-        src = candidate;
-        break;
-      }
-    }
-
-    if (src === undefined) {
-      throw new Error("couldn't find the path to bootprompt!");
-    }
-
-    // Reload it. We don't need to load the locales here.
-    const script = document.createElement("script");
-    script.addEventListener("load", () => {
-      done();
-    });
-    script.src = src;
-    document.body.appendChild(script);
+    reload(done);
   });
 
   before(() => {
@@ -445,7 +420,8 @@ confirm)`);
         let input: HTMLElement;
         before(() => {
           createDialog();
-          input = $dialog[0].querySelector("input[type='email']") as HTMLElement;
+          input =
+            $dialog[0].querySelector("input[type='email']") as HTMLElement;
         });
 
         it("shows email input", () => {
@@ -615,6 +591,18 @@ confirm)`);
               value: "bar",
             }],
           })).to.throw(`each option needs a "value" and a "text" property`);
+        });
+      });
+
+      describe("with a number as value", () => {
+        it("throws an error", () => {
+          expect(() => createBadDialog({
+            inputOptions: [{
+              value: 1,
+              text: "morf",
+            }],
+          })).to.throw(`bootprompt does not allow numbers for "value" in \
+inputOptions`);
         });
       });
 
@@ -1116,8 +1104,7 @@ more information.`);
 
     describe("setting inputType number", () => {
       function createDialog(opts:
-                            Partial<bootprompt.NumericStringPromptOptions> =
-                            {}):
+                            Partial<bootprompt.NumericPromptOptions> = {}):
       void {
         $dialog = bootprompt.prompt({
           title: "Moo?",
@@ -1156,7 +1143,8 @@ more information.`);
         });
 
         it("has correct default value", () => {
-          expect($(find($dialog, "input[type='number']")).val()).to.equal("300");
+          expect($(find($dialog, "input[type='number']")).val()).to
+            .equal("300");
         });
       });
 
@@ -1176,7 +1164,7 @@ more information.`);
       describe("with min value", () => {
         before(() => {
           createDialog({
-            min: 0,
+            min: "0",
           });
         });
 
@@ -1189,7 +1177,7 @@ more information.`);
       describe("with max value", () => {
         before(() => {
           createDialog({
-            max: 100,
+            max: "100",
           });
         });
 
@@ -1202,7 +1190,7 @@ more information.`);
       describe("with step value", () => {
         before(() => {
           createDialog({
-            step: 10,
+            step: "10",
           });
         });
 
@@ -1212,11 +1200,20 @@ more information.`);
         });
       });
 
+      describe("with an number as value", () => {
+        it("throws an error", () => {
+          expect(() => createDialog({
+            // tslint:disable-next-line:no-any
+            value: 1 as any as string,
+          })).to.throw("bootprompt does not allow numbers as values");
+        });
+      });
+
       describe("with an invalid min value", () => {
         it("throws an error", () => {
           expect(() => createDialog({
             min: "a",
-            max: 50,
+            max: "50",
           })).to.throw(`"min" must be a valid number. See \
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-min \
 for more information.`);
@@ -1226,7 +1223,7 @@ for more information.`);
       describe("with an invalid max value", () => {
         it("throws an error", () => {
           expect(() => createDialog({
-            min: 0,
+            min: "0",
             max: "a",
           })).to.throw(`"max" must be a valid number. See \
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max \
@@ -1237,8 +1234,8 @@ for more information.`);
       describe("with min value greater than max value", () => {
         it("throws an error", () => {
           expect(() => createDialog({
-            min: 100,
-            max: 50,
+            min: "100",
+            max: "50",
           })).to.throw(`"max" must be greater than "min". See \
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-min \
 for more information.`);
@@ -1261,8 +1258,7 @@ for more information.`);
 
     describe("setting inputType range", () => {
       function createDialog(opts:
-                            Partial<bootprompt.NumericStringPromptOptions> =
-                            {}):
+                            Partial<bootprompt.NumericPromptOptions> = {}):
       void {
         $dialog = bootprompt.prompt({
           title: "Moo?",
@@ -1278,7 +1274,8 @@ for more information.`);
         before(() => {
           createDialog();
 
-          input = $dialog[0].querySelector("input[type='range']") as HTMLElement;
+          input =
+            $dialog[0].querySelector("input[type='range']") as HTMLElement;
         });
 
         it("shows range input ", () => {
@@ -1333,7 +1330,7 @@ for more information.`);
       describe("with max value", () => {
         before(() => {
           createDialog({
-            max: 100,
+            max: "100",
           });
         });
 
@@ -1346,7 +1343,7 @@ for more information.`);
       describe("with step value", () => {
         before(() => {
           createDialog({
-            step: 10,
+            step: "10",
           });
         });
 
@@ -1360,7 +1357,7 @@ for more information.`);
         it("throws an error", () => {
           expect(() => createDialog({
             min: "a",
-            max: 50,
+            max: "50",
           })).to.throw(`"min" must be a valid number. See \
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-min \
 for more information.`);
@@ -1370,7 +1367,7 @@ for more information.`);
       describe("with an invalid max value", () => {
         it("throws an error", () => {
           expect(() => createDialog({
-            min: 0,
+            min: "0",
             max: "a",
           })).to.throw(`"max" must be a valid number. See \
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max \
@@ -1381,8 +1378,8 @@ for more information.`);
       describe("with min value greater than max value", () => {
         it("throws an error", () => {
           expect(() => createDialog({
-            min: 100,
-            max: 50,
+            min: "100",
+            max: "50",
           })).to.throw(`"max" must be greater than "min". See \
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-min \
 for more information.`);

@@ -1,4 +1,12 @@
 describe("bootprompt.dialog", () => {
+  before((done) => {
+    reload(done);
+  });
+
+  before(() => {
+    bootprompt.setDefaults("animate", false);
+  });
+
   describe("invalid usage tests", () => {
     describe("with no arguments", () => {
       it("throws an error", () => {
@@ -55,10 +63,6 @@ describe("bootprompt.dialog", () => {
       expect($dialog[0].classList.contains("modal")).to.be.true;
     });
 
-    it("adds the fade class to the dialog", () => {
-      expect($dialog[0].classList.contains("fade")).to.be.true;
-    });
-
     it("shows the expected message", () => {
       expect(text($dialog, ".bootprompt-body")).to.equal("test");
     });
@@ -75,8 +79,9 @@ describe("bootprompt.dialog", () => {
       expect(exists($dialog, ".modal-footer")).to.be.false;
     });
 
-    it.skip("has a backdrop", () => {
-      expect($dialog.children(".modal-backdrop")).to.be.lengthOf(1);
+    it("has a backdrop", () => {
+      expect(document.getElementsByClassName("modal-backdrop"))
+        .to.be.lengthOf(1);
     });
   });
 
@@ -363,17 +368,20 @@ describe("bootprompt.dialog", () => {
   });
 
   describe("when creating a dialog with no backdrop", () => {
-    let $dialog: JQuery;
-
     before(() => {
-      $dialog = bootprompt.dialog({
+      // The suite does not systematically cleanup old modals.
+      bootprompt.hideAll();
+      const backdrops = document.getElementsByClassName("modal-backdrop");
+      expect(backdrops).to.be.lengthOf(0);
+      bootprompt.dialog({
         message: "No backdrop in sight",
         backdrop: false,
       });
     });
 
     it("does not have a backdrop", () => {
-      expect($dialog.next(".modal-backdrop")).to.be.lengthOf(0);
+      expect(document.getElementsByClassName("modal-backdrop")).to.be
+        .lengthOf(0);
     });
   });
 

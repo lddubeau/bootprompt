@@ -1,4 +1,8 @@
 describe("Bootprompt", () => {
+  before(() => {
+    bootprompt.setDefaults("animate", false);
+  });
+
   it("is attached to the window object", () => {
     expect(bootprompt).to.be.an("object");
   });
@@ -154,6 +158,8 @@ describe("Bootprompt", () => {
 
     // tslint:disable-next-line:no-any
     function trigger(target: any): void {
+      expect(target).to.not.be.null;
+      expect(target).to.not.be.undefined;
       $dialog.trigger($.Event("click.dismiss.bs.modal", { target }));
     }
 
@@ -215,10 +221,11 @@ describe("Bootprompt", () => {
     });
 
     describe("when set to true", () => {
-      let callback: sinon.SinonSpy;
+      let callback: sinon.SinonStub;
 
       function createDialog(): void {
-        callback = sinon.spy();
+        callback = sinon.stub();
+        callback.returns(true);
         $dialog = bootprompt.alert({
           message: "hi",
           callback,
@@ -240,8 +247,21 @@ describe("Bootprompt", () => {
 
         describe("With the correct target", () => {
           before(() => {
+            // The suite does not systematically cleanup old modals.
+            bootprompt.hideAll();
+            const backdrops = document.getElementsByClassName("modal-backdrop");
+            expect(backdrops).to.be.lengthOf(0);
             createDialog();
-            trigger($dialog.children(".modal-backdrop")[0]);
+            expect(backdrops).to.be.lengthOf(1);
+
+            // We're trying to simulate what a user would do clicking outside
+            // the modal. In 3.3.x the backdrop is a child of the modal.
+            if ($dialog[0].contains(backdrops[0])) {
+              trigger(backdrops[0]);
+            }
+            else {
+              trigger($dialog[0]);
+            }
           });
 
           it("invokes the callback", () => {

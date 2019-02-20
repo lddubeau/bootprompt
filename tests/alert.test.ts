@@ -1,6 +1,10 @@
 describe("bootprompt.alert", () => {
   "use strict";
 
+  before(() => {
+    bootprompt.setDefaults("animate", false);
+  });
+
   describe("basic usage tests", () => {
     describe("with no arguments", () => {
       it("throws an error", () => {
