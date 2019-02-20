@@ -6,7 +6,7 @@
     "test": "tests"
   },
   "scripts": {
-    "tsc": "tsc -p src/tsconfig.json --outDir build/js",
+    "tsc": "tsc -p src/tsconfig.json --outDir build/js && echo 'export as namespace bootprompt;' >> build/js/bootprompt.d.ts",
     "rollup": "rollup -c rollup.config.js",
     "copy": "cp -p build/js/*.d.ts package.json README.md LICENSE.md build/dist",
     "build": "npm run tsc && npm run rollup && npm run copy && npm run copy-docs",
