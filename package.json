@@ -12,7 +12,7 @@
     "build": "npm run tsc && npm run rollup && npm run copy && npm run copy-docs",
     "copy-docs": "cp -rp docs build && cp -rp build/dist/bootprompt.all.min.* build/docs/js",
     "build-docs": "npm run build && npm run copy-docs",
-    "lint": "tslint --format verbose -p src/tsconfig.json",
+    "lint": "tslint --format verbose -p src/tsconfig.json && tslint --format verbose -p tests/tsconfig.json && eslint *.js",
     "test": "karma start --single-run",
     "posttest": "npm run lint",
     "build-and-test": "npm run build && npm test --",
