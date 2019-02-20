@@ -15,7 +15,7 @@ $(function () {
 
         if(anchors){
             anchors.options.placement = 'left';
-            anchors.add('.bb-anchor');
+            anchors.add('.bp-anchor');
         }
     }
     catch (ex) {

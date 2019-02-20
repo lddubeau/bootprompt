@@ -10,13 +10,13 @@ $(function () {
         }
 
         Example.init({
-            "selector": ".bb-alert"
+            "selector": ".bp-alert"
         });
 
         $('.example-button').on('click', function (e) {
             e.preventDefault();
 
-            var key = $(this).data('bb-example-key');
+            var key = $(this).data('bp-example-key');
             if ($.trim(key) != "") {
                 switch (key) {
 
