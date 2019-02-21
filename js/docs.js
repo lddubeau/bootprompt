@@ -1,47 +1,63 @@
+var shiftWindow = function () {
+    scrollBy(0, -85)
+};
+
 $(function () {
     var doc = $('html, body');
+
+    if (window.location.hash) {
+        doc.animate({
+            scrollTop: $(window.location.hash).offset().top - 85
+        }, 'slow');
+    }
+
+    var canPushState = false;
+    if (typeof history.pushState === "function") {
+        // Yup, have it
+        canPushState = true;
+    }
 
     try {
         window.prettyPrint && prettyPrint();
 
-        anchors.add('.bb-section h2, .bb-subsection h3, .bb-subsection h4');
-    }
-    catch (ex) {
-        console.log(ex.message);
-    }
+        $('#download-bootprompt').on('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
 
-    try {
-        $.scrollUp && $.scrollUp({
-            scrollName: 'scroll-up-btn',
-            animationSpeed: '600',
-            scrollText: '<i class="fa fa-4x fa-arrow-circle-up"></i>'
+            bootprompt.alert({
+                title: 'Bootprompt.js',
+                message: '<h3>Hey there!</h3> <p>Thank you for your interest. Unfortunately, Bootprompt 5 is not ready for distribution yet. '
+                    + 'If you want to start testing it, grab <a href="https://github.com/tiesont/bootprompt">the source code</a> and '
+                    + 'report any issues you find.</p>'
+            });
         });
+
+        if(anchors){
+            anchors.options.placement = 'left';
+            anchors.add('.bp-anchor');
+        }
     }
     catch (ex) {
         console.log(ex.message);
     }
 
     $(document)
-        .on('click', '.dropdown-menu li a[href^="#"]', function (e) {
+        .on('click', 'a[href^="#"]', function (e) {
             e.preventDefault();
 
             var target = $(this).attr('href');
             var offset = 75;
 
             if (target && $(target).offset()) {
-                offset = $(target).offset().top - 75;
+                offset = $(target).offset().top - 85;
             }
 
             doc.animate({
                 scrollTop: offset
             }, 'slow', function () {
-                //window.location.hash = target;
+                if (canPushState) {
+                    history.pushState(null, null, target);
+                }
             });
-        })
-        .off('click', 'a.back-to-top')
-        .on('click', 'a.back-to-top', function (e) {
-            e.preventDefault();
-
-            doc.animate({ scrollTop: 0 }, 'slow');
         });
 });

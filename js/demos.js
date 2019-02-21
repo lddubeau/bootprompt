@@ -1,83 +1,40 @@
-
 $(function () {
-    var doc = $('html, body');
-
     try {
-        window.prettyPrint && prettyPrint();
+        var locales = Object.keys(bootprompt.locales());
+        for(var i = 0; i < locales.length; i++){
+            var option = $('<option value=""></option>');
+            option.attr('value', locales[i]);
+            option.html(locales[i]);
 
-        anchors.add('.bb-examples-list .bb-example');
+            $('#locales').append(option);
+        }
 
         Example.init({
-            "selector": ".bb-alert"
+            "selector": ".bp-alert"
         });
-    }
-    catch (ex) {
-        console.log(ex.message);
-    }
 
-    try {
-        $.scrollUp && $.scrollUp({
-            scrollName: 'scroll-up-btn',
-            animationSpeed: '600',
-            scrollText: '<i class="fa fa-4x fa-arrow-circle-up"></i>'
-        });
-    }
-    catch (ex) {
-        console.log(ex.message);
-    }
-
-    try {
-        $(document)
-            .on('click', '.dropdown-menu li a[href^="#"]', function (e) {
-                e.preventDefault();
-
-                var target = $(this).attr('href');
-                var offset = 75;
-
-                if (target && $(target).offset()) {
-                    offset = $(target).offset().top - 75;
-                }
-
-                doc.animate({
-                    scrollTop: offset
-                }, 'slow', function () {
-                    //window.location.hash = target;
-                });
-            })
-            .off('click', 'a.back-to-top')
-            .on('click', 'a.back-to-top', function (e) {
-                e.preventDefault();
-                doc.animate({ scrollTop: 0 }, 'slow');
-            });
-    }
-    catch (ex) {
-        console.log(ex.message);
-    }
-
-
-    try {
         $('.example-button').on('click', function (e) {
             e.preventDefault();
 
-            var key = $(this).data('bb-example-key');
+            var key = $(this).data('bp-example-key');
             if ($.trim(key) != "") {
                 switch (key) {
 
                     /* Alerts */
 
                     case 'alert-default':
-                        bootbox.alert("This is the default alert!");
+                        bootprompt.alert("This is the default alert!");
                         Example.show('Default alert');
                         break;
 
                     case 'alert-callback':
-                        bootbox.alert("This is an alert with a callback!", function () {
+                        bootprompt.alert("This is an alert with a callback!", function () {
                             Example.show('This was logged in the callback!');
                         });
                         break;
 
                     case 'alert-options':
-                        bootbox.alert({
+                        bootprompt.alert({
                             message: "This is an alert with a callback!",
                             callback: function () {
                                 Example.show('This was logged in the callback!');
@@ -86,7 +43,7 @@ $(function () {
                         break;
 
                     case 'alert-small':
-                        bootbox.alert({
+                        bootprompt.alert({
                             message: "This is the small alert!",
                             size: 'small'
                         });
@@ -94,7 +51,7 @@ $(function () {
                         break;
 
                     case 'alert-large':
-                        bootbox.alert({
+                        bootprompt.alert({
                             message: "This is the large alert!",
                             size: 'large'
                         });
@@ -102,7 +59,7 @@ $(function () {
                         break;
 
                     case 'alert-custom-class':
-                        bootbox.alert({
+                        bootprompt.alert({
                             message: "This is an alert with an additional class!",
                             className: 'rubberBand animated'
                         });
@@ -110,24 +67,32 @@ $(function () {
                         break;
 
                     case 'alert-overlay-click':
-                        bootbox.alert({
+                        bootprompt.alert({
                             message: "This alert can be dismissed by clicking on the background!",
                             backdrop: true
                         });
                         Example.show('Dismissable background alert shown');
                         break;
 
+                    case 'alert-locale':
+                        bootprompt.alert({
+                            message: "This alert uses the Arabic locale!",
+                            locale: 'ar'
+                        });
+                        Example.show('Arabic locale alert shown');
+                        break;
 
-                        /* Confirms */
+
+                    /* Confirms */
 
                     case 'confirm-default':
-                        bootbox.confirm("This is the default confirm.", function (result) {
+                        bootprompt.confirm("This is the default confirm.", function (result) {
                             Example.show('This was logged in the callback: ' + result);
                         });
                         break;
 
                     case 'confirm-options':
-                        bootbox.confirm({
+                        bootprompt.confirm({
                             message: "This is a confirm with custom button text and color! Do you like it?",
                             buttons: {
                                 confirm: {
@@ -146,7 +111,7 @@ $(function () {
                         break;
 
                     case 'confirm-button-text':
-                        bootbox.confirm({
+                        bootprompt.confirm({
                             title: "Destroy planet?",
                             message: "Do you want to activate the Deathstar now? This cannot be undone.",
                             buttons: {
@@ -163,16 +128,48 @@ $(function () {
                         });
                         break;
 
-                        /* Prompts */
+                    case 'confirm-locale':
+                        var locale = $('#locales').val();
+                        bootprompt.confirm({
+                            message: "This confirm uses the selected locale. Were the labels what you expected?",
+                            locale: locale,
+                            callback: function (result) {
+                                Example.show('This was logged in the callback: ' + result);
+                            }
+                        });
+                        break;
+
+
+                   /* Prompts */
+
                     case 'prompt-default':
-                        bootbox.prompt("This is the default prompt!", function (result) {
+                        bootprompt.prompt("This is the default prompt!", function (result) {
                             Example.show('This was logged in the callback: ' + result);
                         });
                         break;
 
+                    case 'prompt-custom-locale':
+                        var locale = {
+                            OK: 'I Suppose',
+                            CONFIRM: 'Go Ahead',
+                            CANCEL: 'Maybe Not'
+                        };
+
+                        bootprompt.addLocale('custom', locale);
+
+                        bootprompt.prompt({
+                            title: "This is a prompt with a custom locale! What do you think?",
+                            locale: 'custom',
+                            callback: function (result) {
+                                Example.show('This was logged in the callback: ' + result);
+                            }
+                        });
+                        break;
+
                     case 'prompt-checkbox':
-                        bootbox.prompt({
+                        bootprompt.prompt({
                             title: "This is a prompt with a set of checkbox inputs!",
+                            value: [1, 3],
                             inputType: 'checkbox',
                             inputOptions: [
                                 {
@@ -194,8 +191,33 @@ $(function () {
                         });
                         break;
 
+                    case 'prompt-radio':
+                        bootprompt.prompt({
+                            title: "This is a prompt with a set of radio inputs!",
+                            message: '<p>Please select an option below:</p>',
+                            inputType: 'radio',
+                            inputOptions: [
+                                {
+                                    text: 'Choice One',
+                                    value: '1',
+                                },
+                                {
+                                    text: 'Choice Two',
+                                    value: '2',
+                                },
+                                {
+                                    text: 'Choice Three',
+                                    value: '3',
+                                }
+                            ],
+                            callback: function (result) {
+                                Example.show('This was logged in the callback: ' + result);
+                            }
+                        });
+                        break;
+
                     case 'prompt-date':
-                        bootbox.prompt({
+                        bootprompt.prompt({
                             title: "This is a prompt with a date input!",
                             inputType: 'date',
                             callback: function (result) {
@@ -205,7 +227,7 @@ $(function () {
                         break;
 
                     case 'prompt-email':
-                        bootbox.prompt({
+                        bootprompt.prompt({
                             title: "This is a prompt with an email input!",
                             inputType: 'email',
                             callback: function (result) {
@@ -215,7 +237,7 @@ $(function () {
                         break;
 
                     case 'prompt-number':
-                        bootbox.prompt({
+                        bootprompt.prompt({
                             title: "This is a prompt with a number input!",
                             inputType: 'number',
                             callback: function (result) {
@@ -225,7 +247,7 @@ $(function () {
                         break;
 
                     case 'prompt-password':
-                        bootbox.prompt({
+                        bootprompt.prompt({
                             title: "This is a prompt with a password input!",
                             inputType: 'password',
                             callback: function (result) {
@@ -235,7 +257,7 @@ $(function () {
                         break;
 
                     case 'prompt-select':
-                        bootbox.prompt({
+                        bootprompt.prompt({
                             title: "This is a prompt with select!",
                             inputType: 'select',
                             inputOptions: [
@@ -263,7 +285,7 @@ $(function () {
                         break;
 
                     case 'prompt-textarea':
-                        bootbox.prompt({
+                        bootprompt.prompt({
                             title: "This is a prompt with a textarea!",
                             inputType: 'textarea',
                             callback: function (result) {
@@ -273,9 +295,23 @@ $(function () {
                         break;
 
                     case 'prompt-time':
-                        bootbox.prompt({
+                        bootprompt.prompt({
                             title: "This is a prompt with a time input!",
                             inputType: 'time',
+                            callback: function (result) {
+                                Example.show('This was logged in the callback: ' + result);
+                            }
+                        });
+                        break;
+
+                    case 'prompt-range':
+                        bootprompt.prompt({
+                            title: "This is a prompt with a range input!",
+                            inputType: 'range',
+                            min: 0,
+                            max: 100,
+                            step: 5,
+                            value: 35,
                             callback: function (result) {
                                 Example.show('This was logged in the callback: ' + result);
                             }
@@ -287,8 +323,8 @@ $(function () {
 
                     case 'custom-dialog-as-overlay':
                         var timeout = 3000; // 3 seconds
-                        var dialog = bootbox.dialog({
-                            message: '<p class="text-center">Please wait while we do something...</p>',
+                        var dialog = bootprompt.dialog({
+                            message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Please wait while we do something...</p>',
                             closeButton: false
                         });
 
@@ -299,47 +335,48 @@ $(function () {
                         break;
 
                     case 'custom-dialog-init':
-                        var dialog = bootbox.dialog({
+                        var dialog = bootprompt.dialog({
                             title: 'A custom dialog with init',
                             message: '<p><i class="fa fa-spin fa-spinner"></i> Loading...</p>'
                         });
 
                         dialog.init(function () {
                             setTimeout(function () {
-                                dialog.find('.bootbox-body').html('I was loaded after the dialog was shown!');
+                                dialog.find('.bootprompt-body p').html('I was loaded after the dialog was shown!');
                             }, 3000);
                         });
 
                         break;
 
                     case 'custom-dialog-with-buttons':
-                        var dialog = bootbox.dialog({
+                        var dialog = bootprompt.dialog({
                             title: 'A custom dialog with buttons and callbacks',
                             message: "<p>This dialog has buttons. Each button has it's own callback function.</p>",
-							buttons: {
-								cancel: {
-									label: "I'm a custom cancel button!",
-									className: 'btn-danger',
-									callback: function(){
-										Example.show('Custom cancel clicked');
-									}
-								},
-								noclose: {
-									label: "I'm a custom button, but I don't close the modal!",
-									className: 'btn-warning',
-									callback: function(){
-										Example.show('Custom button clicked');
-										return false;
-									}
-								},
-								ok: {
-									label: "I'm a custom OK button!",
-									className: 'btn-info',
-									callback: function(){
-										Example.show('Custom OK clicked');
-									}
-								}
-							}
+                            size: 'large',
+                            buttons: {
+                                cancel: {
+                                    label: "I'm a cancel button!",
+                                    className: 'btn-danger',
+                                    callback: function(){
+                                        Example.show('Custom cancel clicked');
+                                    }
+                                },
+                                noclose: {
+                                    label: "I don't close the modal!",
+                                    className: 'btn-warning',
+                                    callback: function(){
+                                        Example.show('Custom button clicked');
+                                        return false;
+                                    }
+                                },
+                                ok: {
+                                    label: "I'm an OK button!",
+                                    className: 'btn-info',
+                                    callback: function(){
+                                        Example.show('Custom OK clicked');
+                                    }
+                                }
+                            }
                         });
 
                         break;
