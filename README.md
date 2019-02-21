@@ -1,6 +1,6 @@
 # Bootprompt - Bootstrap powered alert, confirm and flexible dialog boxes
 
-Please see [URL TBA] for full usage instructions.
+Please see [here](https://lddubeau.github.io/bootprompt/) for full usage instructions.
 
 Bootprompt is a fork of Nick Payne's
 [Bootbox](https://github.com/makeusabrew/bootbox). In 2018-2019 people began
