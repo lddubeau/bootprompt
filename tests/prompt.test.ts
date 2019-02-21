@@ -2048,7 +2048,7 @@ for more information.`);
       });
 
       describe("with multiple", () => {
-        let options: HTMLCollectionOf<HTMLOptionElement>;
+        let options: HTMLOptionElement[];
         let callback: sinon.SinonSpy;
 
         function createDialog(): void {
@@ -2074,7 +2074,15 @@ for more information.`);
 
         before(() => {
           createDialog();
-          options = $dialog[0].getElementsByTagName("option");
+
+          // Sigh... on all browsers just using the value returned by
+          // getElementsByTagName works. But on IE 10 and 11, it does not. The
+          // test that accesses options[0] fails. The list seems empty at that
+          // point. It seems that IE has a problem with the fact that the
+          // nodes in the list are removed from the document.
+          options = Array.prototype.slice
+            .call($dialog[0].getElementsByTagName("option"));
+
           options[1].selected = true;
           $($dialog[0].getElementsByClassName("bootprompt-accept"))
             .trigger("click");
