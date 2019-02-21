@@ -1,4 +1,3 @@
-/* eslint-env node */
 import sourceMaps from "rollup-plugin-sourcemaps";
 import fs from "fs";
 import path from "path";

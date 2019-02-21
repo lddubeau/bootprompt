@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 const path = require("path");
 
 // eslint-disable-next-line import/no-extraneous-dependencies
