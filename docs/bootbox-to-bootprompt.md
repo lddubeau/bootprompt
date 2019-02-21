@@ -6,6 +6,10 @@ features of Bootbox are costly to support and were removed. So for the benefit
 of those who might be upgrading from Bootbox 4 to Bootprompt, here are some
 major differences between the two libraries:
 
+* This package has a new name "Bootprompt", consequently, the CSS class names
+  and the DOM event names have also changed from using a ``bb-`` prefix to
+  ``bp-``.
+
 * Bootprompt does not contain a polyfill for ``Object.keys``. You should setup
   your own polyfill to load before Bootprompt or use libraries like ``core-js``
   to provide it for you.
