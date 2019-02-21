@@ -622,6 +622,7 @@ inputOptions`);
                             Partial<bootprompt.SelectPromptOptions> &
                             { inputOptions: bootprompt.InputOption[] }):
       void {
+        // tslint:disable-next-line:no-object-literal-type-assertion
         $dialog = bootprompt.prompt({
           title: "What is your name?",
           callback: () => true,
