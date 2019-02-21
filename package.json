@@ -12,6 +12,7 @@
     "build": "npm run tsc && npm run rollup && npm run copy && npm run copy-docs",
     "copy-docs": "cp -rp docs build && cp -rp build/dist/bootprompt.all.min.* build/docs/js",
     "build-docs": "npm run build && npm run copy-docs",
+    "gh-pages": "npm run build-docs && mkdir -p build && (cd build; rm -rf gh-pages; git clone .. --branch gh-pages gh-pages) && find build/gh-pages/ -type f \\! -path 'build/gh-pages/.git/*' -delete && find build/gh-pages -type d -empty -delete && cp -rp build/docs/* build/gh-pages",
     "lint": "tslint --format verbose -p src/tsconfig.json && tslint --format verbose -p tests/tsconfig.json && eslint *.js",
     "test": "karma start --single-run",
     "posttest": "npm run lint",
