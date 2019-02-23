@@ -89,7 +89,7 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
         inlineSources: true,
       },
     },
-    reporters: ["dots", "coverage", "junit"],
+    reporters: ["dots", "coverage"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
@@ -186,9 +186,6 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
     coverageReporter: {
       type: "html",
       dir: "tests/coverage",
-    },
-    junitReporter: {
-      outputDir: "tests/reports",
     },
   };
 
