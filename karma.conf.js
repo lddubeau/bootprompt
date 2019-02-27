@@ -48,7 +48,7 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
   // eslint-disable-next-line no-console
   console.log(`Using jQuery ${useJQuery || "latest"}`);
 
-  // const coverage = !config.debug ? ["coverage"] : [];
+  const coverage = !config.debug ? ["karma-coverage-istanbul-instrumenter"] : [];
   const options = {
     basePath: "",
     frameworks: ["mocha", "chai", "inline-core-js"],
@@ -64,7 +64,9 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
       bootstrapCSS,
       jQueryURL,
       bootstrapURL,
-      "build/dist/bootprompt.all.min.js",
+      // We cannot use the min version here because all comments are stripped.
+      // And the comments telling istanbul to ignore lines will be stripped too.
+      "build/dist/bootprompt.all.js",
       { pattern: "build/dist/**/*.map", included: false },
       "tests/util.ts",
       "tests/**/*.test.ts",
@@ -77,6 +79,7 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
     exclude: [],
     preprocessors: {
       "tests/*.ts": ["typescript"],
+      "build/dist/*.js": coverage,
     },
     typescriptPreprocessor: {
       tsconfigPath: "./tests/tsconfig.json",
@@ -89,7 +92,7 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
         inlineSources: true,
       },
     },
-    reporters: ["dots", "coverage"],
+    reporters: ["dots", "coverage-istanbul"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
@@ -183,9 +186,9 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
       // that.
     },
     captureTimeout: 60000,
-    coverageReporter: {
-      type: "html",
-      dir: "tests/coverage",
+    coverageIstanbulReporter: {
+      reports: ["html"],
+      dir: path.join(__dirname, "tests/coverage"),
     },
   };
 
