@@ -543,7 +543,7 @@ describe("bootprompt.dialog", () => {
         });
       });
 
-      it("adds the large class to the innerDialog", () => {
+      it("adds the small class to the innerDialog", () => {
         expect($dialog[0].getElementsByClassName("modal-dialog")[0].classList
                .contains("modal-sm")).to.be.true;
       });

@@ -253,7 +253,7 @@ confirm)`);
       });
     });
 
-    // invalif prompt type
+    // invalid prompt type
     describe("unknown input type", () => {
       it("throws an error", () => {
         expect(() => bootprompt.prompt({
