@@ -188,7 +188,7 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
     captureTimeout: 60000,
     coverageIstanbulReporter: {
       reports: ["html"],
-      dir: path.join(__dirname, "tests/coverage"),
+      dir: path.join(__dirname, "coverage"),
     },
   };
 

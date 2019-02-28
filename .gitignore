@@ -3,7 +3,7 @@
 node_modules
 npm-debug.log
 .idea
-tests/coverage
+coverage
 /build
 composer.lock
 .vs
