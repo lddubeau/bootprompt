@@ -1,6 +1,6 @@
 {
   "name": "bootprompt",
-  "version": "5.0.0-rc.1",
+  "version": "5.0.0",
   "description": "Wrappers for JavaScript alert(), confirm() and other flexible dialogs using the Bootstrap framework",
   "directories": {
     "test": "tests"
