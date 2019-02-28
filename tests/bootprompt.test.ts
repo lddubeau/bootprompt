@@ -76,6 +76,21 @@ describe("Bootprompt", () => {
     });
   });
 
+  describe("bootprompt.locales", () => {
+    it("returns a specific locale", () => {
+      expect(bootprompt.locales("en")).to.have.keys("OK", "CANCEL", "CONFIRM");
+    });
+
+    it("returns undefined on unknown locale", () => {
+      expect(bootprompt.locales("zz")).to.be.undefined;
+    });
+
+    it("returns all locales if no arg is passed", () => {
+      // We check only whether the en locale is on the object.
+      expect(bootprompt.locales()).to.contain.keys("en");
+    });
+  });
+
   describe("adding and removing locales", () => {
     describe("bootprompt.addLocale", () => {
       describe("with invalid values", () => {
@@ -149,6 +164,12 @@ describe("Bootprompt", () => {
 
       it("falls back to the default PROMPT translation", () => {
         expect(labels.confirm).to.equal("OK");
+      });
+
+      it("fails when trying to remove 'en'", () => {
+        expect(() => bootprompt.removeLocale("en"))
+          .to.throw(Error, `"en" is used as the default and fallback locale \
+and cannot be removed.`);
       });
     });
   });

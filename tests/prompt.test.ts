@@ -7,6 +7,9 @@ describe("bootprompt.prompt", () => {
 
   before(() => {
     bootprompt.setDefaults("animate", false);
+    // Remove this so that we can test what happens if there is no default
+    // set and the user does specify a type.
+    bootprompt.setDefaults("inputType", undefined);
   });
 
   // basic tests
@@ -265,6 +268,20 @@ confirm)`);
       });
     });
 
+    describe("with a message", () => {
+      before(() => {
+        $dialog = bootprompt.prompt({
+          title: "What is your name?",
+          message: "(Your real name!)",
+          callback: () => true,
+        });
+      });
+
+      it("has a message", () => {
+        expect(exists($dialog, ".bootprompt-prompt-message")).to.be.true;
+      });
+    });
+
     // text
     describe("setting inputType text", () => {
       function createDialog(opts: Partial<bootprompt.TextPromptOptions> = {}):
@@ -342,6 +359,19 @@ confirm)`);
         it("has correct maxlength value", () => {
           expect($(find($dialog, "input[type='text']")).prop("maxlength"))
             .to.equal(5);
+        });
+      });
+
+      describe("with required", () => {
+        before(() => {
+          createDialog({
+            required: true,
+          });
+        });
+
+        it("has correct required value", () => {
+          expect($(find($dialog, "input[type='text']")).prop("required"))
+            .to.be.true;
         });
       });
     });
@@ -985,6 +1015,32 @@ for "value".`);
             .to.equal("\d{1,2}/\d{1,2}/\d{4}");
         });
       });
+
+      describe("with min value", () => {
+        before(() => {
+          createDialog({
+            min: "2005-08-17",
+          });
+        });
+
+        it("has correct default value", () => {
+          expect($(find($dialog, "input[type='date']")).prop("min"))
+            .to.equal("2005-08-17");
+        });
+      });
+
+      describe("with max value", () => {
+        before(() => {
+          createDialog({
+            max: "2005-08-17",
+          });
+        });
+
+        it("has correct default value", () => {
+          expect($(find($dialog, "input[type='date']")).prop("max"))
+            .to.equal("2005-08-17");
+        });
+      });
     });
 
     // time
@@ -1241,6 +1297,18 @@ more information.`);
         });
       });
 
+      describe("with required", () => {
+        before(() => {
+          createDialog({
+            required: true,
+          });
+        });
+
+        it("has correct required value", () => {
+          expect($(find($dialog, "input[type='number']")).prop("required"))
+            .to.be.true;
+        });
+      });
       describe("with an number as value", () => {
         it("throws an error", () => {
           expect(() => createDialog({
@@ -1523,6 +1591,26 @@ for more information.`);
 
           it("should hide the modal", () => {
             expect(hidden).to.have.been.calledWithExactly("hide");
+          });
+        });
+
+        describe("when dismissing an invalid form by clicking OK", () => {
+          before(() => {
+            createDialog();
+            const input = find($dialog, ".bootprompt-input");
+            $(input).val("Test input");
+            // tslint:disable-next-line:no-any
+            (input as any).setCustomValidity("failed");
+
+            $(find($dialog, ".bootprompt-accept")).trigger("click");
+          });
+
+          it("should invoke the callback", () => {
+            expect(callback).to.not.have.been.called;
+          });
+
+          it("should hide the modal", () => {
+            expect(hidden).to.not.have.been.called;
           });
         });
 
@@ -2096,6 +2184,37 @@ for more information.`);
 
         it("the callback is called with proper values", () => {
           expect(callback).to.have.been.calledWithExactly(["1", "2"]);
+        });
+      });
+
+      describe("with required", () => {
+        function createDialog(): void {
+          $dialog = bootprompt.prompt({
+            title: "What is your IDE?",
+            callback: () => true,
+            value: "1",
+            inputType: "select",
+            required: true,
+            inputOptions: [{
+              value: "1",
+              text: "foo",
+            }, {
+              value: "2",
+              text: "bar",
+            }, {
+              value: "3",
+              text: "foobar",
+            }],
+          });
+        }
+
+        before(() => {
+          createDialog();
+        });
+
+        it("has correct required value", () => {
+          expect($(find($dialog, ".bootprompt-input-select")).prop("required"))
+            .to.be.true;
         });
       });
     });

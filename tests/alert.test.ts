@@ -150,6 +150,23 @@ function when provided"));
         expect(text($dialog, ".modal-title")).to.equal("Hello?");
       });
     });
+
+    describe("with a locale", () => {
+      let $dialog: JQuery;
+
+      before(() => {
+        $dialog = bootprompt.alert({
+          message: "Hello world",
+          // tslint:disable-next-line:no-empty
+          callback: () => {},
+          locale: "lt",
+        });
+      });
+
+      it("shows the correct OK translation", () => {
+        expect(text($dialog, ".btn")).to.equal("Gerai");
+      });
+    });
   });
 
   describe("callback tests", () => {

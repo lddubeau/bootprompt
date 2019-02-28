@@ -184,6 +184,62 @@ describe("bootprompt.confirm", () => {
       });
     });
 
+    describe("with reversed custom buttons", () => {
+      let buttons: HTMLCollectionOf<HTMLElement>;
+      let $dialog: JQuery;
+
+      before(() => {
+        $dialog = bootprompt.confirm({
+          message: "Are you sure?",
+          callback: () => true,
+          swapButtonOrder: true,
+          buttons: {
+            confirm: {
+              label: "Custom confirm",
+              className: "btn-warning",
+            },
+            cancel: {
+              label: "Custom cancel",
+              className: "btn-danger",
+            },
+          },
+        });
+
+        buttons = ($dialog[0].getElementsByClassName("btn") as
+                   HTMLCollectionOf<HTMLElement>);
+      });
+
+      it("adds swapped buttons", () => {
+        expect(buttons[1].textContent).to.equal("Custom cancel");
+        expect(buttons[1].classList.contains("btn-danger")).to.be.true;
+        expect(buttons[0].textContent).to.equal("Custom confirm");
+        expect(buttons[0].classList.contains("btn-warning")).to.be.true;
+      });
+    });
+
+    describe("with reversed stock buttons", () => {
+      let buttons: HTMLCollectionOf<HTMLElement>;
+      let $dialog: JQuery;
+
+      before(() => {
+        $dialog = bootprompt.confirm({
+          message: "Are you sure?",
+          callback: () => true,
+          swapButtonOrder: true,
+        });
+
+        buttons = ($dialog[0].getElementsByClassName("btn") as
+                   HTMLCollectionOf<HTMLElement>);
+      });
+
+      it("adds swapped buttons", () => {
+        expect(buttons[0].textContent).to.equal("OK");
+        expect(buttons[0].classList.contains("btn-primary")).to.be.true;
+        expect(buttons[1].textContent).to.equal("Cancel");
+        expect(buttons[1].classList.contains("btn-secondary")).to.be.true;
+      });
+    });
+
     describe("with an unrecognised button key", () => {
       it("throws an error", () => {
         expect(() => bootprompt.confirm({

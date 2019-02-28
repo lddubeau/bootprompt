@@ -345,7 +345,7 @@ describe("bootprompt.dialog", () => {
     });
   });
 
-  describe("when creating a dialog with a title", () => {
+  describe("when creating a dialog with a string title", () => {
     let $dialog: JQuery;
     before(() => {
       $dialog = bootprompt.dialog({
@@ -360,6 +360,30 @@ describe("bootprompt.dialog", () => {
 
     it("shows the correct title text", () => {
       expect(text($dialog, ".modal-title")).to.equal("My Title");
+    });
+
+    it("has a close button inside the header", () => {
+      expect(exists($dialog, ".modal-header .close")).to.be.true;
+    });
+  });
+
+  describe("when creating a dialog with an element title", () => {
+    let $dialog: JQuery;
+    let html: string;
+    before(() => {
+      html = "<span>My Title</span>";
+      $dialog = bootprompt.dialog({
+        title: $(html),
+        message: "test",
+      });
+    });
+
+    it("has a header", () => {
+      expect(exists($dialog, ".modal-header")).to.be.true;
+    });
+
+    it("shows the correct title text", () => {
+      expect(find($dialog, ".modal-title").innerHTML).to.equal(html);
     });
 
     it("has a close button inside the header", () => {
@@ -546,6 +570,16 @@ describe("bootprompt.dialog", () => {
       it("adds the small class to the innerDialog", () => {
         expect($dialog[0].getElementsByClassName("modal-dialog")[0].classList
                .contains("modal-sm")).to.be.true;
+      });
+    });
+
+    describe("when the size option is set to an unsupported value", () => {
+      it("throws an error", () => {
+        expect(() => bootprompt.dialog({
+          message: "test",
+          // tslint:disable-next-line:no-any
+          size: "fnord" as any,
+        })).to.throw(Error, "unknown size value: fnord");
       });
     });
   });

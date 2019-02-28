@@ -201,6 +201,9 @@ export type PromptOptions = TextPromptOptions | SelectPromptOptions |
 // tslint:disable:no-any
 const assign = (Object as any).assign !== undefined ?
   ((a: {}, b: {}) => (Object as any).assign(a, b)) :
+  // For coverage purposes we don't run the tests on platforms that don't
+  // have assign.
+  /* istanbul ignore next */
   ((a: any, b: any) => $.extend(a, b));
 // tslint:enable:no-any
 
@@ -357,6 +360,7 @@ export function hideAll(): void {
 
 // tslint:disable-next-line:no-any
 const fnModal = $.fn.modal as any;
+/* istanbul ignore if: we do not test with incorrect environments. */
 if (fnModal === undefined) {
   throw new Error(
     `"$.fn.modal" is not defined; please double check you have included \
@@ -364,6 +368,7 @@ the Bootstrap JavaScript library. See http://getbootstrap.com/javascript/ \
 for more details.`);
 }
 
+/* istanbul ignore if: we do not test with incorrect environments. */
 if (!fnModal.Constructor.VERSION) {
   throw new Error("Bootprompt cannot determine the version of Bootstrap used");
 }
@@ -373,6 +378,7 @@ const bootstrapVersion =
   Number(fullBootstrapVersion.substring(0,
                                         fullBootstrapVersion.indexOf(".")));
 
+/* istanbul ignore if: we do not test with incorrect environments. */
 if (bootstrapVersion < 3) {
   throw new Error("Bootprompt does not work with Bootstrap 2 and lower.");
 }
@@ -458,6 +464,7 @@ export function dialog(options: DialogOptions): JQuery {
 
   if (size !== undefined) {
     // Requires Bootstrap 3.1.0 or higher
+    /* istanbul ignore if: we don't systematically test with old versions */
     if (fullBootstrapVersion.substring(0, 3) < "3.1") {
       console.warn(`"size" requires Bootstrap 3.1.0 or higher. You appear \
 to be using ${fullBootstrapVersion}. Please upgrade to use this option.`);
@@ -471,6 +478,8 @@ to be using ${fullBootstrapVersion}. Please upgrade to use this option.`);
         innerDialog.classList.add("modal-sm");
         break;
       default:
+        const q: never = size;
+        throw new Error(`unknown size value: ${q}`);
     }
   }
 
@@ -494,6 +503,7 @@ to be using ${fullBootstrapVersion}. Please upgrade to use this option.`);
 
     if (title !== undefined) {
       const modalHeader = modal.getElementsByClassName("modal-header")[0];
+      /* istanbul ignore else: we don't systematically test on old versions */
       if (bootstrapVersion > 3) {
         modalHeader.appendChild(closeButtonEl);
       }
@@ -506,9 +516,10 @@ to be using ${fullBootstrapVersion}. Please upgrade to use this option.`);
   }
 
   if (finalOptions.centerVertical !== undefined){
-    // Requires Bootstrap 4.0.0-beta.3 or higher
+    // Requires Bootstrap 4.0.0 or higher
+    /* istanbul ignore if: we don't systematically test with old versions */
     if (fullBootstrapVersion < "4.0.0") {
-      console.warn(`"centerVertical" requires Bootstrap 4.0.0-beta.3 or \
+      console.warn(`"centerVertical" requires Bootstrap 4.0.0 or \
 higher. You appear to be using ${fullBootstrapVersion}. Please upgrade to use \
 this option.`);
     }
@@ -562,7 +573,9 @@ this option.`);
       const backdrops =
         modal.getElementsByClassName("modal-backdrop");
 
-      const target = backdrops.length !== 0 ? backdrops[0] :
+      const target = backdrops.length !== 0 ?
+        /* istanbul ignore next: we don't systematically test with 3.3.x */
+        backdrops[0] :
         e.currentTarget;
 
       if (e.target !== target) {
@@ -832,8 +845,10 @@ value");
     }
   }
 
+  // Conditions are such that an undefined firstValue here is an internal error.
+  /* istanbul ignore if: we cannot cause this intentionally */
   if (firstValue === undefined) {
-    firstValue = "";
+    throw new Error("firstValue cannot be undefined at this point");
   }
 
   // tslint:disable-next-line:forin
@@ -1107,6 +1122,8 @@ function getText(key: LocaleField, locale: string): string {
   return labels !== undefined ? labels[key] : definedLocales.en[key];
 }
 
+type ButtonName = "ok" | "cancel" | "confirm";
+
 /**
  *
  * Make buttons from a series of labels. All this does is normalise the given
@@ -1119,19 +1136,12 @@ function getText(key: LocaleField, locale: string): string {
  * @returns The created buttons.
  *
  */
-function makeButtons(labels: string[], locale: string): Buttons {
+function makeButtons(labels: ButtonName[], locale: string): Buttons {
   const buttons: Buttons = Object.create(null);
 
   for (const label of labels) {
-    const value = label.toUpperCase();
-
-    // tslint:disable-next-line:no-any
-    if (LOCALE_FIELDS.indexOf(value as any) === -1) {
-      throw new Error(`${value} is not a valid locale field`);
-    }
-
     buttons[label.toLowerCase()] = {
-      label: getText(value as LocaleField, locale),
+      label: getText(label.toUpperCase() as LocaleField, locale),
     };
   }
 
@@ -1162,7 +1172,7 @@ type SpecializedOptions = AlertOptions | ConfirmOptions | PromptOptions;
  */
 function mergeDialogOptions<T extends SpecializedOptions>(
   kind: string,
-  labels: string[],
+  labels: ButtonName[],
   properties: [keyof T, keyof T],
   optionsOrString: string | T,
   callback?: T["callback"]): T & DialogOptions & { buttons: Buttons } {
@@ -1210,7 +1220,8 @@ function mergeDialogOptions<T extends SpecializedOptions>(
   // that for very small arrays, there's no benefit to creating a table for
   // lookup.
   for (const key in merged.buttons) {
-    if (orderedLabels.indexOf(key) === -1) {
+    // tslint:disable-next-line:no-any
+    if (orderedLabels.indexOf(key as any) === -1) {
       throw new Error(`button key "${key}" is not allowed (options are \
 ${orderedLabels.join(" ")})`);
     }
@@ -1327,6 +1338,7 @@ function validateMinOrMaxValue(input: JQuery,
   // Type inference fails to realize the real type of value...
   switch (options.inputType) {
     case "date":
+      /* istanbul ignore if: we don't test the positive case */
       if (!/(\d{4})-(\d{2})-(\d{2})/.test(value)) {
         console.warn(`Browsers which natively support the "date" input type \
 expect date values to be of the form "YYYY-MM-DD" (see ISO-8601 \
