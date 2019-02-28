@@ -3,8 +3,12 @@ Differences from Bootbox
 
 Bootprompt is a fork of Bootbox but it is also a break with the past. Some
 features of Bootbox are costly to support and were removed. So for the benefit
-of those who might be upgrading from Bootbox 4 to Bootprompt, here are some
+of those who might be upgrading from Bootbox 4 to Bootprompt, here are the
 major differences between the two libraries:
+
+* This package has a new name "Bootprompt", consequently, the CSS class names
+  and the DOM event names have also changed from using a ``bb-`` prefix to
+  ``bp-``.
 
 * Bootprompt does not contain a polyfill for ``Object.keys``. You should setup
   your own polyfill to load before Bootprompt or use libraries like ``core-js``
@@ -12,12 +16,16 @@ major differences between the two libraries:
 
 * Bootprompt does not support chaining of the module-wide functions.
 
-* Bootprompt formally requires "bootstrap". (Bootbox did not.) If you had custom
-  configuration in your module loader to fix Bootbox, you don't need it for
-  Bootprompt.
+* Bootprompt formally imports the module named ``bootstrap``. (Bootbox did not.)
+  If you had custom configuration in your module loader to fix Bootbox, you
+  don't need it for Bootprompt. (If you are not using a module loader or
+  bundler, the JS for bootstrap just needs to be loaded through a ``script``
+  element before Bootprompt.)
 
-* Bootprompt cannot be loaded without "bootstrap" being first loaded. (Bootbox
-  allowed it.)
+* Bootprompt cannot be loaded without the module ``bootstrap`` being first
+  loaded. (Bootbox allowed it.) (If you are not using a module loader or
+  bundler, the JS for bootstrap just needs to be loaded through a ``script``
+  element before Bootprompt.)
 
 * Bootprompt will not kinda-sorta work with Bootstrap 2 or earlier. It throws an
   error if it looks like Bootstrap is not at least 3.
@@ -70,3 +78,10 @@ major differences between the two libraries:
 
   Bootprompt will throw an error if the default value is a number, or if any of
   the values passed as the ``value`` field of ``inputOptions`` is a number.
+
+* Tieson Trowbridge's improvements included the capability to set
+  ``placeholder`` on a ``select`` input. There was a comment explaining that it
+  is not a valid attribute for select, etc. Since there is no standard semantics
+  for ``placeholder`` on ``select``, I (lddubeau) removed this capability. It
+  may be added back if someone can make a case for it. (I (lddubeau) searched
+  the issues on Bootbox but could not find a discussion of this feature.)
