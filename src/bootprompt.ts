@@ -1168,7 +1168,8 @@ function mergeDialogOptions<T extends SpecializedOptions>(
   labels: ButtonName[],
   properties: [keyof T, keyof T],
   optionsOrString: string | T,
-  callback?: T["callback"]): T & DialogOptions & { buttons: Buttons } {
+  callback?: T["callback"]):
+T & DialogOptions & { buttons: Buttons } {
   let locale;
   let swapButtons;
   if (typeof optionsOrString !== "string") {
@@ -1181,7 +1182,7 @@ function mergeDialogOptions<T extends SpecializedOptions>(
     ({ locale, swapButtons } = defaults);
   }
 
-  const orderedLabels = swapButtons ? labels.reverse() : labels;
+  const orderedLabels = swapButtons ? labels.slice().reverse() : labels;
 
   //  build up a base set of dialog properties
   const baseOptions = {

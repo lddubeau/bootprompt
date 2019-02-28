@@ -209,11 +209,14 @@ describe("bootprompt.confirm", () => {
                    HTMLCollectionOf<HTMLElement>);
       });
 
-      it("adds swapped buttons", () => {
-        expect(buttons[1].textContent).to.equal("Custom cancel");
-        expect(buttons[1].classList.contains("btn-danger")).to.be.true;
+      it("puts confirm first", () => {
         expect(buttons[0].textContent).to.equal("Custom confirm");
         expect(buttons[0].classList.contains("btn-warning")).to.be.true;
+      });
+
+      it("puts cancel second", () => {
+        expect(buttons[1].textContent).to.equal("Custom cancel");
+        expect(buttons[1].classList.contains("btn-danger")).to.be.true;
       });
     });
 
@@ -232,9 +235,12 @@ describe("bootprompt.confirm", () => {
                    HTMLCollectionOf<HTMLElement>);
       });
 
-      it("adds swapped buttons", () => {
+      it("puts confirm first", () => {
         expect(buttons[0].textContent).to.equal("OK");
         expect(buttons[0].classList.contains("btn-primary")).to.be.true;
+      });
+
+      it("puts cancel second", () => {
         expect(buttons[1].textContent).to.equal("Cancel");
         expect(buttons[1].classList.contains("btn-secondary")).to.be.true;
       });
