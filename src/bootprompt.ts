@@ -159,7 +159,6 @@ export interface InputOption {
 export interface CommonSelectOptions<T extends unknown[]>
   extends PromptCommonOptions<T> {
   inputType: "select";
-  placeholder?: string;
   inputOptions: InputOption[];
   required?: boolean;
 }
@@ -802,13 +801,7 @@ function setupSelectInput(input: JQuery, options: SelectPromptOptions): void {
 value");
   }
 
-  const { placeholder, required, multiple } = options;
-
-  // placeholder is not actually a valid attribute for select, but we'll
-  // allow it, assuming it might be used for a plugin
-  if (placeholder !== undefined) {
-    input.attr("placeholder", placeholder);
-  }
+  const { required, multiple } = options;
 
   if (required === true) {
     input.prop({ required: true });

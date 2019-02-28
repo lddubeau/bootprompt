@@ -74,3 +74,10 @@ major differences between the two libraries:
 
   Bootprompt will throw an error if the default value is a number, or if any of
   the values passed as the ``value`` field of ``inputOptions`` is a number.
+
+* Tieson Trowbridge's improvements included the capability to set
+  ``placeholder`` on a ``select`` input. There was a comment explaining that it
+  is not a valid attribute for select, etc. Since there is no standard semantics
+  for ``placeholder`` on ``select``, I (lddubeau) removed this capability. It
+  may be added back if someone can make a case for it. (I (lddubeau) searched
+  the issues on Bootbox but could not find a discussion of this feature.)
