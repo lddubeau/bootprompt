@@ -18,6 +18,8 @@ function makeSpecifier(version) {
   return version === undefined ? "" : `@${version}`;
 }
 
+const { env: { CONTINUOUS_INTEGRATION } } = process;
+
 module.exports = (config) => {
   // The --use-jquery option is stored as "useJquery". Note the funky
   // capitalization.
@@ -187,7 +189,9 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
     },
     captureTimeout: 60000,
     coverageIstanbulReporter: {
-      reports: ["html"],
+      // If we are running in Travis the HTML results are not useful, but
+      // we want to provide coverage information for Coveralls.
+      reports: CONTINUOUS_INTEGRATION ? ["lcovonly"] : ["html"],
       dir: path.join(__dirname, "coverage"),
     },
   };
@@ -196,7 +200,7 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
     browserStack: {},
   };
 
-  if (process.env.CONTINUOUS_INTEGRATION) {
+  if (CONTINUOUS_INTEGRATION) {
     // Running on Travis. Grab the configuration from Travis.
     localConfig.browserStack = {
       // Travis provides the tunnel.
