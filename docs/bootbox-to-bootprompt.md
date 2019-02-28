@@ -3,7 +3,7 @@ Differences from Bootbox
 
 Bootprompt is a fork of Bootbox but it is also a break with the past. Some
 features of Bootbox are costly to support and were removed. So for the benefit
-of those who might be upgrading from Bootbox 4 to Bootprompt, here are some
+of those who might be upgrading from Bootbox 4 to Bootprompt, here are the
 major differences between the two libraries:
 
 * This package has a new name "Bootprompt", consequently, the CSS class names
@@ -16,12 +16,16 @@ major differences between the two libraries:
 
 * Bootprompt does not support chaining of the module-wide functions.
 
-* Bootprompt formally requires "bootstrap". (Bootbox did not.) If you had custom
-  configuration in your module loader to fix Bootbox, you don't need it for
-  Bootprompt.
+* Bootprompt formally imports the module named ``bootstrap``. (Bootbox did not.)
+  If you had custom configuration in your module loader to fix Bootbox, you
+  don't need it for Bootprompt. (If you are not using a module loader or
+  bundler, the JS for bootstrap just needs to be loaded through a ``script``
+  element before Bootprompt.)
 
-* Bootprompt cannot be loaded without "bootstrap" being first loaded. (Bootbox
-  allowed it.)
+* Bootprompt cannot be loaded without the module ``bootstrap`` being first
+  loaded. (Bootbox allowed it.) (If you are not using a module loader or
+  bundler, the JS for bootstrap just needs to be loaded through a ``script``
+  element before Bootprompt.)
 
 * Bootprompt will not kinda-sorta work with Bootstrap 2 or earlier. It throws an
   error if it looks like Bootstrap is not at least 3.

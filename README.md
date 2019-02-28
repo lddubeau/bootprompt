@@ -14,10 +14,17 @@ Tieson, decided to fork the project, and Bootprompt was born.
 ## Versioning
 
 Bootprompt's first version is 5 because Bootbox got up to version 4 before
-Bootprompt was forked from it. If we had restarted version numbering from 1, we
-would have had to rename tags, etc. Too much trouble.
+Bootprompt was forked from it. (A version 5 of Bootbox was released after this
+project was forked, unfortunately.) If we had restarted version numbering from
+1, we would have had to rename tags, etc. Too much trouble.
 
 Do note that this project does not provide support for any version prior to 5.
+
+## Migrating from Bootbox
+
+If you are migrating from Bootbox, you should read [this
+document](./docs/bootbox-to-bootprompt.md) which highlights the major
+differences.
 
 ## Support
 
