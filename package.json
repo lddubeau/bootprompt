@@ -64,7 +64,7 @@
     "mocha": "^6.0.2",
     "popper.js": "^1.14.7",
     "renovate-config-lddubeau": "^1.0.0",
-    "rollup": "^1.4.0",
+    "rollup": "^1.4.1",
     "rollup-plugin-multi-entry": "^2.1.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-terser": "^4.0.4",
