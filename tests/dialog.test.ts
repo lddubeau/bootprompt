@@ -437,9 +437,9 @@ describe("bootprompt.dialog", () => {
       let callback: sinon.SinonSpy;
       let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
       let trigger: sinon.SinonSpy<[string | JQuery.Event,
+                                   // tslint:disable-next-line:no-any
                                    (string | number | boolean | any[] |
-                                    JQuery.PlainObject<any>)?],
-      JQuery<HTMLElement>>;
+                                    JQuery.PlainObject)?], JQuery>;
 
       function createDialog(): void {
         callback = sinon.spy();
