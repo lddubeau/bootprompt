@@ -266,7 +266,7 @@ cancel confirm)`);
   describe("callback tests", () => {
     describe("with a simple callback", () => {
       let callback: sinon.SinonSpy;
-      let hidden: sinon.SinonSpy;
+      let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
       let $dialog: JQuery;
 
       function createDialog(): void {
@@ -351,7 +351,7 @@ cancel confirm)`);
 
     describe("with a callback which returns false", () => {
       let callback: sinon.SinonStub;
-      let hidden: sinon.SinonSpy;
+      let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
       let $dialog: JQuery;
 
       function createDialog(): void {

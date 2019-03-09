@@ -124,7 +124,7 @@ describe("bootprompt.dialog", () => {
       });
 
       describe("when triggering the escape event", () => {
-        let hidden: sinon.SinonSpy;
+        let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
         before(() => {
           create();
@@ -138,7 +138,7 @@ describe("bootprompt.dialog", () => {
       });
 
       describe("when clicking the close button", () => {
-        let hidden: sinon.SinonSpy;
+        let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
         before(() => {
           create();
@@ -181,7 +181,7 @@ describe("bootprompt.dialog", () => {
       });
 
       describe("when dismissing the dialog by clicking OK", () => {
-        let hidden: sinon.SinonSpy;
+        let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
         before(() => {
           create();
@@ -204,7 +204,7 @@ describe("bootprompt.dialog", () => {
       });
 
       describe("when triggering the escape event", () => {
-        let hidden: sinon.SinonSpy;
+        let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
         before(() => {
           create();
@@ -222,7 +222,7 @@ describe("bootprompt.dialog", () => {
       });
 
       describe("when clicking the close button", () => {
-        let hidden: sinon.SinonSpy;
+        let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
         before(() => {
           create();
@@ -435,8 +435,11 @@ describe("bootprompt.dialog", () => {
 
     describe("with a simple callback", () => {
       let callback: sinon.SinonSpy;
-      let hidden: sinon.SinonSpy;
-      let trigger: sinon.SinonSpy;
+      let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
+      let trigger: sinon.SinonSpy<[string | JQuery.Event,
+                                   (string | number | boolean | any[] |
+                                    JQuery.PlainObject<any>)?],
+      JQuery<HTMLElement>>;
 
       function createDialog(): void {
         callback = sinon.spy();
@@ -491,7 +494,7 @@ describe("bootprompt.dialog", () => {
 
     describe("with a callback which returns false", () => {
       let callback: sinon.SinonSpy;
-      let hidden: sinon.SinonSpy;
+      let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
       function createDialog(): void {
         callback = sinon.stub().returns(false);

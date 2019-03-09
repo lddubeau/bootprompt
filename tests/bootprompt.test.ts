@@ -19,7 +19,7 @@ describe("Bootprompt", () => {
   });
 
   describe("hideAll", () => {
-    let hidden: sinon.SinonSpy;
+    let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
     before(() => {
       hidden = sinon.spy($.fn, "modal");
@@ -38,7 +38,7 @@ describe("Bootprompt", () => {
   describe("event listeners", () => {
     describe("hidden.bs.modal", () => {
       let $dialog: JQuery;
-      let removed: sinon.SinonStub;
+      let removed: sinon.SinonSpy<[string?], JQuery>;
 
       // tslint:disable-next-line:no-any
       function trigger(target: any): void {

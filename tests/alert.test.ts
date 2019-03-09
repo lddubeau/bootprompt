@@ -171,7 +171,7 @@ function when provided"));
 
   describe("callback tests", () => {
     describe("with no callback", () => {
-      let hidden: sinon.SinonSpy;
+      let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
       let $dialog: JQuery;
 
       function createDialog(): void {
@@ -219,7 +219,7 @@ function when provided"));
     describe("with a simple callback", () => {
       let callback: sinon.SinonSpy;
       let $dialog: JQuery;
-      let hidden: sinon.SinonSpy;
+      let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
       function createDialog(): void {
         callback = sinon.spy();
@@ -293,7 +293,7 @@ function when provided"));
     describe("with a callback which returns false", () => {
       let $dialog: JQuery;
       let callback: sinon.SinonStub;
-      let hidden: sinon.SinonSpy;
+      let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
       function createDialog(): void {
         callback = sinon.stub();

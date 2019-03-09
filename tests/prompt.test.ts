@@ -1514,7 +1514,7 @@ for more information.`);
     // simple callback
     describe("with a simple callback", () => {
       let callback: sinon.SinonSpy;
-      let hidden: sinon.SinonSpy;
+      let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
       function createDialog(): void {
         callback = sinon.spy();
@@ -1709,7 +1709,7 @@ for more information.`);
 
     describe("with a callback which returns false", () => {
       let callback: sinon.SinonStub;
-      let hidden: sinon.SinonSpy;
+      let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
       function createDialog(): void {
         callback = sinon.stub();
@@ -2225,7 +2225,7 @@ for more information.`);
 
       describe("without a default value", () => {
         let callback: sinon.SinonSpy;
-        let hidden: sinon.SinonSpy;
+        let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
         function createDialog(): void {
           callback = sinon.spy();
@@ -2316,7 +2316,7 @@ for more information.`);
 
       describe("with a default value", () => {
         let callback: sinon.SinonSpy;
-        let hidden: sinon.SinonSpy;
+        let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
         function createDialog(): void {
           callback = sinon.spy();
@@ -2405,7 +2405,7 @@ for more information.`);
 
       describe("without a default value", () => {
         let callback: sinon.SinonSpy;
-        let hidden: sinon.SinonSpy;
+        let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
         function createDialog(): void {
           callback = sinon.spy();
@@ -2681,7 +2681,7 @@ for more information.`);
     describe("with input type radio", () => {
       describe("without a default value", () => {
         let callback: sinon.SinonSpy;
-        let hidden: sinon.SinonSpy;
+        let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
 
         function createDialog(): void {
           callback = sinon.spy();
