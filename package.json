@@ -46,7 +46,7 @@
     "@types/sinon": "^7.0.10",
     "@types/sinon-chai": "^3.2.2",
     "chai": "^4.2.0",
-    "core-js": "^2.6.5",
+    "core-js": "^3.0.0",
     "deepcopy": "^2.0.0",
     "eslint": "^5.15.3",
     "eslint-config-lddubeau-base": "^3.0.1",
