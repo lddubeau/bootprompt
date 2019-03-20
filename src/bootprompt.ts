@@ -633,17 +633,8 @@ this option.`);
   return $modal;
 }
 
-// Helper function to simulate the native alert() behavior. **NOTE**: This is
-// non-blocking, so any code that must happen after the alert is dismissed
-// should be placed within the callback function for this alert.
-export function alert(options: AlertOptions): JQuery;
-export function alert(message: string,
-                      callback?: AlertOptions["callback"]): JQuery;
-export function alert(messageOrOptions: string | AlertOptions,
-                      callback?: AlertOptions["callback"]): JQuery {
-  const finalOptions =
-    mergeDialogOptions("alert", ["ok"], ["message", "callback"],
-                       messageOrOptions, callback);
+function _alert(options: AlertOptions): JQuery {
+  const finalOptions = mergeDialogOptions("alert", ["ok"], options);
 
   const { callback: finalCallback } = finalOptions;
 
@@ -668,17 +659,25 @@ provided");
   return dialog(finalOptions);
 }
 
-// Helper function to simulate the native confirm() behavior. **NOTE**: This is
-// non-blocking, so any code that must happen after the confirm is dismissed
-// should be placed within the callback function for this confirm.
-export function confirm(options: ConfirmOptions): JQuery;
-export function confirm(message: string,
-                        callback: ConfirmOptions["callback"]): JQuery;
-export function confirm(messageOrOptions: string | ConfirmOptions,
-                        callback?: ConfirmOptions["callback"]): JQuery {
+// Helper function to simulate the native alert() behavior. **NOTE**: This is
+// non-blocking, so any code that must happen after the alert is dismissed
+// should be placed within the callback function for this alert.
+export function alert(options: AlertOptions): JQuery;
+export function alert(message: string,
+                      callback?: AlertOptions["callback"]): JQuery;
+export function alert(messageOrOptions: string | AlertOptions,
+                      callback?: AlertOptions["callback"]): JQuery {
+  return _alert(typeof messageOrOptions === "string" ?
+                {
+                  message: messageOrOptions,
+                  callback,
+                } :
+                messageOrOptions);
+}
+
+function _confirm(options: ConfirmOptions): JQuery {
   const finalOptions = mergeDialogOptions("confirm", ["cancel", "confirm"],
-                                          ["message", "callback"],
-                                          messageOrOptions, callback);
+                                           options);
 
   const { callback: finalCallback, buttons } = finalOptions;
 
@@ -703,6 +702,22 @@ export function confirm(messageOrOptions: string | ConfirmOptions,
   };
 
   return dialog(finalOptions);
+}
+
+// Helper function to simulate the native confirm() behavior. **NOTE**: This is
+// non-blocking, so any code that must happen after the confirm is dismissed
+// should be placed within the callback function for this confirm.
+export function confirm(options: ConfirmOptions): JQuery;
+export function confirm(message: string,
+                        callback: ConfirmOptions["callback"]): JQuery;
+export function confirm(messageOrOptions: string | ConfirmOptions,
+                        callback?: ConfirmOptions["callback"]): JQuery {
+  return _confirm(typeof messageOrOptions === "string" ?
+                  {
+                    message: messageOrOptions,
+                    callback,
+                  } :
+                  messageOrOptions);
 }
 
 function setupTextualInput(input: JQuery,
@@ -922,20 +937,12 @@ for "value".`);
   }
 }
 
-// Helper function to simulate the native prompt() behavior. **NOTE**: This is
-// non-blocking, so any code that must happen after the prompt is dismissed
-// should be placed within the callback function for this prompt.
-export function prompt(options: PromptOptions): JQuery;
-export function prompt(message: string,
-                       callback: PromptOptions["callback"]): JQuery;
 // tslint:disable-next-line:max-func-body-length
-export function prompt(messageOrOptions: string | PromptOptions,
-                       callback?: PromptOptions["callback"]): JQuery {
+export function _prompt(options: PromptOptions): JQuery {
   // prompt defaults are more complex than others in that users can override
   // more defaults
   const finalOptions = mergeDialogOptions("prompt", ["cancel", "confirm"],
-                                          ["title", "callback"],
-                                          messageOrOptions, callback);
+                                           options);
   if (finalOptions.value === undefined) {
     finalOptions.value = defaults.value;
   }
@@ -1095,6 +1102,24 @@ export function prompt(messageOrOptions: string | PromptOptions,
   return promptDialog;
 }
 
+// Helper function to simulate the native prompt() behavior. **NOTE**: This is
+// non-blocking, so any code that must happen after the prompt is dismissed
+// should be placed within the callback function for this prompt.
+export function prompt(options: PromptOptions): JQuery;
+export function prompt(message: string,
+                       callback: PromptOptions["callback"]): JQuery;
+// tslint:disable-next-line:max-func-body-length
+export function prompt(messageOrOptions: string | PromptOptions,
+                       callback?: PromptOptions["callback"]): JQuery {
+  return _prompt(typeof messageOrOptions === "string" ?
+                 // tslint:disable-next-line:no-object-literal-type-assertion
+                 {
+                   title: messageOrOptions,
+                   callback,
+                 } as PromptOptions :
+                 messageOrOptions);
+}
+
 //
 // INTERNAL FUNCTIONS
 //
@@ -1151,32 +1176,22 @@ type SpecializedOptions = AlertOptions | ConfirmOptions | PromptOptions;
  *
  * @param labels The button labels that the specialized function uses.
  *
- * @param properties The properties to which the ``options`` and ``callback``
- * arguments should be mapped.
- *
- * @param optionsOrString: The first argument of the specialized functions is
- * either an options object, or a string. The value of that first argument must
- * be passed here.
- *
- * @param callback The second argument (optional) to the specialized functions
- * is a callback. It must be passed here.
+ * @param options: The first argument of the specialized functions is either an
+ * options object, or a string. The value of that first argument must be passed
+ * here.
  *
  * @returns Options to pass to [[dialog]].
  */
-function mergeDialogOptions<T extends SpecializedOptions>(
-  kind: string,
-  labels: ButtonName[],
-  properties: [keyof T, keyof T],
-  optionsOrString: string | T,
-  callback?: T["callback"]):
+function mergeDialogOptions<T extends SpecializedOptions>(kind: string,
+                                                          labels: ButtonName[],
+                                                          options: T):
 T & DialogOptions & { buttons: Buttons } {
   let locale;
   let swapButtons;
-  if (typeof optionsOrString !== "string") {
-    locale = optionsOrString.locale !== undefined ? optionsOrString.locale :
-      defaults.locale;
-    swapButtons = optionsOrString.swapButtonOrder !== undefined ?
-      optionsOrString.swapButtonOrder : defaults.swapButtonOrder;
+  if (typeof options !== "string") {
+    locale = options.locale !== undefined ? options.locale : defaults.locale;
+    swapButtons = options.swapButtonOrder !== undefined ?
+      options.swapButtonOrder : defaults.swapButtonOrder;
   }
   else {
     ({ locale, swapButtons } = defaults);
@@ -1191,20 +1206,10 @@ T & DialogOptions & { buttons: Buttons } {
   };
 
   // merge the generated base properties with user supplied arguments
-  const merged =
-    $.extend(
-      true, // deep merge
-      {}, // ensure the target is an empty, unreferenced object
-      baseOptions, // the base options for this dialog (often just buttons)
-      // args could be an object or array; if it's an array properties will
-      // map it to a proper options object
-      (callback !== undefined || typeof optionsOrString === "string") ? {
-        __proto__: null,
-        [properties[0]]: optionsOrString,
-        [properties[1]]: callback,
-      } as unknown as T :
-      optionsOrString,
-    ) as T & DialogOptions & typeof baseOptions;
+  const merged = $.extend(true, // deep merge
+                          Object.create(null),
+                          baseOptions,
+                          options) as T & DialogOptions & typeof baseOptions;
 
   // Ensure the buttons properties generated, *after* merging with user args are
   // still valid against the supplied labels
