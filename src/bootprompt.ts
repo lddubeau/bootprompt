@@ -26,7 +26,11 @@ const LOCALE_FIELDS: LocaleField[] = ["OK",  "CANCEL", "CONFIRM"];
 
 const definedLocales: Record<string, LocaleSpec> = Object.create(null);
 
-export type StringOrDocumentContent =
+/**
+ * Data which we can insert into a DOM document. A string will be interpreted as
+ * plain HTML to create DOM nodes.
+ */
+export type DocumentContent =
   string | Element | DocumentFragment | Text | JQuery;
 
 export type ButtonCallback =
@@ -66,8 +70,8 @@ export interface ConfirmCancelButtons extends Buttons {
 
 // tslint:disable-next-line:no-any
 export interface CommonOptions<T extends any[]> {
-  message?: StringOrDocumentContent;
-  title?: StringOrDocumentContent;
+  message?: DocumentContent;
+  title?: DocumentContent;
   callback?(...args: T): boolean | void;
   onEscape?: boolean | ButtonCallback;
   show?: boolean;
@@ -85,7 +89,7 @@ export interface CommonOptions<T extends any[]> {
 
 // tslint:disable-next-line:no-any
 export interface DialogOptions extends CommonOptions<any[]>{
-  message: StringOrDocumentContent;
+  message: DocumentContent;
 }
 
 interface SanitizedDialogOptions extends DialogOptions {
@@ -98,13 +102,13 @@ export interface AlertOptions extends CommonOptions<[]> {
 }
 
 export interface ConfirmOptions extends CommonOptions<[boolean]> {
-  message: StringOrDocumentContent;
+  message: DocumentContent;
   buttons?: ConfirmCancelButtons;
 }
 
 export interface PromptCommonOptions<T extends unknown[]>
   extends CommonOptions<T> {
-  title: StringOrDocumentContent;
+  title: DocumentContent;
   buttons?: ConfirmCancelButtons;
   pattern?: string;
 }
