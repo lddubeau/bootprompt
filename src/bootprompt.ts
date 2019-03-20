@@ -29,13 +29,13 @@ const definedLocales: Record<string, LocaleSpec> = Object.create(null);
 export type StringOrDocumentContent =
   string | Element | DocumentFragment | Text | JQuery;
 
-export type GeneralCallback =
+export type ButtonCallback =
   (this: JQuery, event: JQuery.TriggeredEvent) => boolean | void;
 
 export interface Button {
   label?: string;
   className?: string;
-  callback?: GeneralCallback;
+  callback?: ButtonCallback;
 }
 
 interface SanitizedButton extends Button {
@@ -43,7 +43,7 @@ interface SanitizedButton extends Button {
   className: string;
 }
 
-export type ButtonSpec = Button | GeneralCallback;
+export type ButtonSpec = Button | ButtonCallback;
 
 export interface Buttons {
   // We want | undefined here so that we can declare specific names as being
@@ -69,7 +69,7 @@ export interface CommonOptions<T extends any[]> {
   message?: StringOrDocumentContent;
   title?: StringOrDocumentContent;
   callback?(...args: T): boolean | void;
-  onEscape?: boolean | GeneralCallback;
+  onEscape?: boolean | ButtonCallback;
   show?: boolean;
   backdrop?: boolean | "static";
   closeButton?: boolean;
@@ -393,7 +393,7 @@ export function dialog(options: DialogOptions): JQuery {
   const body = modal.getElementsByClassName("modal-body")[0] as HTMLElement;
   const footer = $(templates.footer)[0];
 
-  const callbacks: Record<string, GeneralCallback | boolean | undefined> = {
+  const callbacks: Record<string, ButtonCallback | boolean | undefined> = {
     onEscape: finalOptions.onEscape,
   };
 
