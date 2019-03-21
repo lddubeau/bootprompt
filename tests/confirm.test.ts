@@ -433,5 +433,11 @@ cancel confirm)`);
         });
       });
     });
+
+    // tslint:disable-next-line:mocha-no-side-effect-code
+    makeOnEscapeTests(bootprompt.confirm);
+
+    // tslint:disable-next-line:mocha-no-side-effect-code
+    makeOnCloseTests(bootprompt.confirm);
   });
 });

@@ -364,5 +364,11 @@ function when provided"));
         });
       });
     });
+
+    // tslint:disable-next-line:mocha-no-side-effect-code
+    makeOnEscapeTests(bootprompt.alert);
+
+    // tslint:disable-next-line:mocha-no-side-effect-code
+    makeOnCloseTests(bootprompt.alert);
   });
 });

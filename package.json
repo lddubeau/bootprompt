@@ -11,7 +11,7 @@
     "copy": "cp -p build/js/*.d.ts package.json README.md LICENSE.md build/dist",
     "build": "npm run tsc && npm run rollup && npm run copy && npm run copy-docs",
     "copy-docs": "cp -rp docs build && cp -rp build/dist/bootprompt.all.min.* build/docs/js",
-    "build-docs": "npm run build && npm run copy-docs",
+    "build-docs": "npm run build && npm run copy-docs && typedoc --tsconfig src/tsconfig.json --name bootprompt --out build/docs/api/ --listInvalidSymbolLinks",
     "gh-pages": "npm run build-docs && mkdir -p build && (cd build; rm -rf gh-pages; git clone .. --branch gh-pages gh-pages) && find build/gh-pages/ -type f \\! -path 'build/gh-pages/.git/*' -delete && find build/gh-pages -type d -empty -delete && cp -rp build/docs/* build/gh-pages",
     "lint": "tslint --format verbose -p src/tsconfig.json && tslint --format verbose -p tests/tsconfig.json && eslint *.js",
     "test": "karma start --single-run",
@@ -73,6 +73,7 @@
     "sinon-chai": "^3.3.0",
     "tslint": "^5.14.0",
     "tslint-config-lddubeau": "^2.1.0",
+    "typedoc": "^0.14.2",
     "typescript": "^3.3.4000",
     "versync": "^4.1.0"
   },

@@ -73,7 +73,6 @@ export interface CommonOptions<T extends any[]> {
   message?: DocumentContent;
   title?: DocumentContent;
   callback?(...args: T): boolean | void;
-  onEscape?: boolean | ButtonCallback;
   show?: boolean;
   backdrop?: boolean | "static";
   closeButton?: boolean;
@@ -81,7 +80,6 @@ export interface CommonOptions<T extends any[]> {
   className?: string;
   size?: "large" | "small";
   locale?: string;
-  buttons?: Buttons;
   swapButtonOrder?: boolean;
   centerVertical?: boolean;
   container?: string | Element | JQuery;
@@ -90,6 +88,38 @@ export interface CommonOptions<T extends any[]> {
 // tslint:disable-next-line:no-any
 export interface DialogOptions extends CommonOptions<any[]>{
   message: DocumentContent;
+
+  /**
+   * [[dialog]] ignores this value, but historically it has been allowed.
+   */
+  // tslint:disable-next-line:no-any
+  callback?(...args: any[]): boolean | void;
+
+  /**
+   * Specifies what to do if the user hits ``ESC`` on the keyboard.
+   *
+   * - ``true`` means "dismiss the modal".
+   *
+   * - ``false`` means "keep the modal displayed".
+   *
+   * - If a button callback is passed, the callback is called and if it returns
+   *   ``false`` the modal remains displayed. Any other value dismisses the
+   *   modal.
+   */
+  onEscape?: boolean | ButtonCallback;
+
+  /**
+   * Specifies a callback to call when the user clicks the close button that may
+   * be optionally shown in the modal header (when [[closeButton]] is ``true``).
+   *
+   * If this option is not set, the default behavior is to close the modal.
+   *
+   * If this option is set, then the modal will remain displayed if the callback
+   * returns ``false``. Any other value dismisses the modal.
+   */
+  onClose?: ButtonCallback;
+
+  buttons?: Buttons;
 }
 
 interface SanitizedDialogOptions extends DialogOptions {
@@ -99,17 +129,86 @@ interface SanitizedDialogOptions extends DialogOptions {
 
 export interface AlertOptions extends CommonOptions<[]> {
   buttons?: OkButton;
+
+  /**
+   * Specifies what to do if the user hits ``ESC`` on the keyboard.
+   *
+   * - Leaving this value unset is equivalent to setting it to ``true``.
+   *
+   * - ``true`` invoke [[callback]].
+   *
+   * - ``false`` do not invoke [[callback]].
+   *
+   * - If a button callback is passed, this callback is called and if it returns
+   *   ``false`` [[callback]] is not invoked. Any other value invokes
+   *   [[callback]].
+   */
+  onEscape?: boolean | ButtonCallback;
+
+  /**
+   * Specifies a callback to call when the user clicks the close button that may
+   * be optionally shown in the modal header (when [[closeButton]] is ``true``).
+   *
+   * If this option is not set, the default behavior is call [[callback]].
+   *
+   * If this option is set, this callback is called and if it returns
+   * ``false``, [[callback]] is not invoked. Any other value invokes
+   * [[callback]].
+   *
+   * The default value is ``undefined``.
+   */
+  onClose?: ButtonCallback;
 }
 
-export interface ConfirmOptions extends CommonOptions<[boolean]> {
-  message: DocumentContent;
+export interface ConfirmCancelCommonOptions {
   buttons?: ConfirmCancelButtons;
+
+  /**
+   * Specifies what to do if the user hits ``ESC`` on the keyboard.
+   *
+   * - Leaving this value unset is equivalent to setting it to ``true``.
+   *
+   * - ``true`` invoke [[callback]].
+   *
+   * - ``false`` do not invoke [[callback]].
+   *
+   * - If a button callback is passed, this callback is called and if it returns
+   *   ``false`` [[callback]] is not invoked. Any other value invokes
+   *   [[callback]].
+   *
+   * If [[callback]] is invoked due to this option, it is invoked with the
+   * value ``false``. That is, the user's action is interpreted as a
+   * cancellation.
+   */
+  onEscape?: boolean | ButtonCallback;
+
+  /**
+   * Specifies a callback to call when the user clicks the close button that may
+   * be optionally shown in the modal header (when [[closeButton]] is ``true``).
+   *
+   * If this option is not set, the default behavior is call [[callback]].
+   *
+   * If this option is set, this callback is called and if it returns
+   * ``false``, [[callback]] is not invoked. Any other value invokes
+   * [[callback]].
+   *
+   * If [[callback]] is invoked due to this option, it is invoked with the
+   * value ``false``. That is, the user's action is interpreted as a
+   * cancellation.
+   *
+   * The default value is ``undefined``.
+   */
+  onClose?: ButtonCallback;
+}
+
+export interface ConfirmOptions extends CommonOptions<[boolean]>,
+ConfirmCancelCommonOptions {
+  message: DocumentContent;
 }
 
 export interface PromptCommonOptions<T extends unknown[]>
-  extends CommonOptions<T> {
+  extends CommonOptions<T>, ConfirmCancelCommonOptions {
   title: DocumentContent;
-  buttons?: ConfirmCancelButtons;
   pattern?: string;
 }
 
@@ -399,6 +498,7 @@ export function dialog(options: DialogOptions): JQuery {
 
   const callbacks: Record<string, ButtonCallback | boolean | undefined> = {
     onEscape: finalOptions.onEscape,
+    onClose: finalOptions.onClose,
   };
 
   const { buttons, backdrop, className, closeButton, message, size,
@@ -611,7 +711,7 @@ this option.`);
     // onEscape might be falsy but that's fine; the fact is
     // if the user has managed to click the close button we
     // have to close the dialog, callback or not
-    processCallback(e, $modal, callbacks.onEscape);
+    processCallback(e, $modal, callbacks.onClose);
   });
 
   $modal.on("keyup", (e) => {
@@ -650,15 +750,14 @@ function _alert(options: AlertOptions): JQuery {
 provided");
   }
 
-  // override the ok and escape callback to make sure they just invoke the
-  // single user-supplied one (if provided)
-  // tslint:disable-next-line:no-non-null-assertion
-  (finalOptions.buttons.ok as Button).callback = finalOptions.onEscape =
-    function (): boolean | void {
-      return typeof finalCallback === "function" ?
-        // tslint:disable-next-line:no-invalid-this
-        finalCallback.call(this) : true;
-    };
+  const customCallback = function (this: JQuery): boolean | void {
+    return typeof finalCallback === "function" ?
+      finalCallback.call(this) : true;
+  };
+
+  (finalOptions.buttons.ok as Button).callback = customCallback;
+
+  setupEscapeAndCloseCallbacks(finalOptions, customCallback);
 
   return dialog(finalOptions);
 }
@@ -691,19 +790,18 @@ function _confirm(options: ConfirmOptions): JQuery {
     throw new Error("confirm requires a callback");
   }
 
-  // overrides; undo anything the user tried to set they shouldn't have
-  // tslint:disable-next-line:no-non-null-assertion
-  (buttons.cancel as Button).callback = finalOptions.onEscape =
-    function (): boolean | void {
-      // tslint:disable-next-line:no-invalid-this
-      return finalCallback.call(this, false);
-    };
-
-  // tslint:disable-next-line:no-non-null-assertion
-  (buttons.confirm as Button).callback = function (): boolean | void {
-    // tslint:disable-next-line:no-invalid-this
-    return finalCallback.call(this, true);
+  const cancelCallback = function (this: JQuery): boolean | void {
+    return finalCallback.call(this, false);
   };
+
+  (buttons.cancel as Button).callback = cancelCallback;
+
+  setupEscapeAndCloseCallbacks(finalOptions, cancelCallback);
+
+  (buttons.confirm as Button).callback =
+    function (this: JQuery): boolean | void {
+      return finalCallback.call(this, true);
+    };
 
   return dialog(finalOptions);
 }
@@ -1021,13 +1119,13 @@ export function _prompt(options: PromptOptions): JQuery {
       throw new Error(`Unknown input type: ${q}`);
   }
 
-  // Handles the 'cancel' action
-  (buttons.cancel as Button).callback = finalOptions.onEscape =
-    function (): boolean | void {
-      // tslint:disable-next-line:no-invalid-this
-      return finalCallback.call(this, null);
-    };
+  const cancelCallback = function (this: JQuery): boolean | void {
+    return finalCallback.call(this, null);
+  };
 
+  (buttons.cancel as Button).callback = cancelCallback;
+
+  setupEscapeAndCloseCallbacks(finalOptions, cancelCallback);
   // Prompt submitted - extract the prompt value. This requires a bit of work,
   // given the different input types available.
   // tslint:disable-next-line:no-non-null-assertion
@@ -1127,6 +1225,31 @@ export function prompt(messageOrOptions: string | PromptOptions,
 //
 // INTERNAL FUNCTIONS
 //
+
+function setupEscapeAndCloseCallbacks(options: DialogOptions,
+                                      callback: ButtonCallback):
+void {
+  const { onEscape, onClose } = options;
+  options.onEscape = (onEscape === undefined || onEscape === true) ?
+    callback :
+    function (this: JQuery, ev: JQuery.TriggeredEvent): boolean | void {
+      if (onEscape === false || onEscape.call(this, ev) === false) {
+        return false;
+      }
+
+      return callback.call(this, ev);
+    };
+
+  options.onClose = onClose === undefined ?
+    callback :
+    function (this: JQuery, ev: JQuery.TriggeredEvent): boolean | void {
+      if (onClose.call(this, ev) === false) {
+        return false;
+      }
+
+      return callback.call(this, ev);
+    };
+}
 
 /**
  * Get localized text from a locale. Defaults to ``en`` locale if no locale

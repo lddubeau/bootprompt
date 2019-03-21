@@ -1507,11 +1507,7 @@ for more information.`);
     });
   });
 
-  // callback tests
-
   describe("callback tests", () => {
-
-    // simple callback
     describe("with a simple callback", () => {
       let callback: sinon.SinonSpy;
       let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
@@ -1705,8 +1701,6 @@ for more information.`);
       });
     });
 
-    // callback which returns false
-
     describe("with a callback which returns false", () => {
       let callback: sinon.SinonStub;
       let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
@@ -1842,7 +1836,11 @@ for more information.`);
       });
     });
 
-    // default value
+    // tslint:disable-next-line:mocha-no-side-effect-code
+    makeOnEscapeTests(bootprompt.prompt);
+
+    // tslint:disable-next-line:mocha-no-side-effect-code
+    makeOnCloseTests(bootprompt.prompt);
 
     describe("with a default value", () => {
       let callback: sinon.SinonSpy;
@@ -1947,8 +1945,6 @@ for more information.`);
       });
     });
 
-    // placeholder
-
     describe("with a placeholder", () => {
       before(() => {
         $dialog = bootprompt.prompt({
@@ -1963,8 +1959,6 @@ for more information.`);
           .equal("e.g. Bob Smith");
       });
     });
-
-    // select
 
     describe("with inputType select", () => {
       describe("without a default value", () => {
@@ -2219,8 +2213,6 @@ for more information.`);
       });
     });
 
-    // email
-
     describe("with inputType email", () => {
 
       describe("without a default value", () => {
@@ -2398,8 +2390,6 @@ for more information.`);
         });
       });
     });
-
-    // checkbox
 
     describe("with input type checkbox", () => {
 
@@ -2675,8 +2665,6 @@ for more information.`);
         });
       });
     });
-
-    // radio
 
     describe("with input type radio", () => {
       describe("without a default value", () => {

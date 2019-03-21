@@ -31,6 +31,7 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </a>
                         <div class="dropdown-menu">
+                            <a class="dropdown-item" href="./api/index.html">API</a>
                             <a class="dropdown-item" href="#bp-alert-dialog">Alert</a>
                             <a class="dropdown-item" href="#bp-confirm-dialog">Confirm</a>
                             <a class="dropdown-item" href="#bp-prompt-dialog">Prompt</a>
@@ -96,6 +97,9 @@
                                 </p>
                                 <ul class="list-unstyled ml-3 mb-2">
                                     <li>
+                                        <a href="./api/index.html">API</a>
+                                    </li>
+                                    <li>
                                         <a href="./documentation.html#bp-alert-dialog">Alert</a>
                                     </li>
                                     <li>
@@ -144,11 +148,11 @@
                             <div class="bp-masthead">
                                 <h2 class="marque">Documentation</h2>
                                 <p class="lead">
-                                    Currently viewing documentation for version 1.x.
+                                    Currently viewing documentation for version 5.x.
                                 </p>
                                 <div class="bp-meta">
                                     <ul class="bp-meta-list float-md-right">
-                                        <li class="ml-auto"><span>Version 1.0.0</span></li>
+                                        <li class="ml-auto"><span>Version 5.0.0</span></li>
                                         <li>
                                             <a href="https://github.com/lddubeau/bootprompt">
                                                 <i class="fa fa-github"></i>
@@ -162,6 +166,17 @@
                         </div>
                     </div>
                     <div class="bp-content">
+                        <div class="bs-callout bs-callout-danger">
+                            <h5 class="callout-heading">
+                                <i class="fa fa-info-circle"></i>
+                                Important:
+                            </h5>
+                            <p>
+                              The documentation is currently in the midst of a complete redesign. Pardon our dust. Ultimately a lot of what you see here will be moved to the
+                              <a href="./api/index.html">API documentation</a>.
+                            </p>
+                        </div>
+
                         <div class="bs-callout bs-callout-danger">
                             <h5 class="callout-heading">
                                 <i class="fa fa-info-circle"></i>
@@ -761,13 +776,6 @@ DD   = two-digit day of month (01 through 31)
                             </p>
 
                             <div class="bp-subsection">
-                                <p>
-                                    <b>Custom dialogs do not close automatically when the <kbd>ESC</kbd> key is pressed;</b> you must implement
-                                    this behavior yourself using the <a href="#"><code>onEscape</code></a> option.
-                                </p>
-                            </div>
-
-                            <div class="bp-subsection">
                                 <h3 id="dialog-basic" class="bp-subsection-header bp-anchor">Basic Usage</h3>
                                 <p>
                                     The minimum required to create a custom dialog is the <code>message</code> option, which will create
@@ -806,7 +814,6 @@ DD   = two-digit day of month (01 through 31)
     title: 'Custom Dialog Example',
     message: '&lt;p&gt;This dialog demonstrates many of the options available when using the Bootprompt library&lt;/p&gt;',
     size: 'large',
-    onEscape: true,
     backdrop: true,
     buttons: {
         fee: {
@@ -979,30 +986,16 @@ DD   = two-digit day of month (01 through 31)
                                                 <td><span id="bp-option-onEscape" class="bp-anchor">onEscape</span></td>
                                                 <td>Boolean | Function</td>
                                                 <td>
-                                                    <p>
-                                                        Allows the user to dismiss the dialog by hitting <kbd>ESC</kbd>, which will invoke this
-                                                        function.
-                                                    </p>
-                                                    <h6>Options:</h6>
-                                                    <table class="table table-condensed">
-                                                        <colgroup>
-                                                            <col style="width: 150px;" />
-                                                            <col />
-                                                        </colgroup>
-                                                        <tr>
-                                                            <td><code>undefined</code></td>
-                                                            <td>No callback function has been provided.</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><code>true</code></td>
-                                                            <td>Hitting the <kbd>ESC</kbd> dismisses the dialog.</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><code>false</code></td>
-                                                            <td>Hitting the <kbd>ESC</kbd> does <b>not</b> dismiss the dialog.</td>
-                                                        </tr>
-                                                    </table>
-                                                    <p>Default: <code>true</code> for alert, confirm, and prompt; <code>undefined</code> for custom dialogs.</p>
+                                                  <p>Determines what to do when the user hits <kbd>ESC</kbd>.</p>
+                                                  <p>Consult the API documentation for details.</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span id="bp-option-onClose" class="bp-anchor">onClose</span></td>
+                                                <td>Function</td>
+                                                <td>
+                                                    <p>Determines what to do when the user clicks the close button in the header.</p>
+                                                    <p>Consult the API documentation for details.</p>
                                                 </td>
                                             </tr>
                                             <tr>

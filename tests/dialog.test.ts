@@ -524,22 +524,81 @@ describe("bootprompt.dialog", () => {
         });
       });
 
-      describe("when clicking the escape button", () => {
+      describe("when clicking the close button", () => {
         before(() => {
           createDialog();
           $($dialog[0].getElementsByClassName("close")[0]).trigger("click");
         });
 
-        it("should invoke the callback", () => {
-          expect(callback).to.have.been.called;
+        it("should not invoke the callback", () => {
+          expect(callback).to.not.have.been.called;
         });
 
-        it(`should pass the dialog as "this"`, () => {
-          expect(callback.thisValues[0]).to.equal($dialog);
+        it("should hide the modal", () => {
+          expect(hidden).to.have.been.called;
         });
+      });
+    });
+  });
+
+  describe("when creating a dialog with an onClose handler", () => {
+    let $dialog: JQuery;
+    let callback: sinon.SinonSpy;
+    let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
+
+    function createDialog(): void {
+      $dialog = bootprompt.dialog({
+        message: "Are you sure?",
+        onClose: callback,
+      });
+
+      hidden = sinon.spy($dialog, "modal");
+    }
+
+    function shouldInvokeCallback(): void {
+      it("should invoke the callback", () => {
+        expect(callback).to.have.been.calledOnce;
+      });
+
+      it(`should pass the dialog as "this"`, () => {
+        expect(callback.thisValues[0]).to.equal($dialog);
+      });
+
+      it("should pass the event as first argument", () => {
+        expect(callback.args[0][0]).to.be.instanceof($.Event);
+      });
+    }
+
+    describe("with a simple callback", () => {
+      describe("when clicking the close button", () => {
+        before(() => {
+          callback = sinon.spy();
+          createDialog();
+          $dialog.find(".close").trigger("click");
+        });
+
+        // tslint:disable-next-line:mocha-no-side-effect-code
+        shouldInvokeCallback();
+
+        it("should hide the modal", () => {
+          expect(hidden).to.have.been.calledOnceWithExactly("hide");
+        });
+      });
+    });
+
+    describe("with a callback which returns false", () => {
+      describe("when clicking the close button", () => {
+        before(() => {
+          callback = sinon.stub().returns(false);
+          createDialog();
+          $dialog.find(".close").trigger("click");
+        });
+
+        // tslint:disable-next-line:mocha-no-side-effect-code
+        shouldInvokeCallback();
 
         it("should not hide the modal", () => {
-          expect(hidden).not.to.have.been.called;
+          expect(hidden).to.not.have.been.called;
         });
       });
     });
