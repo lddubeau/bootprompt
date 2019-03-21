@@ -132,8 +132,8 @@ describe("bootprompt.dialog", () => {
           $dialog.trigger("escape.close.bp");
         });
 
-        it("should not hide the modal", () => {
-          expect(hidden).not.to.have.been.called;
+        it("should hide the modal", () => {
+          expect(hidden).to.have.been.called;
         });
       });
 
@@ -216,8 +216,8 @@ describe("bootprompt.dialog", () => {
           expect(callback).not.to.have.been.called;
         });
 
-        it("should not hide the modal", () => {
-          expect(hidden).not.to.have.been.called;
+        it("should hide the modal", () => {
+          expect(hidden).to.have.been.called;
         });
       });
 
@@ -421,6 +421,102 @@ describe("bootprompt.dialog", () => {
 
     it("does not have a close button inside the body", () => {
       expect(exists($dialog, ".modal-body .close")).to.be.false;
+    });
+  });
+
+  describe("when creating a dialog without onEscape", () => {
+    let $dialog: JQuery;
+
+    let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
+    let trigger: sinon.SinonSpy<[string | JQuery.Event,
+                                 // tslint:disable-next-line:no-any
+                                 (string | number | boolean | any[] |
+                                  JQuery.PlainObject)?], JQuery>;
+
+    function createDialog(): void {
+      $dialog = bootprompt.dialog({
+        message: "Are you sure?",
+      });
+      hidden = sinon.spy($dialog, "modal");
+      trigger = sinon.spy($dialog, "trigger").withArgs("escape.close.bp");
+    }
+
+    function e(keyCode: number): void {
+      $dialog.trigger($.Event("keyup", {
+        which: keyCode,
+      }));
+    }
+
+    describe("when triggering the keyup event", () => {
+      describe("when the key is not the escape key", () => {
+        before(() => {
+          createDialog();
+          e(15);
+        });
+
+        it("does not trigger the escape event", () => {
+          expect(trigger).not.to.have.been.called;
+        });
+
+        it("should not hide the modal", () => {
+          expect(hidden).not.to.have.been.called;
+        });
+      });
+
+      describe("when the key is the escape key", () => {
+        before(() => {
+          createDialog();
+          e(27);
+        });
+
+        it("triggers the escape event", () => {
+          expect(trigger).to.have.been.calledWithExactly("escape.close.bp");
+        });
+
+        it("should hide the modal", () => {
+          expect(hidden).to.have.been.calledWithExactly("hide");
+        });
+      });
+    });
+  });
+
+  describe("when creating a dialog without onEscape false", () => {
+    let $dialog: JQuery;
+
+    let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
+    let trigger: sinon.SinonSpy<[string | JQuery.Event,
+                                 // tslint:disable-next-line:no-any
+                                 (string | number | boolean | any[] |
+                                  JQuery.PlainObject)?], JQuery>;
+
+    function createDialog(): void {
+      $dialog = bootprompt.dialog({
+        message: "Are you sure?",
+        onEscape: false,
+      });
+      hidden = sinon.spy($dialog, "modal");
+      trigger = sinon.spy($dialog, "trigger").withArgs("escape.close.bp");
+    }
+
+    function e(keyCode: number): void {
+      $dialog.trigger($.Event("keyup", {
+        which: keyCode,
+      }));
+    }
+
+    describe("when hitting the escape key", () => {
+      before(() => {
+        createDialog();
+        e(27);
+      });
+
+      it("triggers the escape event", () => {
+        expect(trigger).to.have.been.calledWithExactly("escape.close.bp");
+      });
+
+      it("should not hide the modal", () => {
+        expect(hidden).to.not.have.been.calledWithExactly("hide");
+      });
     });
   });
 

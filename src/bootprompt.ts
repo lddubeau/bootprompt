@@ -98,6 +98,8 @@ export interface DialogOptions extends CommonOptions<any[]>{
   /**
    * Specifies what to do if the user hits ``ESC`` on the keyboard.
    *
+   * - Leaving this value unset is equivalent to setting it to ``true``.
+   *
    * - ``true`` means "dismiss the modal".
    *
    * - ``false`` means "keep the modal displayed".
@@ -500,6 +502,10 @@ export function dialog(options: DialogOptions): JQuery {
     onEscape: finalOptions.onEscape,
     onClose: finalOptions.onClose,
   };
+
+  if (callbacks.onEscape === undefined) {
+    callbacks.onEscape = true;
+  }
 
   const { buttons, backdrop, className, closeButton, message, size,
           title } = finalOptions;
