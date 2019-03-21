@@ -1,6 +1,6 @@
 describe("Bootprompt", () => {
   before(() => {
-    bootprompt.setDefaults("animate", false);
+    bootprompt.setAnimate(false);
   });
 
   it("is attached to the window object", () => {
@@ -11,7 +11,7 @@ describe("Bootprompt", () => {
     expect(bootprompt.alert).to.be.a("function");
     expect(bootprompt.confirm).to.be.a("function");
     expect(bootprompt.dialog).to.be.a("function");
-    expect(bootprompt.setDefaults).to.be.a("function");
+    expect(bootprompt.setAnimate).to.be.a("function");
     expect(bootprompt.setLocale).to.be.a("function");
     expect(bootprompt.removeLocale).to.be.a("function");
     expect(bootprompt.locales).to.be.a("function");

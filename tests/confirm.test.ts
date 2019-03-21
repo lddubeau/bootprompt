@@ -1,6 +1,6 @@
 describe("bootprompt.confirm", () => {
   before(() => {
-    bootprompt.setDefaults("animate", false);
+    bootprompt.setAnimate(false);
   });
 
   describe("basic usage tests", () => {

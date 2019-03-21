@@ -301,16 +301,6 @@ export type PromptOptions = TextPromptOptions | SelectPromptOptions |
   NumericPromptOptions | TimePromptOptions | DatePromptOptions |
   CheckboxPromptOptions | RadioPromptOptions;
 
-// On platforms that support Object.assign, use it.
-// tslint:disable:no-any
-const assign = (Object as any).assign !== undefined ?
-  ((a: {}, b: {}) => (Object as any).assign(a, b)) :
-  // For coverage purposes we don't run the tests on platforms that don't
-  // have assign.
-  /* istanbul ignore next */
-  ((a: any, b: any) => $.extend(a, b));
-// tslint:enable:no-any
-
 const templates = {
   dialog: `\
 <div class="bootprompt modal" tabindex="-1" role="dialog" aria-hidden="true">\
@@ -373,33 +363,8 @@ autocomplete="off" type="range" />`,
   },
 };
 
-// tslint:disable-next-line:no-any
-const defaults: Record<string, any> = {
-  // default language
-  locale: "en",
-  // show backdrop or not. Default to static so user has to interact with dialog
-  backdrop: "static",
-  // animate the modal in/out
-  animate: true,
-  // additional class string applied to the top level dialog
-  className: undefined,
-  // whether or not to include a close button
-  closeButton: true,
-  // show the dialog immediately by default
-  show: true,
-  // dialog container
-  container: "body",
-  // default value (used by the prompt helper)
-  value: undefined,
-  // default input type (used by the prompt helper)
-  inputType: "text",
-  // switch button order from cancel/confirm (default) to confirm/cancel
-  swapButtonOrder: false,
-  // center modal vertically in page
-  centerVertical: false,
-  // Append `multiple` property to the select when using the `prompt` helper
-  multiple: false,
-};
+let currentLocale = "en";
+let animate = true;
 
 //
 // PUBLIC FUNCTIONS
@@ -436,21 +401,25 @@ cannot be removed.`);
   }
 }
 
+/**
+ * Set the locale. Note that this function does not check whether the locale
+ * is known.
+ */
 export function setLocale(name: string): void {
-  setDefaults("locale", name);
+  currentLocale = name;
 }
 
-export function setDefaults(defaults: Record<string, unknown>): void;
-export function setDefaults(name: string, value: unknown): void;
-export function setDefaults(name: string | Record<string, unknown>,
-                            value?: unknown): void {
-  if (arguments.length === 2) {
-    // allow passing of single key/value...
-    defaults[name as string] = value;
-  } else {
-    // ... and as an object too
-    assign(defaults, name);
-  }
+/**
+ * Set the ``animate`` flag. When the flag is on, the modals produced by this
+ * library are animated. When off, they are not animated.
+ *
+ * **NOTE**: The reason this function exists is to be able to turn off
+ * animations during testing. Having the animations turned on can turn simple
+ * tests into complicated afairs because it takes a while for a modal to show
+ * up or be removed. We do not recommend using this function in production.
+ */
+export function setAnimate(value: boolean): void {
+  animate = value;
 }
 
 // Hides all currently active Bootprompt modals
@@ -1051,24 +1020,14 @@ export function _prompt(options: PromptOptions): JQuery {
   // more defaults
   const finalOptions = mergeDialogOptions("prompt", ["cancel", "confirm"],
                                            options);
-  if (finalOptions.value === undefined) {
-    finalOptions.value = defaults.value;
-  }
-
   if (typeof finalOptions.value === "number") {
     throw new Error("bootprompt does not allow numbers as values");
-  }
-
-  if (finalOptions.inputType === undefined) {
-    // tslint:disable-next-line:no-any
-    (finalOptions as any).inputType = defaults.inputType;
   }
 
   // capture the user's show value; we always set this to false before spawning
   // the dialog to give us a chance to attach some handlers to it, but we need
   // to make sure we respect a preference not to show it
-  const shouldShow = (finalOptions.show === undefined) ? defaults.show :
-    finalOptions.show;
+  const shouldShow = finalOptions.show === undefined ? true : finalOptions.show;
   // This is required prior to calling the dialog builder below - we need to add
   // an event handler just before the prompt is shown
   finalOptions.show = false;
@@ -1322,12 +1281,13 @@ T & DialogOptions & { buttons: Buttons } {
   let locale;
   let swapButtons;
   if (typeof options !== "string") {
-    locale = options.locale !== undefined ? options.locale : defaults.locale;
+    locale = options.locale !== undefined ? options.locale : currentLocale;
     swapButtons = options.swapButtonOrder !== undefined ?
-      options.swapButtonOrder : defaults.swapButtonOrder;
+      options.swapButtonOrder : false;
   }
   else {
-    ({ locale, swapButtons } = defaults);
+    locale = "en";
+    swapButtons = false;
   }
 
   const orderedLabels = swapButtons ? labels.slice().reverse() : labels;
@@ -1374,8 +1334,14 @@ function sanitize(options: DialogOptions): SanitizedDialogOptions {
     throw new Error("Please specify a message");
   }
 
-  // make sure any supplied options take precedence over defaults
-  const finalOptions = {...defaults, ...options};
+  const finalOptions = {
+    locale: currentLocale,
+    backdrop: "static",
+    animate,
+    closeButton: true,
+    show: true,
+    container: document.body,
+    ...options};
 
   // no buttons is still a valid dialog but it's cleaner to always have
   // a buttons object to iterate over, even if it's empty

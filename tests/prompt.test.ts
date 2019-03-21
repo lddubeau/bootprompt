@@ -6,10 +6,7 @@ describe("bootprompt.prompt", () => {
   });
 
   before(() => {
-    bootprompt.setDefaults("animate", false);
-    // Remove this so that we can test what happens if there is no default
-    // set and the user does specify a type.
-    bootprompt.setDefaults("inputType", undefined);
+    bootprompt.setAnimate(false);
   });
 
   // basic tests

@@ -2,7 +2,7 @@ describe("bootprompt.alert", () => {
   "use strict";
 
   before(() => {
-    bootprompt.setDefaults("animate", false);
+    bootprompt.setAnimate(false);
   });
 
   describe("basic usage tests", () => {

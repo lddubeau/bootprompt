@@ -31,3 +31,18 @@ key closes the modal. You need to inspect all calls to ``dialog`` and:
 
 2. If ``onEscape`` was not set and you want the Escape key to not close the
    modal, then you need to set ``onEscape: true``.
+
+``setDefaults`` is gone
+=======================
+
+With two exceptions Bootprompt no longer support module state. The two
+exceptions are
+
+1. A locale which can be set with ``setLocale``.
+
+2. Whether or not to animate the modals produced, which can be set with
+   ``setAnimate``.
+
+You can emulate the old behavior by writing a factory function that sets the
+options you want to be set a certain way, and calling this factory instead of
+Bootprompt directly.

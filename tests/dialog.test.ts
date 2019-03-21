@@ -4,7 +4,7 @@ describe("bootprompt.dialog", () => {
   });
 
   before(() => {
-    bootprompt.setDefaults("animate", false);
+    bootprompt.setAnimate(false);
   });
 
   describe("invalid usage tests", () => {
@@ -50,6 +50,8 @@ describe("bootprompt.dialog", () => {
   describe("when creating a minimal dialog", () => {
     let $dialog: JQuery;
     before(() => {
+      // The suite does not systematically cleanup old modals.
+      bootprompt.hideAll();
       $dialog = bootprompt.dialog({
         message: "test",
       });
