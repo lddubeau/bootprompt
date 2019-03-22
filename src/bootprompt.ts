@@ -13,12 +13,26 @@ import $ from "jquery";
 const version = "5.0.0";
 
 // But export this.
+/** Bootprompt's version */
 export const VERSION = version;
 
+/**
+ * The names of the fields that should be defined in a [[Locale]].
+ */
 export type LocaleField = "OK" | "CANCEL" | "CONFIRM";
+
+/** A locale specification. */
 export type LocaleSpec = Record<LocaleField, string>;
+
+/** A locale */
 export interface Locale {
+  /** The name of the locale. */
   name: string;
+
+  /**
+   * The specification of the locale, which determines how to translate
+   * each field.
+   */
   spec: LocaleSpec;
 }
 
@@ -33,58 +47,201 @@ const definedLocales: Record<string, LocaleSpec> = Object.create(null);
 export type DocumentContent =
   string | Element | DocumentFragment | Text | JQuery;
 
+/**
+ * This is the kind of callback all buttons accept.
+ *
+ * @param this This is set to the jQuery object that models the modal.
+ *
+ * @param event The jQuery event that triggered the button.
+ *
+ * @returns ``false`` to keep the modal up. Anything else will hide the modal.
+ */
 export type ButtonCallback =
   (this: JQuery, event: JQuery.TriggeredEvent) => boolean | void;
 
+/**
+ * This interface provides the detailed way to specify a modal button.
+ */
 export interface Button {
+  /**
+   * The name of the button shown to the user. The buttons for a modal are
+   * specified by a plain JS object with fields whose values conform to the
+   * [[Button]] interface. (See [[Buttons]].) If a label is not specified, this
+   * fields gets a value from the key with which the [[Button]] object is
+   * associated in the map.
+   */
   label?: string;
+
+  /** An additional class name to give to the button. */
   className?: string;
+
+  /** A callback to call when the button is clicked. */
   callback?: ButtonCallback;
 }
 
+/**
+ * Used internally after the buttons specifications for a modal have been
+ * processed to a sanitized form. After sanitization, all labels and class names
+ * are set.
+ */
 interface SanitizedButton extends Button {
   label: string;
   className: string;
 }
 
+/**
+ * A button specification. A button can be specified in one of two ways: by
+ * providing a detailed object, or by only providing the button callback and
+ * letting Bootprompt use defaults for the rest.
+ */
 export type ButtonSpec = Button | ButtonCallback;
 
+/**
+ * We pass an object of this shape to specify all the buttons to be shown in a
+ * modal.
+ */
 export interface Buttons {
   // We want | undefined here so that we can declare specific names as being
   // optional.
   [key: string]:  ButtonSpec | undefined;
 }
 
+/**
+ * Used internally after the buttons specifications for a modal have been
+ * processed to a sanitized form.
+ */
 interface SanitizedButtons extends Buttons {
   [key: string]: SanitizedButton;
 }
 
+/**
+ * [[alert]] only takes the ``ok`` button, and so its button specification
+ * *must* conform to this interface.
+ */
 export interface OkButton extends Buttons {
   ok: ButtonSpec;
 }
 
+/**
+ * [[confirm]] and [[prompt]] only take the ``confirm`` and ``cancel`` buttons,
+ * so their button specification *must* conform to this interface.
+ */
 export interface ConfirmCancelButtons extends Buttons {
   confirm?: ButtonSpec;
   cancel?: ButtonSpec;
 }
 
+/**
+ * The set of options which is common to [[alert]], [[confirm]], [[prompt]] and
+ * [[dialog]].
+ */
 // tslint:disable-next-line:no-any
 export interface CommonOptions<T extends any[]> {
+  /**
+   * A message to show in the modal. This is what the modal is asking of the
+   * user.
+   */
   message?: DocumentContent;
+
+  /**
+   * The title of the modal. This appears in the modal header.
+   */
   title?: DocumentContent;
+
+  /**
+   * A callback for the modal as a whole. This callback is called when the user
+   * performs an action that may dismiss the modal.
+   */
   callback?(...args: T): boolean | void;
+
+  /**
+   * Whether to immediately show the modal.
+   */
   show?: boolean;
+
+  /**
+   * Specifies whether or not to use a backdrop for the modal.
+   *
+   * - Leaving this option unset is equivalent to setting it to ``"static"``.
+   *
+   * - ``"static"`` means "display a backdrop that does not affect the modal".
+   *
+   * - ``true`` means "display a backdrop that closes the modal when clicked on.
+   *
+   * - ``false`` means don't display a backdrop.
+   */
   backdrop?: boolean | "static";
+
+  /**
+   * Should the modal have a close button in its header?
+   *
+   * Default: ``true``.
+   */
   closeButton?: boolean;
+
+  /**
+   * Should the modal be animated?
+   *
+   * Default: ``true``.
+   */
   animate?: boolean;
+
+  /**
+   * An additional class name to add to the modal. This can be a list of space
+   * separated names, which will all be added to the name.
+   */
   className?: string;
+
+  /**
+   * The modal size. Bootstrap provides three sizes: default, large and small.
+   *
+   * - Not setting this option selects the default size.
+   *
+   * - ``"large"`` selects the large size.
+   *
+   * - ``"small"`` selects the small size.
+   *
+   * **Requires Bootstrap 3.1.0 or newer.**
+   */
   size?: "large" | "small";
+
+  /**
+   * Which locale to use when generating predefined buttons.
+   *
+   * Default: ``en``.
+   */
   locale?: string;
+
+  /**
+   * Whether to swap the button order. This affects modals that show the
+   * predefined cancel/confirm buttons. The default order is cancel and then
+   * confirm. The reverse order is confirm and then cancel.
+   *
+   * Default: ``false``.
+   */
   swapButtonOrder?: boolean;
+
+  /**
+   * Whether to center the modal vertically.
+   *
+   * **Requires Bootstrap 4.1.0 or newer.**
+   *
+   * Default: ``false``.
+   */
   centerVertical?: boolean;
+
+  /**
+   * The container for the modal. The modal HTML markup needs to be put
+   * somewhere in the page. This specifies where to put it.
+   *
+   * Default: ``document.body``.
+   */
   container?: string | Element | JQuery;
 }
 
+/**
+ * This are the options that pertain to the [[dialog]] function.
+ */
 // tslint:disable-next-line:no-any
 export interface DialogOptions extends CommonOptions<any[]>{
   message: DocumentContent;
@@ -121,15 +278,26 @@ export interface DialogOptions extends CommonOptions<any[]>{
    */
   onClose?: ButtonCallback;
 
+  /**
+   * The list of buttons to show in the dialog.
+   */
   buttons?: Buttons;
 }
 
+/**
+ * Used internally after the dialog options have been sanitized. The
+ * sanitization process adds default values, etc.
+ */
 interface SanitizedDialogOptions extends DialogOptions {
   container: string | Element | JQuery;
   buttons: SanitizedButtons;
 }
 
+/**
+ * Options that are supported by the [[alert]] function.
+ */
 export interface AlertOptions extends CommonOptions<[]> {
+  /** Alerts show only one button. */
   buttons?: OkButton;
 
   /**
@@ -162,7 +330,12 @@ export interface AlertOptions extends CommonOptions<[]> {
   onClose?: ButtonCallback;
 }
 
+/**
+ * Options common to the functions that show confirm and cancel buttons
+ * ([[confirm]] and [[prompt]]).
+ */
 export interface ConfirmCancelCommonOptions {
+  /** Only the confirm and cancel buttons can be customized. */
   buttons?: ConfirmCancelButtons;
 
   /**
@@ -203,100 +376,448 @@ export interface ConfirmCancelCommonOptions {
   onClose?: ButtonCallback;
 }
 
+/**
+ * The options that are supported by the [[confirm]] function.
+ */
 export interface ConfirmOptions extends CommonOptions<[boolean]>,
 ConfirmCancelCommonOptions {
   message: DocumentContent;
 }
 
+/**
+ * The options that are supported by the [[prompt]] function, irrespective of
+ * what ``inputType`` is used.
+ */
 export interface PromptCommonOptions<T extends unknown[]>
   extends CommonOptions<T>, ConfirmCancelCommonOptions {
   title: DocumentContent;
+
+  /**
+   * If ``pattern`` is set, the prompt will not close if the input value does
+   * not match the pattern. Internally, this option uses the property of the
+   * same name on the ``input`` element.
+   *
+   * It can be used for any input type, but generally only used for ``text``
+   * inputs, normally as a fallback for ``email``, ``time``, ``date``,
+   * ``number`` or ``range`` inputs where native browser support for those types
+   * is lacking.
+   *
+   * Default: unset, which means that the input is not validated.
+   */
   pattern?: string;
 }
 
+/**
+ * The [[prompt]] options that are supported when the ``inputType`` is one of
+ * the textual inputs.
+ */
 export interface TextPromptOptions extends
 PromptCommonOptions<[string | null]> {
+  /**
+   * These input types are all textual input types. These input type generate an
+   * ``input`` (or ``textarea``) element with the following classes:
+   *
+   * | ``inputType``  | ``className``                 |
+   * | ---------------| ----------------------------- |
+   * | ``"text"``     | ``bootprompt-input-text``     |
+   * | ``"password"`` | ``bootprompt-input-password`` |
+   * | ``"textarea"`` | ``bootprompt-input-textarea`` |
+   * | ``"email"``    | ``bootprompt-input-email``    |
+   *
+   * Default: ``"text"``.
+   */
   inputType?: "text" | "password" | "textarea" | "email";
+
+  /**
+   * An initial value for the input type.
+   *
+   * Default: ``undefined``.
+   */
   value?: string;
+
+  /**
+   * Set a maximum length for the input. Users won't be able to type more than
+   * the limit established here. Must be a positive numeric value.
+   *
+   * Default: ``undefined``, which means there's no limit.
+   */
   maxlength?: number;
+
+  /**
+   * Use this option to provide "helper" text displayed in the text field prior
+   * to the user entering anything.
+   *
+   * There is no limit on the amount of text you may use for your placeholder,
+   * but keep in mind that the placeholder disappears when the input either has
+   * focus or has a value (depending on the browser). Use the ``message`` option
+   * instead of this option to provide help text which you want to always be
+   * visible.
+   *
+   * Default: ``undefined``, which means no placeholder.
+   */
   placeholder?: string;
+
+  /**
+   * Set this option to ``true`` to require an input value. When ``true``, the
+   * prompt will not close if the input value is ``null``, an empty string, or
+   * fails the input type's built-in validation constraints.
+   *
+   * Default: ``undefined``.
+   */
   required?: boolean;
 }
 
+/**
+ * The [[prompt]] options that are supported when the ``inputType`` is one of
+ * the numeric inputs.
+ */
 export interface NumericPromptOptions extends
 PromptCommonOptions<[string | null]> {
+  /**
+   * These input types are the numeric inputs. These input type generate an
+   * ``input`` with the following classes:
+   *
+   * | ``inputType``  | ``className``              |
+   * |----------------|----------------------------|
+   * | ``"number"``   | ``bootprompt-input-number``|
+   * | ``"range"``    | ``bootprompt-input-range`` |
+   *
+   * Default: ``"text"``.
+   */
   inputType: "number" | "range";
+
+  /**
+   * See [[TextPromptOptions.placeholder]].
+   */
   placeholder?: string;
+
+  /**
+   * An initial value for the input type. Note that even though we are dealing
+   * with numeric inputs, the value is a string.
+   *
+   * **DESIGN NOTE**: If you were to do ``input.value = 1`` directly, the number
+   * would automagically be converted to a string by the browser. This automatic
+   * conversion of numbers to strings is not formally supported by
+   * Bootprompt. The reason is that (again due to the default way the DOM works)
+   * when retreiving values from the ``input`` element, the values are always
+   * strings. Making the API symmetrical (put a ``number`` in, get a ``number``
+   * out) would require more work than reasonable. Note that the DOM
+   * specifications do not provide any automagic conversion to help in this
+   * endeavor. If you read ``input.value``, it will always be a string quite
+   * irrespective of whether you assigned a number to it.
+   *
+   * Default: ``undefined``, which means no initial value.
+   */
   value?: string;
+
+  /**
+   * The minimum value allowed by the input.
+   *
+   * See the MDN article for
+   * [``min``](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number#min)
+   * for more information.
+   *
+   * Default: ``undefined``, which means no minimum value.
+   */
   min?: string;
+
+  /**
+   * The maximum value allowed by the input.
+   *
+   * See the MDN article for
+   * [``max``](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number#max)
+   * for more information.
+   *
+   * Default: ``undefined``, which means no maximum value.
+   */
   max?: string;
+
+  /**
+   * Can be the string value ``"any"`` (the default), or a positive numeric
+   * value.
+   *
+   * See the [MDN
+   * article](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number#step)
+   * for more information.
+   *
+   * Default: ``undefined``, which means ``"any"``.
+   */
   step?: string;
+
+  /**
+   * See [[TextPromptOptions.required]].
+   */
   required?: boolean;
 }
 
+/**
+ * The [[prompt]] options that are supported when the ``inputType`` is
+ * ``"time"``.
+ */
 export interface TimePromptOptions
 extends PromptCommonOptions<[string | null]> {
+  /**
+   * An ``inputType`` of value ``"time"`` creates an ``input`` with the class
+   * name ``bootprompt-input-time``
+   */
   inputType: "time";
+
+  /**
+   * See [[TextPromptOptions.placeholder]].
+   */
   placeholder?: string;
+
+  /**
+   * An initial value for the input type.
+   *
+   * A string of the form ``HH:MM:SS``, where ``HH`` can be any zero-padded
+   * value between 00 and 23 and ``MM`` and ``SS`` can be any zero-padded number
+   * between 00 and 59.
+   *
+   * Default: ``undefined``, which means no initial value.
+   */
   value?: string;
+
+  /**
+   * The minimum value allowed by the input. Must be in the same format as
+   * [[value]].
+   *
+   * See the MDN article for
+   * [``min``](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time#min)
+   * for more information.
+   *
+   * Default: ``undefined``, which means no minimum value.
+   */
   min?: string;
+
+  /**
+   * The maximum value allowed by the input. Must be in the same format as
+   * [[value]].
+   *
+   * See the MDN article for
+   * [``max``](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time#max)
+   * for more information.
+   *
+   * Default: ``undefined``, which means no maximum value.
+   */
   max?: string;
+
+  /**
+   * Can be the string value ``"any"`` (the default), or a positive numeric
+   * value. For ``"time"`` inputs, this is a value in seconds.
+   *
+   * See the [MDN
+   * article](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time#step)
+   * for more information.
+   *
+   * Default: ``undefined``, which means ``"any"``.
+   */
   step?: string;
+
+  /**
+   * See [[TextPromptOptions.required]].
+   */
   required?: boolean;
 }
 
+/**
+ * The [[prompt]] options that are supported when the ``inputType`` is
+ * ``"date"``.
+ */
 export interface DatePromptOptions
 extends PromptCommonOptions<[string | null]> {
+  /**
+   * An ``inputType`` of value ``"date"`` creates an ``input`` with the class
+   * name ``bootprompt-input-date``
+   */
   inputType: "date";
+
+  /**
+   * See [[TextPromptOptions.placeholder]].
+   */
   placeholder?: string;
+
+  /**
+   * An initial value for the input type.
+   *
+   * A string of the form ``YYYY-MM-DD``, where ``YYYY`` can be any zero-padded
+   * value greater than 0000, ``MM`` can be any zero-padded number between 01
+   * and 12, and ``DD`` can be any zero-padded number between 01 and 31.
+   *
+   * Default: ``undefined``, which means no initial value.
+   */
   value?: string;
+
+  /**
+   * The minimum value allowed by the input. Must be in the same format as
+   * [[value]].
+   *
+   * See the MDN article for
+   * [``min``](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date#min)
+   * for more information.
+   *
+   * Default: ``undefined``, which means no minimum value.
+   */
   min?: string;
+
+  /**
+   * The maximum value allowed by the input. Must be in the same format as
+   * [[value]].
+   *
+   * See the MDN article for
+   * [``max``](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date#max)
+   * for more information.
+   *
+   * Default: ``undefined``, which means no maximum value.
+   */
   max?: string;
+
+  /**
+   * See [[TextPromptOptions.required]].
+   */
   required?: boolean;
 }
 
+/**
+ * This interface provides options for the ``option`` elements that may be
+ * created for ``select``-type inputs.
+ */
 export interface InputOption {
+  /**
+   * The text shown to the user for this ``option``.
+   */
   text: string;
+
+  /**
+   * The value associated with this option.
+   */
   value: string;
+
+  /**
+   * An optional group to which this option may be assigned. Options having the
+   * same ``group`` value are grouped together.
+   */
   group?: string;
 }
 
+/**
+ * The options in common for all ``select``-type inputs.
+ */
 export interface CommonSelectOptions<T extends unknown[]>
   extends PromptCommonOptions<T> {
+  /**
+   * An ``inputType`` of value ``"select"`` creates an ``input`` with the class
+   * name ``bootprompt-input-select``.
+   */
   inputType: "select";
+
+  /** The list of specifications for the ``option`` elements in this input. */
   inputOptions: InputOption[];
+
+  /**
+   * See [[TextPromptOptions.required]].
+   */
   required?: boolean;
 }
 
+/**
+ * The options supported by ``"select"`` inputs that accept multiple values.
+ */
 export interface MultipleSelectPromptOptions
 extends CommonSelectOptions<[string[] | null]> {
+  /**
+   * An initial value for the input type. It is possible to pass an array of
+   * values to select multiple initial values.
+   *
+   * Default: ``undefined``, which means no initial value.
+   */
   value?: string[] | string;
+
+  /**
+   * This option specifies whether this input accepts multiple values.
+   *
+   * It must be ``true`` for [[MultipleSelectPromptOptions]].
+   */
   multiple: true;
 }
 
+/**
+ * The options supported by ``"select"`` inputs that accept a single value.
+ */
 export interface SingleSelectPromptOptions
 extends CommonSelectOptions<[string | null]> {
+  /**
+   * An initial value for the input type.
+   *
+   * Default: ``undefined``, which means no initial value.
+   */
   value?: string;
+
+  /**
+   * This option specifies whether this input accepts multiple values.
+   *
+   * It must be ``false`` or ``undefined`` for [[SingleSelectPromptOptions]].
+   *
+   * Default: ``undefined``, which is the same as ``false``.
+   */
   multiple?: false;
 }
 
+/** All prompt options that create ``select`` inputs. */
 export type SelectPromptOptions =
   MultipleSelectPromptOptions | SingleSelectPromptOptions;
 
+/**
+ * The options supported by ``"checkbox"`` inputs.
+ */
 export interface CheckboxPromptOptions
 extends PromptCommonOptions<[string | string[] | null]> {
+  /**
+   * An ``inputType`` of value ``"checkbox"`` creates an ``input`` with the
+   * class name ``bootprompt-input-checkbox``.
+   */
   inputType: "checkbox";
+
+  /**
+   * An initial value for the input type. It is possible to pass an array of
+   * values to select multiple initial values.
+   *
+   * Default: ``undefined``, which means no initial value.
+   */
   value?: string | string[];
+
+  /** The list of specifications for the checkboxes to create for this input. */
   inputOptions: InputOption[];
 }
 
+/**
+ * The options supported by ``"radio"`` inputs.
+ */
 export interface RadioPromptOptions
 extends PromptCommonOptions<[string | null]> {
+  /**
+   * An ``inputType`` of value ``"radio"`` creates an ``input`` with the
+   * class name ``bootprompt-input-radio``.
+   */
   inputType: "radio";
+
+  /**
+   * An initial value for the input type.
+   *
+   * Default: ``undefined``, which means no initial value.
+   */
   value?: string;
+
+  /**
+   * The list of specifications for the radio buttons to create for this
+   * input.
+   */
   inputOptions: InputOption[];
 }
 
+/**
+ * All the options that [[prompt]] accepts.
+ */
 export type PromptOptions = TextPromptOptions | SelectPromptOptions |
   NumericPromptOptions | TimePromptOptions | DatePromptOptions |
   CheckboxPromptOptions | RadioPromptOptions;
@@ -370,16 +891,35 @@ let animate = true;
 // PUBLIC FUNCTIONS
 //
 
-// Return all currently registered locales, or a specific locale if "name" is
-// defined
+/**
+ * Get all known locales.
+ *
+ * @returns All known locales.
+ */
 export function locales(): Record<string, LocaleSpec>;
+/**
+ * Get a single locale.
+ *
+ * @param name The name of the locale to get.
+ *
+ * @returns The locale, or ``undefined`` if the locale is unknown.
+ */
 export function locales(name: string): LocaleSpec | undefined;
 export function locales(name?: string):
 Record<string, LocaleSpec> | LocaleSpec | undefined {
   return name !== undefined ? definedLocales[name] : definedLocales;
 }
 
-// Register localized strings for the OK, Confirm, and Cancel buttons
+/**
+ * Register a locale.
+ *
+ * @param name The name of the locale.
+ *
+ * @param values The locale specification, which determines how to translate
+ * each field.
+ *
+ * @throws {Error} If a field is missing from ``values``.
+ */
 export function addLocale(name: string, values: LocaleSpec): void {
   for (const field of LOCALE_FIELDS) {
     if (typeof values[field] !== "string") {
@@ -390,7 +930,13 @@ export function addLocale(name: string, values: LocaleSpec): void {
   definedLocales[name] = values;
 }
 
-// Remove a previously-registered locale
+/**
+ * Remove a locale. Removing an unknown locale is a no-op.
+ *
+ * @param name The name of the locale.
+ *
+ * @throws {Error} If ``name`` is ``"en"``. This locale cannot be removed.
+ */
 export function removeLocale(name: string): void {
   if (name !== "en") {
     delete definedLocales[name];
@@ -402,8 +948,8 @@ cannot be removed.`);
 }
 
 /**
- * Set the locale. Note that this function does not check whether the locale
- * is known.
+ * Set the default locale. Note that this function does not check whether the
+ * locale is known.
  */
 export function setLocale(name: string): void {
   currentLocale = name;
@@ -422,7 +968,9 @@ export function setAnimate(value: boolean): void {
   animate = value;
 }
 
-// Hides all currently active Bootprompt modals
+/**
+ * Hide all modals created with bootprompt.
+ */
 export function hideAll(): void {
     $(".bootprompt").modal("hide");
 }
@@ -456,7 +1004,13 @@ if (bootstrapVersion < 3) {
   throw new Error("Bootprompt does not work with Bootstrap 2 and lower.");
 }
 
-// Core dialog function
+/**
+ * This is a general-purpose function allowing to create custom dialogs.
+ *
+ * @param options The options that govern how the dialog is created.
+ *
+ * @returns The jQuery object which models the dialog.
+ */
 // tslint:disable-next-line:max-func-body-length cyclomatic-complexity
 export function dialog(options: DialogOptions): JQuery {
   const finalOptions = sanitize(options);
@@ -737,10 +1291,33 @@ provided");
   return dialog(finalOptions);
 }
 
-// Helper function to simulate the native alert() behavior. **NOTE**: This is
-// non-blocking, so any code that must happen after the alert is dismissed
-// should be placed within the callback function for this alert.
+/**
+ * This specialized function provides a dialog similar to the one provided by
+ * the DOM ``alert()`` function.
+ *
+ * **NOTE**: This function is non-blocking, so any code that must happen after
+ * the dialog is dismissed should be placed within the callback function for
+ * this dialog.
+ *
+ * @param options The options governing how the dialog is created.
+ *
+ * @returns A jQuery object that models the dialog.
+ */
 export function alert(options: AlertOptions): JQuery;
+/**
+ * Specialized function that provides a dialog similar to the one provided by
+ * the DOM ``alert()`` function.
+ *
+ * **NOTE**: This function is non-blocking, so any code that must happen after
+ * the dialog is dismissed should be placed within the callback function for
+ * this dialog.
+ *
+ * @param message The message to display.
+ *
+ * @param callback The callback to call when the dialog has been dismissed.
+ *
+ * @returns A jQuery object that models the dialog.
+ */
 export function alert(message: string,
                       callback?: AlertOptions["callback"]): JQuery;
 export function alert(messageOrOptions: string | AlertOptions,
@@ -781,10 +1358,33 @@ function _confirm(options: ConfirmOptions): JQuery {
   return dialog(finalOptions);
 }
 
-// Helper function to simulate the native confirm() behavior. **NOTE**: This is
-// non-blocking, so any code that must happen after the confirm is dismissed
-// should be placed within the callback function for this confirm.
+/**
+ * This specialized function provides a dialog similar to the one provided by
+ * the DOM ``confirm()`` function.
+ *
+ * **NOTE**: This function is non-blocking, so any code that must happen after
+ * the dialog is dismissed should be placed within the callback function for
+ * this dialog.
+ *
+ * @param options The options governing how the dialog is created.
+ *
+ * @returns A jQuery object that models the dialog.
+ */
 export function confirm(options: ConfirmOptions): JQuery;
+/**
+ * Specialized function that provides a dialog similar to the one provided by
+ * the DOM ``confirm()`` function.
+ *
+ * **NOTE**: This function is non-blocking, so any code that must happen after
+ * the dialog is dismissed should be placed within the callback function for
+ * this dialog.
+ *
+ * @param message The message to display.
+ *
+ * @param callback The callback to call when the dialog has been dismissed.
+ *
+ * @returns A jQuery object that models the dialog.
+ */
 export function confirm(message: string,
                         callback: ConfirmOptions["callback"]): JQuery;
 export function confirm(messageOrOptions: string | ConfirmOptions,
@@ -1015,7 +1615,7 @@ for "value".`);
 }
 
 // tslint:disable-next-line:max-func-body-length
-export function _prompt(options: PromptOptions): JQuery {
+function _prompt(options: PromptOptions): JQuery {
   // prompt defaults are more complex than others in that users can override
   // more defaults
   const finalOptions = mergeDialogOptions("prompt", ["cancel", "confirm"],
@@ -1169,10 +1769,33 @@ export function _prompt(options: PromptOptions): JQuery {
   return promptDialog;
 }
 
-// Helper function to simulate the native prompt() behavior. **NOTE**: This is
-// non-blocking, so any code that must happen after the prompt is dismissed
-// should be placed within the callback function for this prompt.
+/**
+ * This specialized function provides a dialog similar to the one provided by
+ * the DOM ``prompt()`` function.
+ *
+ * **NOTE**: This function is non-blocking, so any code that must happen after
+ * the dialog is dismissed should be placed within the callback function for
+ * this dialog.
+ *
+ * @param options The options governing how the dialog is created.
+ *
+ * @returns A jQuery object that models the dialog.
+ */
 export function prompt(options: PromptOptions): JQuery;
+/**
+ * Specialized function that provides a dialog similar to the one provided by
+ * the DOM ``prompt()`` function.
+ *
+ * **NOTE**: This function is non-blocking, so any code that must happen after
+ * the dialog is dismissed should be placed within the callback function for
+ * this dialog.
+ *
+ * @param message The message to display.
+ *
+ * @param callback The callback to call when the dialog has been dismissed.
+ *
+ * @returns A jQuery object that models the dialog.
+ */
 export function prompt(message: string,
                        callback: PromptOptions["callback"]): JQuery;
 // tslint:disable-next-line:max-func-body-length
