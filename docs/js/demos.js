@@ -325,7 +325,8 @@ $(function () {
                         var timeout = 3000; // 3 seconds
                         var dialog = bootprompt.dialog({
                             message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Please wait while we do something...</p>',
-                            closeButton: false
+                            closeButton: false,
+                            onEscape: false,
                         });
 
                         setTimeout(function () {
