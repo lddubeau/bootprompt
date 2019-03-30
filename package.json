@@ -43,7 +43,7 @@
     "@types/chai": "^4.1.7",
     "@types/jquery": "^3.3.29",
     "@types/mocha": "^5.2.6",
-    "@types/sinon": "^7.0.10",
+    "@types/sinon": "^7.0.11",
     "@types/sinon-chai": "^3.2.2",
     "chai": "^4.2.0",
     "core-js": "^3.0.0",
