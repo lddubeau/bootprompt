@@ -1901,48 +1901,34 @@ function mergeDialogOptions<T extends SpecializedOptions>(kind: string,
                                                           labels: ButtonName[],
                                                           options: T):
 T & DialogOptions & { buttons: Buttons } {
-  let locale;
-  let swapButtons;
-  if (typeof options !== "string") {
-    locale = options.locale !== undefined ? options.locale : currentLocale;
-    swapButtons = options.swapButtonOrder !== undefined ?
-      options.swapButtonOrder : false;
-  }
-  else {
-    locale = "en";
-    swapButtons = false;
-  }
-
-  const orderedLabels = swapButtons ? labels.slice().reverse() : labels;
-
-  //  build up a base set of dialog properties
-  const baseOptions = {
-    className: `bootprompt-${kind}`,
-    buttons: makeButtons(orderedLabels, locale),
-  };
-
-  // merge the generated base properties with user supplied arguments
-  const merged = $.extend(true, // deep merge
-                          Object.create(null),
-                          baseOptions,
-                          options) as T & DialogOptions & typeof baseOptions;
-
-  // Ensure the buttons properties generated, *after* merging with user args are
-  // still valid against the supplied labels
-
   // An earlier implementation was building a hash from ``buttons``. However,
   // the ``buttons`` array is very small. Profiling in other projects have shown
   // that for very small arrays, there's no benefit to creating a table for
   // lookup.
-  for (const key in merged.buttons) {
+  //
+  // An earlier implementation was also performing the check on the merged
+  // options (the return value of this function) but that was pointless as it is
+  // not possible to add invalid buttons with makeButtons.
+  //
+  for (const key in options.buttons) {
     // tslint:disable-next-line:no-any
-    if (orderedLabels.indexOf(key as any) === -1) {
+    if (labels.indexOf(key as any) === -1) {
       throw new Error(`button key "${key}" is not allowed (options are \
-${orderedLabels.join(" ")})`);
+${labels.join(" ")})`);
     }
   }
 
-  return merged;
+  const { locale, swapButtonOrder } = options;
+
+  return $.extend(
+    true, // deep merge
+    Object.create(null), {
+      className: `bootprompt-${kind}`,
+      buttons: makeButtons(swapButtonOrder === true ? labels.slice().reverse() :
+                           labels,
+                           locale !== undefined ? locale : currentLocale),
+    },
+    options) as T & DialogOptions & { buttons: Buttons };
 }
 
 //  Filter and tidy up any user supplied parameters to this dialog.
