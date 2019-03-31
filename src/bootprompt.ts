@@ -213,9 +213,19 @@ export interface CommonOptions<T extends any[]> {
   locale?: string;
 
   /**
-   * Whether to swap the button order. This affects modals that show the
-   * predefined cancel/confirm buttons. The default order is cancel and then
-   * confirm. The reverse order is confirm and then cancel.
+   * Whether to swap the button order. The effect varies depending on what
+   * function is used:
+   *
+   * + Since [[alert]] creates a dialog with only one button, it has no visible
+   * effect.
+   *
+   * + For [[confirm]] and [[prompt]] this reverses the order of the
+   * cancel/confirm buttons.  The default order is cancel and then confirm. The
+   * reverse order is confirm and then cancel.
+   *
+   * + For [[dialog]] this changes which button is considered "primary". The
+   * default is to treat the first button as primary. In reverse, the last
+   * button is primary.
    *
    * Default: ``false``.
    */
