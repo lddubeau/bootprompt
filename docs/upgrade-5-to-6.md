@@ -46,3 +46,14 @@ exceptions are
 You can emulate the old behavior by writing a factory function that sets the
 options you want to be set a certain way, and calling this factory instead of
 Bootprompt directly.
+
+``callback`` is no longer allowed on ``DialogOptions``
+======================================================
+
+The TypeScript typings no longer allow passing ``callback`` to ``dialog``. If
+you did pass ``callback`` to ``dialog``, you will get a compliation error,
+remove ``callback``.
+
+If you sneak ``callback`` into the options passed to ``dialog`` (because you
+don't use TS or because you perform a type assertion), ``callback`` will be
+ignored as it has always been.

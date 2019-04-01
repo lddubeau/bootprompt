@@ -135,8 +135,7 @@ export interface ConfirmCancelButtons extends Buttons {
  * The set of options which is common to [[alert]], [[confirm]], [[prompt]] and
  * [[dialog]].
  */
-// tslint:disable-next-line:no-any
-export interface CommonOptions<T extends any[]> {
+export interface CommonOptions {
   /**
    * A message to show in the modal. This is what the modal is asking of the
    * user.
@@ -147,12 +146,6 @@ export interface CommonOptions<T extends any[]> {
    * The title of the modal. This appears in the modal header.
    */
   title?: DocumentContent;
-
-  /**
-   * A callback for the modal as a whole. This callback is called when the user
-   * performs an action that may dismiss the modal.
-   */
-  callback?(...args: T): boolean | void;
 
   /**
    * Whether to immediately show the modal.
@@ -253,14 +246,8 @@ export interface CommonOptions<T extends any[]> {
  * This are the options that pertain to the [[dialog]] function.
  */
 // tslint:disable-next-line:no-any
-export interface DialogOptions extends CommonOptions<any[]>{
+export interface DialogOptions extends CommonOptions{
   message: DocumentContent;
-
-  /**
-   * [[dialog]] ignores this value, but historically it has been allowed.
-   */
-  // tslint:disable-next-line:no-any
-  callback?(...args: any[]): boolean | void;
 
   /**
    * Specifies what to do if the user hits ``ESC`` on the keyboard.
@@ -306,7 +293,16 @@ interface SanitizedDialogOptions extends DialogOptions {
 /**
  * Options that are supported by the [[alert]] function.
  */
-export interface AlertOptions extends CommonOptions<[]> {
+export interface AlertOptions extends CommonOptions {
+  /**
+   * A callback for the modal as a whole. This callback is called when the user
+   * performs an action that may dismiss the modal.
+   *
+   * @returns A return value of ``false`` keeps the modal open. Anything else
+   * closes it.
+   */
+  callback?(this: JQuery): boolean | void;
+
   /** Alerts show only one button. */
   buttons?: OkButton;
 
@@ -389,18 +385,41 @@ export interface ConfirmCancelCommonOptions {
 /**
  * The options that are supported by the [[confirm]] function.
  */
-export interface ConfirmOptions extends CommonOptions<[boolean]>,
+export interface ConfirmOptions extends CommonOptions,
 ConfirmCancelCommonOptions {
   message: DocumentContent;
+
+  /**
+   * A callback for the modal as a whole. This callback is called when the user
+   * performs an action that may dismiss the modal.
+   *
+   * @param value ``true`` if the user confirmed, ``false`` otherwise.
+   *
+   * @returns A return value of ``false`` keeps the modal open. Anything else
+   * closes it.
+   */
+  callback?(this: JQuery, value: boolean): boolean | void;
 }
 
 /**
  * The options that are supported by the [[prompt]] function, irrespective of
  * what ``inputType`` is used.
  */
-export interface PromptCommonOptions<T extends unknown[]>
-  extends CommonOptions<T>, ConfirmCancelCommonOptions {
+export interface PromptCommonOptions<T extends unknown>
+  extends CommonOptions, ConfirmCancelCommonOptions {
   title: DocumentContent;
+
+  /**
+   * A callback for the modal as a whole. This callback is called when the user
+   * performs an action that may dismiss the modal.
+   *
+   * @param value ``null`` if the user canceled the modal. Otherwise, it is the
+   * value of the ``input`` element.
+   *
+   * @returns A return value of ``false`` keeps the modal open. Anything else
+   * closes it.
+   */
+  callback?(this: JQuery, value: T | null): boolean | void;
 
   /**
    * If ``pattern`` is set, the prompt will not close if the input value does
@@ -421,8 +440,7 @@ export interface PromptCommonOptions<T extends unknown[]>
  * The [[prompt]] options that are supported when the ``inputType`` is one of
  * the textual inputs.
  */
-export interface TextPromptOptions extends
-PromptCommonOptions<[string | null]> {
+export interface TextPromptOptions extends PromptCommonOptions<string> {
   /**
    * These input types are all textual input types. These input type generate an
    * ``input`` (or ``textarea``) element with the following classes:
@@ -481,8 +499,7 @@ PromptCommonOptions<[string | null]> {
  * The [[prompt]] options that are supported when the ``inputType`` is one of
  * the numeric inputs.
  */
-export interface NumericPromptOptions extends
-PromptCommonOptions<[string | null]> {
+export interface NumericPromptOptions extends PromptCommonOptions<string> {
   /**
    * These input types are the numeric inputs. These input type generate an
    * ``input`` with the following classes:
@@ -570,8 +587,7 @@ PromptCommonOptions<[string | null]> {
  * The [[prompt]] options that are supported when the ``inputType`` is
  * ``"time"``.
  */
-export interface TimePromptOptions
-extends PromptCommonOptions<[string | null]> {
+export interface TimePromptOptions extends PromptCommonOptions<string> {
   /**
    * An ``inputType`` of value ``"time"`` creates an ``input`` with the class
    * name ``bootprompt-input-time``
@@ -646,8 +662,7 @@ extends PromptCommonOptions<[string | null]> {
  * The [[prompt]] options that are supported when the ``inputType`` is
  * ``"date"``.
  */
-export interface DatePromptOptions
-extends PromptCommonOptions<[string | null]> {
+export interface DatePromptOptions extends PromptCommonOptions<string> {
   /**
    * An ``inputType`` of value ``"date"`` creates an ``input`` with the class
    * name ``bootprompt-input-date``
@@ -729,8 +744,8 @@ export interface InputOption {
 /**
  * The options in common for all ``select``-type inputs.
  */
-export interface CommonSelectOptions<T extends unknown[]>
-  extends PromptCommonOptions<T> {
+export interface CommonSelectOptions<T extends unknown>
+extends PromptCommonOptions<T> {
   /**
    * An ``inputType`` of value ``"select"`` creates an ``input`` with the class
    * name ``bootprompt-input-select``.
@@ -750,7 +765,7 @@ export interface CommonSelectOptions<T extends unknown[]>
  * The options supported by ``"select"`` inputs that accept multiple values.
  */
 export interface MultipleSelectPromptOptions
-extends CommonSelectOptions<[string[] | null]> {
+extends CommonSelectOptions<string[]> {
   /**
    * An initial value for the input type. It is possible to pass an array of
    * values to select multiple initial values.
@@ -770,8 +785,7 @@ extends CommonSelectOptions<[string[] | null]> {
 /**
  * The options supported by ``"select"`` inputs that accept a single value.
  */
-export interface SingleSelectPromptOptions
-extends CommonSelectOptions<[string | null]> {
+export interface SingleSelectPromptOptions extends CommonSelectOptions<string> {
   /**
    * An initial value for the input type.
    *
@@ -797,7 +811,7 @@ export type SelectPromptOptions =
  * The options supported by ``"checkbox"`` inputs.
  */
 export interface CheckboxPromptOptions
-extends PromptCommonOptions<[string | string[] | null]> {
+extends PromptCommonOptions<string | string[]> {
   /**
    * An ``inputType`` of value ``"checkbox"`` creates an ``input`` with the
    * class name ``bootprompt-input-checkbox``.
@@ -819,8 +833,7 @@ extends PromptCommonOptions<[string | string[] | null]> {
 /**
  * The options supported by ``"radio"`` inputs.
  */
-export interface RadioPromptOptions
-extends PromptCommonOptions<[string | null]> {
+export interface RadioPromptOptions extends PromptCommonOptions<string> {
   /**
    * An ``inputType`` of value ``"radio"`` creates an ``input`` with the
    * class name ``bootprompt-input-radio``.
@@ -1720,15 +1733,16 @@ function _prompt(options: PromptOptions): JQuery {
   // Prompt submitted - extract the prompt value. This requires a bit of work,
   // given the different input types available.
   // tslint:disable-next-line:no-non-null-assertion
-  (buttons.confirm as Button).callback = function (): boolean | void {
+  (buttons.confirm as Button).callback = function (this: JQuery):
+  boolean | void {
     let value: string | string[];
 
     switch (finalOptions.inputType) {
       case "checkbox":
-        value = input.find("input:checked").map(function (): string {
-          // tslint:disable-next-line:no-invalid-this
-          return $(this).val() as string;
-        }).get();
+        value = input.find("input:checked")
+          .map(function (this: HTMLElement): string {
+            return $(this).val() as string;
+          }).get();
         break;
       case "radio":
         value = input.find("input:checked").val() as string;
@@ -1742,18 +1756,19 @@ function _prompt(options: PromptOptions): JQuery {
 
         if (finalOptions.inputType === "select" &&
             finalOptions.multiple === true) {
-          value = input.find("option:selected").map(function (): string {
-            // tslint:disable-next-line:no-invalid-this
-            return $(this).val() as string;
-          }).get();
+          value = input.find("option:selected")
+            .map(function (this: HTMLElement): string {
+              return $(this).val() as string;
+            }).get();
         }
         else {
           value = input.val() as string;
         }
     }
 
-    // tslint:disable-next-line:no-invalid-this
-    return finalCallback.call(this, value);
+    // TS type inferrence fails here.
+    // tslint:disable-next-line:no-any
+    return (finalCallback as any).call(this, value);
   };
 
   const form = $(templates.form);
