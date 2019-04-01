@@ -520,6 +520,7 @@ PromptCommonOptions<[string | null]> {
    */
   value?: string;
 
+  /* tslint:disable:max-line-length */
   /**
    * The minimum value allowed by the input.
    *
@@ -530,7 +531,9 @@ PromptCommonOptions<[string | null]> {
    * Default: ``undefined``, which means no minimum value.
    */
   min?: string;
+  /* tslint:enable:max-line-length */
 
+  /* tslint:disable:max-line-length */
   /**
    * The maximum value allowed by the input.
    *
@@ -541,18 +544,21 @@ PromptCommonOptions<[string | null]> {
    * Default: ``undefined``, which means no maximum value.
    */
   max?: string;
+  /* tslint:enable:max-line-length */
 
+  /* tslint:disable:max-line-length */
   /**
    * Can be the string value ``"any"`` (the default), or a positive numeric
    * value.
    *
-   * See the [MDN
-   * article](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number#step)
+   * See the
+   * [MDN article](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number#step)
    * for more information.
    *
    * Default: ``undefined``, which means ``"any"``.
    */
   step?: string;
+  /* tslint:enable:max-line-length */
 
   /**
    * See [[TextPromptOptions.required]].
@@ -588,6 +594,7 @@ extends PromptCommonOptions<[string | null]> {
    */
   value?: string;
 
+  /* tslint:disable:max-line-length */
   /**
    * The minimum value allowed by the input. Must be in the same format as
    * [[value]].
@@ -599,7 +606,9 @@ extends PromptCommonOptions<[string | null]> {
    * Default: ``undefined``, which means no minimum value.
    */
   min?: string;
+  /* tslint:enable:max-line-length */
 
+  /* tslint:disable:max-line-length */
   /**
    * The maximum value allowed by the input. Must be in the same format as
    * [[value]].
@@ -611,7 +620,9 @@ extends PromptCommonOptions<[string | null]> {
    * Default: ``undefined``, which means no maximum value.
    */
   max?: string;
+  /* tslint:enable:max-line-length */
 
+  /* tslint:disable:max-line-length */
   /**
    * Can be the string value ``"any"`` (the default), or a positive numeric
    * value. For ``"time"`` inputs, this is a value in seconds.
@@ -623,6 +634,7 @@ extends PromptCommonOptions<[string | null]> {
    * Default: ``undefined``, which means ``"any"``.
    */
   step?: string;
+  /* tslint:enable:max-line-length */
 
   /**
    * See [[TextPromptOptions.required]].
@@ -658,6 +670,7 @@ extends PromptCommonOptions<[string | null]> {
    */
   value?: string;
 
+  /* tslint:disable:max-line-length */
   /**
    * The minimum value allowed by the input. Must be in the same format as
    * [[value]].
@@ -669,7 +682,9 @@ extends PromptCommonOptions<[string | null]> {
    * Default: ``undefined``, which means no minimum value.
    */
   min?: string;
+  /* tslint:enable:max-line-length */
 
+  /* tslint:disable:max-line-length */
   /**
    * The maximum value allowed by the input. Must be in the same format as
    * [[value]].
@@ -681,6 +696,7 @@ extends PromptCommonOptions<[string | null]> {
    * Default: ``undefined``, which means no maximum value.
    */
   max?: string;
+  /* tslint:enable:max-line-length */
 
   /**
    * See [[TextPromptOptions.required]].
