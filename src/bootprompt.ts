@@ -1315,8 +1315,9 @@ this option.`);
   return $modal;
 }
 
-function _alert(options: AlertOptions): JQuery {
-  const finalOptions = mergeDialogOptions("alert", ["ok"], options);
+function _alert(options: AlertOptions,
+                callback: AlertOptions["callback"]): JQuery {
+  const finalOptions = mergeDialogOptions("alert", ["ok"], options, callback);
 
   const { callback: finalCallback } = finalOptions;
 
@@ -1372,16 +1373,14 @@ export function alert(message: string,
 export function alert(messageOrOptions: string | AlertOptions,
                       callback?: AlertOptions["callback"]): JQuery {
   return _alert(typeof messageOrOptions === "string" ?
-                {
-                  message: messageOrOptions,
-                  callback,
-                } :
-                messageOrOptions);
+                { message: messageOrOptions } :
+                messageOrOptions, callback);
 }
 
-function _confirm(options: ConfirmOptions): JQuery {
+function _confirm(options: ConfirmOptions,
+                  callback: ConfirmOptions["callback"]): JQuery {
   const finalOptions = mergeDialogOptions("confirm", ["cancel", "confirm"],
-                                           options);
+                                          options, callback);
 
   const { callback: finalCallback, buttons } = finalOptions;
 
@@ -1439,11 +1438,8 @@ export function confirm(message: string,
 export function confirm(messageOrOptions: string | ConfirmOptions,
                         callback?: ConfirmOptions["callback"]): JQuery {
   return _confirm(typeof messageOrOptions === "string" ?
-                  {
-                    message: messageOrOptions,
-                    callback,
-                  } :
-                  messageOrOptions);
+                  { message: messageOrOptions } :
+                  messageOrOptions, callback);
 }
 
 function setupTextualInput(input: JQuery,
@@ -1664,11 +1660,12 @@ for "value".`);
 }
 
 // tslint:disable-next-line:max-func-body-length
-function _prompt(options: PromptOptions): JQuery {
+function _prompt(options: PromptOptions,
+                 callback: PromptOptions["callback"]): JQuery {
   // prompt defaults are more complex than others in that users can override
   // more defaults
   const finalOptions = mergeDialogOptions("prompt", ["cancel", "confirm"],
-                                           options);
+                                          options, callback);
   if (typeof finalOptions.value === "number") {
     throw new Error("bootprompt does not allow numbers as values");
   }
@@ -1853,12 +1850,8 @@ export function prompt(message: string,
 export function prompt(messageOrOptions: string | PromptOptions,
                        callback?: PromptOptions["callback"]): JQuery {
   return _prompt(typeof messageOrOptions === "string" ?
-                 // tslint:disable-next-line:no-object-literal-type-assertion
-                 {
-                   title: messageOrOptions,
-                   callback,
-                 } as PromptOptions :
-                 messageOrOptions);
+                 { title: messageOrOptions } :
+                 messageOrOptions, callback);
 }
 
 //
@@ -1948,9 +1941,11 @@ type SpecializedOptions = AlertOptions | ConfirmOptions | PromptOptions;
  *
  * @returns Options to pass to [[dialog]].
  */
-function mergeDialogOptions<T extends SpecializedOptions>(kind: string,
-                                                          labels: ButtonName[],
-                                                          options: T):
+function mergeDialogOptions<T extends SpecializedOptions>(
+  kind: string,
+  labels: ButtonName[],
+  options: T,
+  callback?: T["callback"]):
 T & DialogOptions & { buttons: Buttons } {
   // An earlier implementation was building a hash from ``buttons``. However,
   // the ``buttons`` array is very small. Profiling in other projects have shown
@@ -1979,7 +1974,8 @@ ${labels.join(" ")})`);
                            labels,
                            locale !== undefined ? locale : currentLocale),
     },
-    options) as T & DialogOptions & { buttons: Buttons };
+    options,
+    { callback }) as T & DialogOptions & { buttons: Buttons };
 }
 
 //  Filter and tidy up any user supplied parameters to this dialog.
