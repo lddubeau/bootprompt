@@ -57,3 +57,21 @@ remove ``callback``.
 If you sneak ``callback`` into the options passed to ``dialog`` (because you
 don't use TS or because you perform a type assertion), ``callback`` will be
 ignored as it has always been.
+
+Button callbacks are no longer allowed on the specialized functions
+===================================================================
+
+The specialized functions are ``alert``, ``confirm``, ``prompt``.
+
+The TypeScript typings no longer allow setting a callback on the buttons in the
+options passed to specialized functions. At runtime, Bootprompt silently
+overwrites any such callback as needed to create a specialized dialog. (This
+behavior is inherited from Bootbox.) Previously, the typings allowed setting
+such callback, even though it would be overwritten at run time. If you use TS,
+and were setting callbacks on the options you passed to the specialized
+functions, you need to remove these callbacks.
+
+As implied above, if you use JS or if you use TS but perform a type assertion
+and pass a button callback to a specialized function, the callback will be
+silently ignored. Again, this behavior comes from Bootbox, prior to the fork
+from that created Bootprompt.

@@ -115,11 +115,21 @@ interface SanitizedButtons extends Buttons {
 }
 
 /**
+ * A "specialized button" is a button for one of the specialized functions. This
+ * interface eliminates the ``callback`` field. The specialized functions
+ * overwrite any callback set on these buttons with their own callbacks, so it
+ * is not sensible to allow setting ``callback``.
+ */
+export interface SpecializedButton extends Button {
+  callback?: never;
+}
+
+/**
  * [[alert]] only takes the ``ok`` button, and so its button specification
  * *must* conform to this interface.
  */
 export interface OkButton extends Buttons {
-  ok: ButtonSpec;
+  ok?: SpecializedButton;
 }
 
 /**
@@ -127,8 +137,8 @@ export interface OkButton extends Buttons {
  * so their button specification *must* conform to this interface.
  */
 export interface ConfirmCancelButtons extends Buttons {
-  confirm?: ButtonSpec;
-  cancel?: ButtonSpec;
+  confirm?: SpecializedButton;
+  cancel?: SpecializedButton;
 }
 
 /**
