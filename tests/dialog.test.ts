@@ -50,11 +50,13 @@ describe("bootprompt.dialog", () => {
   describe("when creating a minimal dialog", () => {
     let $dialog: JQuery;
     before(() => {
-      // The suite does not systematically cleanup old modals.
-      bootprompt.hideAll();
       $dialog = bootprompt.dialog({
         message: "test",
       });
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("adds the bootprompt class to the dialog", () => {
@@ -103,26 +105,32 @@ describe("bootprompt.dialog", () => {
         });
       }
 
-      before(() => {
-        create();
-        buttons = ($dialog[0].getElementsByClassName("btn") as
-                   HTMLCollectionOf<HTMLElement>);
-      });
+      describe("", () => {
+        before(() => {
+          create();
+          buttons = ($dialog[0].getElementsByClassName("btn") as
+                     HTMLCollectionOf<HTMLElement>);
+        });
 
-      it("shows a footer", () => {
-        expect(exists($dialog, ".modal-footer")).to.be.true;
-      });
+        after(() => {
+          bootprompt.hideAll();
+        });
 
-      it("shows one button", () => {
-        expect(buttons).to.be.lengthOf(1);
-      });
+        it("shows a footer", () => {
+          expect(exists($dialog, ".modal-footer")).to.be.true;
+        });
 
-      it("shows the correct button text", () => {
-        expect(buttons[0]).to.have.property("textContent").equal("My Label");
-      });
+        it("shows one button", () => {
+          expect(buttons).to.be.lengthOf(1);
+        });
 
-      it("applies the correct button class", () => {
-        expect(buttons[0].classList.contains("btn-primary")).to.be.true;
+        it("shows the correct button text", () => {
+          expect(buttons[0]).to.have.property("textContent").equal("My Label");
+        });
+
+        it("applies the correct button class", () => {
+          expect(buttons[0].classList.contains("btn-primary")).to.be.true;
+        });
       });
 
       describe("when triggering the escape event", () => {
@@ -132,6 +140,10 @@ describe("bootprompt.dialog", () => {
           create();
           hidden = sinon.spy($dialog, "modal");
           $dialog.trigger("escape.close.bp");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should hide the modal", () => {
@@ -146,6 +158,10 @@ describe("bootprompt.dialog", () => {
           create();
           hidden = sinon.spy($dialog, "modal");
           $dialog.find(".close").trigger("click");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should hide the modal", () => {
@@ -170,16 +186,22 @@ describe("bootprompt.dialog", () => {
         });
       }
 
-      before(() => {
-        create();
-      });
+      describe("", () => {
+        before(() => {
+          create();
+        });
 
-      it("shows a footer", () => {
-        expect(exists($dialog, ".modal-footer")).to.be.true;
-      });
+        after(() => {
+          bootprompt.hideAll();
+        });
 
-      it("shows the correct button text", () => {
-        expect(text($dialog, ".btn")).to.equal("Another Label");
+        it("shows a footer", () => {
+          expect(exists($dialog, ".modal-footer")).to.be.true;
+        });
+
+        it("shows the correct button text", () => {
+          expect(text($dialog, ".btn")).to.equal("Another Label");
+        });
       });
 
       describe("when dismissing the dialog by clicking OK", () => {
@@ -190,6 +212,10 @@ describe("bootprompt.dialog", () => {
           hidden = sinon.spy($dialog, "modal");
           $($dialog[0].getElementsByClassName("btn-primary")[0])
             .trigger("click");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should invoke the callback", () => {
@@ -214,6 +240,10 @@ describe("bootprompt.dialog", () => {
           $dialog.trigger("escape.close.bp");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should not invoke the callback", () => {
           expect(callback).not.to.have.been.called;
         });
@@ -230,6 +260,10 @@ describe("bootprompt.dialog", () => {
           create();
           hidden = sinon.spy($dialog, "modal");
           $($dialog[0].getElementsByClassName("close")[0]).trigger("click");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should not invoke the callback", () => {
@@ -259,6 +293,10 @@ describe("bootprompt.dialog", () => {
         button = $dialog[0].getElementsByClassName("btn")[0] as HTMLElement;
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       it("shows the correct button text", () => {
         expect(button).to.have.property("textContent").equal("Test Label");
       });
@@ -286,6 +324,10 @@ describe("bootprompt.dialog", () => {
           button = $dialog[0].getElementsByClassName("btn")[0] as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("uses the key name as the button text", () => {
           expect(button).to.have.property("textContent").equal("Short form");
         });
@@ -308,12 +350,18 @@ describe("bootprompt.dialog", () => {
           });
         }
 
-        before(() => {
-          createDialog();
-        });
+        describe("", () => {
+          before(() => {
+            createDialog();
+          });
 
-        it("uses the key name as the button text", () => {
-          expect(text($dialog, ".btn")).to.equal("my_label");
+          after(() => {
+            bootprompt.hideAll();
+          });
+
+          it("uses the key name as the button text", () => {
+            expect(text($dialog, ".btn")).to.equal("my_label");
+          });
         });
 
         describe("when dismissing the dialog by clicking the button", () => {
@@ -321,6 +369,10 @@ describe("bootprompt.dialog", () => {
             createDialog();
             $($dialog[0].getElementsByClassName("btn-primary")[0])
               .trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -356,6 +408,10 @@ describe("bootprompt.dialog", () => {
       });
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("has a header", () => {
       expect(exists($dialog, ".modal-header")).to.be.true;
     });
@@ -380,6 +436,10 @@ describe("bootprompt.dialog", () => {
       });
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("has a header", () => {
       expect(exists($dialog, ".modal-header")).to.be.true;
     });
@@ -395,14 +455,16 @@ describe("bootprompt.dialog", () => {
 
   describe("when creating a dialog with no backdrop", () => {
     before(() => {
-      // The suite does not systematically cleanup old modals.
-      bootprompt.hideAll();
       const backdrops = document.getElementsByClassName("modal-backdrop");
       expect(backdrops).to.be.lengthOf(0);
       bootprompt.dialog({
         message: "No backdrop in sight",
         backdrop: false,
       });
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("does not have a backdrop", () => {
@@ -419,6 +481,10 @@ describe("bootprompt.dialog", () => {
         message: "No backdrop in sight",
         closeButton: false,
       });
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("does not have a close button inside the body", () => {
@@ -456,6 +522,10 @@ describe("bootprompt.dialog", () => {
           e(15);
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("does not trigger the escape event", () => {
           expect(trigger).not.to.have.been.called;
         });
@@ -469,6 +539,10 @@ describe("bootprompt.dialog", () => {
         before(() => {
           createDialog();
           e(27);
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("triggers the escape event", () => {
@@ -510,6 +584,10 @@ describe("bootprompt.dialog", () => {
       before(() => {
         createDialog();
         e(27);
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       it("triggers the escape event", () => {
@@ -556,6 +634,10 @@ describe("bootprompt.dialog", () => {
             e(15);
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("does not trigger the escape event", () => {
             expect(trigger).not.to.have.been.called;
           });
@@ -569,6 +651,10 @@ describe("bootprompt.dialog", () => {
           before(() => {
             createDialog();
             e(27);
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("triggers the escape event", () => {
@@ -609,6 +695,10 @@ describe("bootprompt.dialog", () => {
           e(27);
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -626,6 +716,10 @@ describe("bootprompt.dialog", () => {
         before(() => {
           createDialog();
           $($dialog[0].getElementsByClassName("close")[0]).trigger("click");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should not invoke the callback", () => {
@@ -675,6 +769,10 @@ describe("bootprompt.dialog", () => {
           $dialog.find(".close").trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         // tslint:disable-next-line:mocha-no-side-effect-code
         shouldInvokeCallback();
 
@@ -690,6 +788,10 @@ describe("bootprompt.dialog", () => {
           callback = sinon.stub().returns(false);
           createDialog();
           $dialog.find(".close").trigger("click");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         // tslint:disable-next-line:mocha-no-side-effect-code
@@ -713,6 +815,10 @@ describe("bootprompt.dialog", () => {
         });
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       it("adds the large class to the innerDialog", () => {
         expect($dialog[0].getElementsByClassName("modal-dialog")[0].classList
                .contains("modal-lg")).to.be.true;
@@ -725,6 +831,10 @@ describe("bootprompt.dialog", () => {
           message: "test",
           size: "small",
         });
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       it("adds the small class to the innerDialog", () => {

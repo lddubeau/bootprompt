@@ -67,6 +67,10 @@ describe("bootprompt.prompt", () => {
             second = buttons[1];
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("creates a dialog object", () => {
             expect($dialog).to.be.an("object");
           });
@@ -114,6 +118,10 @@ describe("bootprompt.prompt", () => {
                            HTMLCollectionOf<HTMLElement>);
           first = buttons[0];
           second = buttons[1];
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("creates a dialog object", () => {
@@ -177,6 +185,10 @@ describe("bootprompt.prompt", () => {
         button = $dialog[0].getElementsByClassName("btn")[0] as HTMLElement;
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       it("adds the correct cancel button", () => {
         expect(button.textContent).to.equal("Custom cancel");
         expect(button.classList.contains("btn-danger")).to.be.true;
@@ -199,6 +211,10 @@ describe("bootprompt.prompt", () => {
           },
         });
         button = $dialog[0].getElementsByClassName("btn")[1] as HTMLElement;
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       it("adds the correct confirm button", () => {
@@ -246,6 +262,7 @@ confirm)`);
 
       after(() => {
         sinon.restore();
+        bootprompt.hideAll();
       });
 
       it("does not show the dialog", () => {
@@ -274,6 +291,10 @@ confirm)`);
         });
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       it("has a message", () => {
         expect(exists($dialog, ".bootprompt-prompt-message")).to.be.true;
       });
@@ -296,6 +317,10 @@ confirm)`);
           createDialog();
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows text input ", () => {
           expect(exists($dialog, "input[type='text']")).to.be.true;
         });
@@ -314,6 +339,10 @@ confirm)`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct default value", () => {
           expect($(find($dialog, "input[type='text']")).val())
             .to.equal("John Smith");
@@ -325,6 +354,10 @@ confirm)`);
           createDialog({
             placeholder: "enter your name",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct placeholder value", () => {
@@ -340,6 +373,10 @@ confirm)`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct pattern value", () => {
           expect($(find($dialog, "input[type='text']")).prop("pattern"))
             .to.equal("\d{1,2}/\d{1,2}/\d{4}");
@@ -353,6 +390,10 @@ confirm)`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct maxlength value", () => {
           expect($(find($dialog, "input[type='text']")).prop("maxlength"))
             .to.equal(5);
@@ -364,6 +405,10 @@ confirm)`);
           createDialog({
             required: true,
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct required value", () => {
@@ -393,6 +438,10 @@ confirm)`);
             $dialog[0].getElementsByTagName("textarea")[0] as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows text input", () => {
           expect(textarea).to.not.be.undefined;
         });
@@ -411,6 +460,10 @@ confirm)`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct default value", () => {
           expect($(find($dialog, "textarea")).val()).to
             .equal("Once upon a time...");
@@ -422,6 +475,10 @@ confirm)`);
           createDialog({
             placeholder: "enter your favorite fairy tale",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct placeholder value", () => {
@@ -450,6 +507,10 @@ confirm)`);
             $dialog[0].querySelector("input[type='email']") as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows email input", () => {
           expect(input).to.not.be.null;
         });
@@ -467,6 +528,10 @@ confirm)`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct default value", () => {
           expect($(find($dialog, "input[type='email']")).val()).to
             .equal("john@smith.com");
@@ -480,6 +545,10 @@ confirm)`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct placeholder value", () => {
           expect($(find($dialog, "input[type='email']")).prop("placeholder")).to
             .equal("enter your email");
@@ -491,6 +560,10 @@ confirm)`);
           createDialog({
             pattern: "\d{1,2}/\d{1,2}/\d{4}",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct pattern value", () => {
@@ -521,6 +594,10 @@ confirm)`);
             $dialog[0].querySelector("input[type='password']") as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows password input", () => {
           expect(input).to.not.be.null;
         });
@@ -539,6 +616,10 @@ confirm)`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct default value", () => {
           expect($(find($dialog, "input[type='password']")).val()).to
             .equal("qwerty");
@@ -550,6 +631,10 @@ confirm)`);
           createDialog({
             placeholder: "enter your password",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct placeholder value", () => {
@@ -678,6 +763,10 @@ inputOptions`);
           select = $dialog[0].getElementsByTagName("select")[0] as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows select input", () => {
           expect(select).to.not.be.undefined;
         });
@@ -719,6 +808,10 @@ inputOptions`);
           select = $dialog[0].getElementsByTagName("select")[0] as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows select input", () => {
           expect(select).to.not.be.undefined;
         });
@@ -756,6 +849,10 @@ inputOptions`);
           });
 
           select = $dialog[0].getElementsByTagName("select")[0];
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("shows select input", () => {
@@ -838,6 +935,10 @@ inputOptions`);
           checkboxes = $dialog[0].querySelectorAll("input[type='checkbox']");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("with three checkboxes", () => {
           expect(checkboxes).to.be.lengthOf(3);
         });
@@ -912,6 +1013,10 @@ inputOptions`);
           radios = $dialog[0].querySelectorAll("input[type='radio']");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("with three radios", () => {
           expect(radios).to.be.lengthOf(3);
         });
@@ -964,6 +1069,10 @@ for "value".`);
           input = $dialog[0].querySelector("input[type='date']") as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows date input ", () => {
           expect(input).to.not.be.null;
         });
@@ -981,6 +1090,10 @@ for "value".`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct default value", () => {
           expect($(find($dialog, "input[type='date']")).val())
             .to.equal("2005-08-17");
@@ -992,6 +1105,10 @@ for "value".`);
           createDialog({
             placeholder: "enter the date",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct placeholder value", () => {
@@ -1007,6 +1124,10 @@ for "value".`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct pattern value", () => {
           expect($(find($dialog, "input[type='date']")).prop("pattern"))
             .to.equal("\d{1,2}/\d{1,2}/\d{4}");
@@ -1020,6 +1141,10 @@ for "value".`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct default value", () => {
           expect($(find($dialog, "input[type='date']")).prop("min"))
             .to.equal("2005-08-17");
@@ -1031,6 +1156,10 @@ for "value".`);
           createDialog({
             max: "2005-08-17",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct default value", () => {
@@ -1061,6 +1190,10 @@ for "value".`);
           input = $dialog[0].querySelector("input[type='time']") as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows time input", () => {
           expect(input).to.not.be.null;
         });
@@ -1078,6 +1211,10 @@ for "value".`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct default value", () => {
           expect($(find($dialog, "input[type='time']")).val()).to
             .equal("19:02");
@@ -1089,6 +1226,10 @@ for "value".`);
           createDialog({
             placeholder: "enter the time",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct placeholder value", () => {
@@ -1104,6 +1245,10 @@ for "value".`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct pattern value", () => {
           expect($(find($dialog, "input[type='time']")).prop("pattern")).to
             .equal("\d{1,2}/\d{1,2}/\d{4}");
@@ -1115,6 +1260,10 @@ for "value".`);
           createDialog({
             min: "00:00:00",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct min value", () => {
@@ -1130,6 +1279,10 @@ for "value".`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct max value", () => {
           expect($(find($dialog, "input[type='time']")).prop("max")).to
             .equal("23:59:59");
@@ -1141,6 +1294,10 @@ for "value".`);
           createDialog({
             step: "10",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct step value", () => {
@@ -1218,6 +1375,10 @@ more information.`);
             $dialog[0].querySelector("input[type='number']") as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows number input ", () => {
           expect(input).to.not.be.null;
         });
@@ -1236,6 +1397,10 @@ more information.`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct default value", () => {
           expect($(find($dialog, "input[type='number']")).val()).to
             .equal("300");
@@ -1247,6 +1412,10 @@ more information.`);
           createDialog({
             placeholder: "enter the number",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct placeholder value", () => {
@@ -1262,6 +1431,10 @@ more information.`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct min value", () => {
           expect($(find($dialog, "input[type='number']")).prop("min")).to
             .equal("0");
@@ -1273,6 +1446,10 @@ more information.`);
           createDialog({
             max: "100",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct max value", () => {
@@ -1288,6 +1465,10 @@ more information.`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct step value", () => {
           expect($(find($dialog, "input[type='number']")).prop("step")).to
             .equal("10");
@@ -1299,6 +1480,10 @@ more information.`);
           createDialog({
             required: true,
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct required value", () => {
@@ -1383,6 +1568,10 @@ for more information.`);
             $dialog[0].querySelector("input[type='range']") as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows range input ", () => {
           expect(input).to.not.be.null;
         });
@@ -1400,6 +1589,10 @@ for more information.`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct default value", () => {
           expect($(find($dialog, "input[type='range']")).val()).to.equal("50");
         });
@@ -1414,6 +1607,10 @@ for more information.`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct default value", () => {
           expect($(find($dialog, "input[type='range']")).val()).to.equal("100");
         });
@@ -1424,6 +1621,10 @@ for more information.`);
           createDialog({
             min: "0",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct min value", () => {
@@ -1439,6 +1640,10 @@ for more information.`);
           });
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct max value", () => {
           expect($(find($dialog, "input[type='range']")).prop("max")).to
             .equal("100");
@@ -1450,6 +1655,10 @@ for more information.`);
           createDialog({
             step: "10",
           });
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("has correct step value", () => {
@@ -1525,6 +1734,10 @@ for more information.`);
             $(find($dialog, ".bootprompt-accept")).trigger("click");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("should invoke the callback", () => {
             expect(callback).to.have.been.called;
           });
@@ -1548,6 +1761,10 @@ for more information.`);
             $(find($dialog, ".bootprompt-form")).trigger("submit");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("invokes the callback with the correct value", () => {
             expect(callback).to.have.been.calledWithExactly("");
           });
@@ -1568,6 +1785,10 @@ for more information.`);
             createDialog();
             $(find($dialog, ".bootprompt-input")).val("Test input");
             $(find($dialog, ".bootprompt-accept")).trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -1598,6 +1819,10 @@ for more information.`);
             $(find($dialog, ".bootprompt-accept")).trigger("click");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("should invoke the callback", () => {
             expect(callback).to.not.have.been.called;
           });
@@ -1612,6 +1837,10 @@ for more information.`);
             createDialog();
             $(find($dialog, ".bootprompt-input")).val("Test input");
             $(find($dialog, ".bootprompt-form")).trigger("submit");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("invokes the callback with the correct value", () => {
@@ -1632,6 +1861,10 @@ for more information.`);
         before(() => {
           createDialog();
           $(find($dialog, ".bootprompt-cancel")).trigger("click");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should invoke the callback", () => {
@@ -1657,6 +1890,10 @@ for more information.`);
           $dialog.trigger("escape.close.bp");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -1678,6 +1915,10 @@ for more information.`);
         before(() => {
           createDialog();
           $(find($dialog, ".close")).trigger("click");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should invoke the callback", () => {
@@ -1719,6 +1960,10 @@ for more information.`);
             $(find($dialog, ".bootprompt-accept")).trigger("click");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("should invoke the callback", () => {
             expect(callback).to.have.been.called;
           });
@@ -1745,6 +1990,10 @@ for more information.`);
             $dialog.find(".bootprompt-accept").trigger("click");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("should invoke the callback", () => {
             expect(callback).to.have.been.called;
           });
@@ -1767,6 +2016,10 @@ for more information.`);
         before(() => {
           createDialog();
           $dialog.find(".bootprompt-cancel").trigger("click");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should invoke the callback", () => {
@@ -1792,6 +2045,10 @@ for more information.`);
           $dialog.trigger("escape.close.bp");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -1813,6 +2070,10 @@ for more information.`);
         before(() => {
           createDialog();
           $dialog.find(".close").trigger("click");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should invoke the callback", () => {
@@ -1851,12 +2112,18 @@ for more information.`);
         });
       }
 
-      before(() => {
-        createDialog();
-      });
+      describe("", () => {
+        before(() => {
+          createDialog();
+        });
 
-      it("populates the input with the default value", () => {
-        expect($dialog.find(".bootprompt-input").val()).to.equal("Bob");
+        after(() => {
+          bootprompt.hideAll();
+        });
+
+        it("populates the input with the default value", () => {
+          expect($dialog.find(".bootprompt-input").val()).to.equal("Bob");
+        });
       });
 
       describe("when entering no value in the text input", () => {
@@ -1864,6 +2131,10 @@ for more information.`);
           before(() => {
             createDialog();
             $dialog.find(".bootprompt-accept").trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -1883,6 +2154,10 @@ for more information.`);
           before(() => {
             createDialog();
             $dialog.find(".bootprompt-cancel").trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -1907,6 +2182,10 @@ for more information.`);
             $dialog.find(".bootprompt-accept").trigger("click");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("should invoke the callback", () => {
             expect(callback).to.have.been.called;
           });
@@ -1925,6 +2204,10 @@ for more information.`);
             createDialog();
             $dialog.find(".bootprompt-input").val("Alice");
             $dialog.find(".bootprompt-cancel").trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -1949,6 +2232,10 @@ for more information.`);
           placeholder: "e.g. Bob Smith",
           callback: () => true,
         });
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       it("populates the input with the placeholder attribute", () => {
@@ -1986,19 +2273,30 @@ for more information.`);
           });
         }
 
-        before(() => {
-          createDialog();
-        });
+        describe("", () => {
+          before(() => {
+            createDialog();
+          });
 
-        it("has correct number values in list", () => {
-          expect($dialog[0].querySelectorAll(".bootprompt-input-select option"))
-            .to.be.lengthOf(5);
+          after(() => {
+            bootprompt.hideAll();
+          });
+
+          it("has correct number values in list", () => {
+            expect($dialog[0]
+                   .querySelectorAll(".bootprompt-input-select option"))
+              .to.be.lengthOf(5);
+          });
         });
 
         describe("when dismissing the dialog by clicking OK", () => {
           before(() => {
             createDialog();
             $dialog.find(".bootprompt-accept").trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -2018,6 +2316,10 @@ for more information.`);
           before(() => {
             createDialog();
             $dialog.find(".bootprompt-cancel").trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -2063,18 +2365,29 @@ for more information.`);
           });
         }
 
-        before(() => {
-          createDialog();
-        });
+        describe("", () => {
+          before(() => {
+            createDialog();
+          });
 
-        it("specified option is selected", () => {
-          expect($dialog.find(".bootprompt-input-select").val()).to.equal("1");
+          after(() => {
+            bootprompt.hideAll();
+          });
+
+          it("specified option is selected", () => {
+            expect($dialog.find(".bootprompt-input-select").val())
+              .to.equal("1");
+          });
         });
 
         describe("when dismissing the dialog by clicking OK", () => {
           before(() => {
             createDialog();
             $dialog.find(".bootprompt-accept").trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -2096,6 +2409,10 @@ for more information.`);
             $dialog.find(".bootprompt-cancel").trigger("click");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("should invoke the callback", () => {
             expect(callback).to.have.been.called;
           });
@@ -2114,6 +2431,10 @@ for more information.`);
             createDialog();
             $dialog.find(".bootprompt-input-select").val(3);
             $dialog.find(".bootprompt-accept").trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -2167,6 +2488,10 @@ for more information.`);
             .trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("specified option is selected", () => {
           expect($dialog.find(".bootprompt-input-select").val()).to
             .have.members(["1", "2"]);
@@ -2203,6 +2528,10 @@ for more information.`);
           createDialog();
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("has correct required value", () => {
           expect($(find($dialog, ".bootprompt-input-select")).prop("required"))
             .to.be.true;
@@ -2211,7 +2540,6 @@ for more information.`);
     });
 
     describe("with inputType email", () => {
-
       describe("without a default value", () => {
         let callback: sinon.SinonSpy;
         let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
@@ -2230,6 +2558,10 @@ for more information.`);
           before(() => {
             createDialog();
             $dialog.find(".bootprompt-accept").trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -2255,6 +2587,10 @@ for more information.`);
             $dialog.find(".bootprompt-form").trigger("submit");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("invokes the callback with the correct value", () => {
             expect(callback).to.have.been.calledWithExactly("");
           });
@@ -2270,6 +2606,10 @@ for more information.`);
               createDialog();
               $dialog.find(".bootprompt-input-email").val("john@smith.com");
               $dialog.find(".bootprompt-accept").trigger("click");
+            });
+
+            after(() => {
+              bootprompt.hideAll();
             });
 
             it("should invoke the callback", () => {
@@ -2290,6 +2630,10 @@ for more information.`);
               createDialog();
               $dialog.find(".bootprompt-input-email").val("john@smith.com");
               $dialog.find(".bootprompt-cancel").trigger("click");
+            });
+
+            after(() => {
+              bootprompt.hideAll();
             });
 
             it("should invoke the callback", () => {
@@ -2324,6 +2668,10 @@ for more information.`);
             $dialog.find(".bootprompt-accept").trigger("click");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("should invoke the callback", () => {
             expect(callback).to.have.been.called;
           });
@@ -2343,6 +2691,10 @@ for more information.`);
             $dialog.find(".bootprompt-form").trigger("submit");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("invokes the callback with the correct value", () => {
             expect(callback).to.have.been.calledWithExactly("john@smith.com");
           });
@@ -2358,6 +2710,10 @@ for more information.`);
               createDialog();
               $dialog.find(".bootprompt-input-email").val("smith@john.com");
               $dialog.find(".bootprompt-accept").trigger("click");
+            });
+
+            after(() => {
+              bootprompt.hideAll();
             });
 
             it("should invoke the callback", () => {
@@ -2376,6 +2732,10 @@ for more information.`);
               $dialog.find(".bootprompt-cancel").trigger("click");
             });
 
+            after(() => {
+              bootprompt.hideAll();
+            });
+
             it("should invoke the callback", () => {
               expect(callback).to.have.been.called;
             });
@@ -2389,7 +2749,6 @@ for more information.`);
     });
 
     describe("with input type checkbox", () => {
-
       describe("without a default value", () => {
         let callback: sinon.SinonSpy;
         let hidden: sinon.SinonSpy<[Bootstrap.ModalOption?], JQuery>;
@@ -2423,6 +2782,10 @@ for more information.`);
             $dialog.find(".bootprompt-accept").trigger("click");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("should invoke the callback", () => {
             expect(callback).to.have.been.called;
           });
@@ -2440,6 +2803,10 @@ for more information.`);
           before(() => {
             createDialog();
             $dialog.find(".bootprompt-cancel").trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -2483,6 +2850,10 @@ for more information.`);
             createDialog();
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("specified checkbox is checked", () => {
             expect($dialog.find("input:checkbox:checked").val()).to.equal("2");
           });
@@ -2491,6 +2862,10 @@ for more information.`);
             before(() => {
               createDialog();
               $dialog.find(".bootprompt-accept").trigger("click");
+            });
+
+            after(() => {
+              bootprompt.hideAll();
             });
 
             it("should invoke the callback", () => {
@@ -2506,6 +2881,10 @@ for more information.`);
             before(() => {
               createDialog();
               $dialog.find(".bootprompt-cancel").trigger("click");
+            });
+
+            after(() => {
+              bootprompt.hideAll();
             });
 
             it("should invoke the callback", () => {
@@ -2526,6 +2905,10 @@ for more information.`);
                 $dialog.find(".bootprompt-cancel").trigger("click");
               });
 
+              after(() => {
+                bootprompt.hideAll();
+              });
+
               it("should invoke the callback", () => {
                 expect(callback).to.have.been.called;
               });
@@ -2541,6 +2924,10 @@ for more information.`);
                 $dialog.find("input:checkbox:checked").prop("checked", false);
                 $dialog.find("input:checkbox[value=3]").prop("checked", true);
                 $dialog.find(".bootprompt-accept").trigger("click");
+              });
+
+              after(() => {
+                bootprompt.hideAll();
               });
 
               it("should invoke the callback", () => {
@@ -2580,22 +2967,32 @@ for more information.`);
             });
           }
 
-          before(() => {
-            createDialog();
-          });
-
-          it("specified checkboxes are checked", () => {
-            const checked: string[] = [];
-            $dialog.find("input:checkbox:checked").each((_, bar) => {
-              checked.push($(bar).val() as string);
+          describe("", () => {
+            before(() => {
+              createDialog();
             });
-            expect(checked).to.deep.equal(["2", "3"]);
+
+            after(() => {
+              bootprompt.hideAll();
+            });
+
+            it("specified checkboxes are checked", () => {
+              const checked: string[] = [];
+              $dialog.find("input:checkbox:checked").each((_, bar) => {
+                checked.push($(bar).val() as string);
+              });
+              expect(checked).to.deep.equal(["2", "3"]);
+            });
           });
 
           describe("when dismissing the dialog by clicking OK", () => {
             before(() => {
               createDialog();
               $dialog.find(".bootprompt-accept").trigger("click");
+            });
+
+            after(() => {
+              bootprompt.hideAll();
             });
 
             it("should invoke the callback", () => {
@@ -2611,6 +3008,10 @@ for more information.`);
             before(() => {
               createDialog();
               $dialog.find(".bootprompt-cancel").trigger("click");
+            });
+
+            after(() => {
+              bootprompt.hideAll();
             });
 
             it("should invoke the callback", () => {
@@ -2632,6 +3033,10 @@ for more information.`);
                 $dialog.find(".bootprompt-cancel").trigger("click");
               });
 
+              after(() => {
+                bootprompt.hideAll();
+              });
+
               it("should invoke the callback", () => {
                 expect(callback).to.have.been.called;
               });
@@ -2648,6 +3053,10 @@ for more information.`);
                 $dialog.find("input:checkbox[value=1]").prop("checked", true);
                 $dialog.find("input:checkbox[value=4]").prop("checked", true);
                 $dialog.find(".bootprompt-accept").trigger("click");
+              });
+
+              after(() => {
+                bootprompt.hideAll();
               });
 
               it("should invoke the callback", () => {
@@ -2697,6 +3106,10 @@ for more information.`);
             $dialog.find(".bootprompt-accept").trigger("click");
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("should invoke the callback", () => {
             expect(callback).to.have.been.called;
           });
@@ -2714,6 +3127,10 @@ for more information.`);
           before(() => {
             createDialog();
             $dialog.find(".bootprompt-cancel").trigger("click");
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("should invoke the callback", () => {
@@ -2753,18 +3170,28 @@ for more information.`);
             });
           }
 
-          before(() => {
-            createDialog();
-          });
+          describe("", () => {
+            before(() => {
+              createDialog();
+            });
 
-          it("specified radio is checked", () => {
-            expect($dialog.find("input:radio:checked").val()).to.equal("2");
+            after(() => {
+              bootprompt.hideAll();
+            });
+
+            it("specified radio is checked", () => {
+              expect($dialog.find("input:radio:checked").val()).to.equal("2");
+            });
           });
 
           describe("when dismissing the dialog by clicking OK", () => {
             before(() => {
               createDialog();
               $dialog.find(".bootprompt-accept").trigger("click");
+            });
+
+            after(() => {
+              bootprompt.hideAll();
             });
 
             it("should invoke the callback", () => {
@@ -2780,6 +3207,10 @@ for more information.`);
             before(() => {
               createDialog();
               $dialog.find(".bootprompt-cancel").trigger("click");
+            });
+
+            after(() => {
+              bootprompt.hideAll();
             });
 
             it("should invoke the callback", () => {
@@ -2799,6 +3230,10 @@ for more information.`);
                 $dialog.find(".bootprompt-cancel").trigger("click");
               });
 
+              after(() => {
+                bootprompt.hideAll();
+              });
+
               it("should invoke the callback", () => {
                 expect(callback).to.have.been.called;
               });
@@ -2813,6 +3248,10 @@ for more information.`);
                 createDialog();
                 $dialog.find("input:radio[value=3]").prop("checked", true);
                 $dialog.find(".bootprompt-accept").trigger("click");
+              });
+
+              after(() => {
+                bootprompt.hideAll();
               });
 
               it("should invoke the callback", () => {

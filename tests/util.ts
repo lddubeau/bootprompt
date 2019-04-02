@@ -126,6 +126,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
         test.$dialog.find(".bootprompt-accept").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldClose();
     });
 
@@ -135,6 +139,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
         test.$dialog.find(".close").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldClose();
     });
 
@@ -142,6 +150,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
       before(() => {
         test.createDialog();
         test.$dialog.trigger("escape.close.bp");
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       test.shouldNotClose();
@@ -156,6 +168,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
         test.$dialog.find(".bootprompt-accept").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldClose();
     });
 
@@ -165,6 +181,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
         test.$dialog.find(".close").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldClose();
     });
 
@@ -172,6 +192,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
       before(() => {
         test.createDialog();
         test.$dialog.trigger("escape.close.bp");
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       test.shouldClose();
@@ -225,6 +249,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
         test.$dialog.find(".bootprompt-accept").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldNotInvokeOnEscape();
       test.shouldClose();
     });
@@ -235,6 +263,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
         test.$dialog.find(".close").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldNotInvokeOnEscape();
       test.shouldClose();
     });
@@ -243,6 +275,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
       before(() => {
         test.createDialog();
         test.$dialog.trigger("escape.close.bp");
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       test.shouldInvokeOnEscape();
@@ -259,6 +295,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
         test.$dialog.find(".bootprompt-accept").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldNotInvokeOnEscape();
       test.shouldClose();
     });
@@ -269,6 +309,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
         test.$dialog.find(".close").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldNotInvokeOnEscape();
       test.shouldClose();
     });
@@ -277,6 +321,10 @@ function makeOnEscapeTests(method: typeof bootprompt.alert |
       before(() => {
         test.createDialog();
         test.$dialog.trigger("escape.close.bp");
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       test.shouldInvokeOnEscape();
@@ -336,6 +384,10 @@ function makeOnCloseTests(method: typeof bootprompt.alert |
         test.$dialog.find(".bootprompt-accept").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldNotInvokeOnClose();
       test.shouldClose();
     });
@@ -344,6 +396,10 @@ function makeOnCloseTests(method: typeof bootprompt.alert |
       before(() => {
         test.createDialog();
         test.$dialog.find(".close").trigger("click");
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       test.shouldInvokeOnClose();
@@ -370,6 +426,10 @@ function makeOnCloseTests(method: typeof bootprompt.alert |
         test.$dialog.find(".bootprompt-accept").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldNotInvokeOnClose();
       test.shouldClose();
     });
@@ -380,6 +440,10 @@ function makeOnCloseTests(method: typeof bootprompt.alert |
         test.$dialog.find(".close").trigger("click");
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       test.shouldInvokeOnClose();
       test.shouldClose();
     });
@@ -388,6 +452,10 @@ function makeOnCloseTests(method: typeof bootprompt.alert |
       before(() => {
         test.createDialog();
         test.$dialog.trigger("escape.close.bp");
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       test.shouldNotInvokeOnClose();

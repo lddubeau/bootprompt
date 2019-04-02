@@ -52,6 +52,7 @@ describe("Bootprompt", () => {
 
       afterEach(() => {
         removed.restore();
+        bootprompt.hideAll();
       });
 
       describe("when triggered with the wrong target", () => {
@@ -125,6 +126,10 @@ describe("Bootprompt", () => {
           };
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("shows the expected OK translation", () => {
           expect(labels.ok).to.equal("BTN1");
         });
@@ -152,6 +157,10 @@ describe("Bootprompt", () => {
           cancel: d2.find(".btn:first").text(),
           confirm: d2.find(".btn:last").text(),
         };
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       it("falls back to the default OK translation", () => {
@@ -194,6 +203,10 @@ and cannot be removed.`);
           trigger({an: "object"});
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("does not invoke the callback", () => {
           expect(callback).not.to.have.been.called;
         });
@@ -219,6 +232,10 @@ and cannot be removed.`);
             trigger({an: "object"});
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("does not invoke the callback", () => {
             expect(callback).not.to.have.been.called;
           });
@@ -228,6 +245,10 @@ and cannot be removed.`);
           before(() => {
             createDialog();
             trigger($dialog[0]);
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("invokes the callback", () => {
@@ -261,6 +282,10 @@ and cannot be removed.`);
             trigger({an: "object"});
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("does not invoke the callback", () => {
             expect(callback).not.to.have.been.called;
           });
@@ -268,8 +293,6 @@ and cannot be removed.`);
 
         describe("With the correct target", () => {
           before(() => {
-            // The suite does not systematically cleanup old modals.
-            bootprompt.hideAll();
             const backdrops = document.getElementsByClassName("modal-backdrop");
             expect(backdrops).to.be.lengthOf(0);
             createDialog();
@@ -283,6 +306,10 @@ and cannot be removed.`);
             else {
               trigger($dialog[0]);
             }
+          });
+
+          after(() => {
+            bootprompt.hideAll();
           });
 
           it("invokes the callback", () => {

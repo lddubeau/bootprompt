@@ -18,6 +18,10 @@ describe("bootprompt locales", () => {
       setLocale("xx");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the default OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -34,6 +38,10 @@ describe("bootprompt locales", () => {
   describe("Arabic", () => {
     before(() => {
       setLocale("ar");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -54,6 +62,10 @@ describe("bootprompt locales", () => {
       setLocale("az");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -70,6 +82,10 @@ describe("bootprompt locales", () => {
   describe("English", () => {
     before(() => {
       setLocale("en");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -90,6 +106,10 @@ describe("bootprompt locales", () => {
       setLocale("fr");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -106,6 +126,10 @@ describe("bootprompt locales", () => {
   describe("German", () => {
     before(() => {
       setLocale("de");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -126,6 +150,10 @@ describe("bootprompt locales", () => {
       setLocale("es");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -143,6 +171,11 @@ describe("bootprompt locales", () => {
     before(() => {
       setLocale("eu");
     });
+
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -157,6 +190,10 @@ describe("bootprompt locales", () => {
   describe("Portuguese", () => {
     before(() => {
       setLocale("pt-br");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -177,6 +214,10 @@ describe("bootprompt locales", () => {
       setLocale("nl");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -193,6 +234,10 @@ describe("bootprompt locales", () => {
   describe("Russian", () => {
     before(() => {
       setLocale("ru");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -213,6 +258,10 @@ describe("bootprompt locales", () => {
       setLocale("id");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -229,6 +278,10 @@ describe("bootprompt locales", () => {
   describe("Italian", () => {
     before(() => {
       setLocale("it");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -249,6 +302,10 @@ describe("bootprompt locales", () => {
       setLocale("pl");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -267,6 +324,10 @@ describe("bootprompt locales", () => {
       setLocale("da");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -280,48 +341,53 @@ describe("bootprompt locales", () => {
     });
   });
 
-  describe("Chinese (Taiwan)", () => {
-
-    describe("Taiwan", () => {
-      before(() => {
-        setLocale("zh_TW");
-      });
-
-      it("shows the correct OK translation", () => {
-        expect(labels.ok).to.equal("OK");
-      });
-
-      it("shows the correct CANCEL translation", () => {
-        expect(labels.cancel).to.equal("取消");
-      });
-
-      it("shows the correct CONFIRM translation", () => {
-        expect(labels.confirm).to.equal("確認");
-      });
+  describe("Taiwan", () => {
+    before(() => {
+      setLocale("zh_TW");
     });
 
-    describe("Chinese (China)", () => {
-      before(() => {
-        setLocale("zh_CN");
-      });
+    after(() => {
+      bootprompt.hideAll();
+    });
 
-      it("shows the correct OK translation", () => {
-        expect(labels.ok).to.equal("OK");
-      });
+    it("shows the correct OK translation", () => {
+      expect(labels.ok).to.equal("OK");
+    });
 
-      it("shows the correct CANCEL translation", () => {
-        expect(labels.cancel).to.equal("取消");
-      });
+    it("shows the correct CANCEL translation", () => {
+      expect(labels.cancel).to.equal("取消");
+    });
 
-      it("shows the correct CONFIRM translation", () => {
-        expect(labels.confirm).to.equal("确认");
-      });
+    it("shows the correct CONFIRM translation", () => {
+      expect(labels.confirm).to.equal("確認");
+    });
+  });
+
+  describe("Chinese (China)", () => {
+    before(() => {
+      setLocale("zh_CN");
+    });
+
+    it("shows the correct OK translation", () => {
+      expect(labels.ok).to.equal("OK");
+    });
+
+    it("shows the correct CANCEL translation", () => {
+      expect(labels.cancel).to.equal("取消");
+    });
+
+    it("shows the correct CONFIRM translation", () => {
+      expect(labels.confirm).to.equal("确认");
     });
   });
 
   describe("Norwegian", () => {
     before(() => {
       setLocale("no");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -342,6 +408,10 @@ describe("bootprompt locales", () => {
       setLocale("sv");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -358,6 +428,10 @@ describe("bootprompt locales", () => {
   describe("Latvian", () => {
     before(() => {
       setLocale("lv");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -378,6 +452,10 @@ describe("bootprompt locales", () => {
       setLocale("lt");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("Gerai");
     });
@@ -394,6 +472,10 @@ describe("bootprompt locales", () => {
   describe("Turkish", () => {
     before(() => {
       setLocale("tr");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -414,6 +496,10 @@ describe("bootprompt locales", () => {
       setLocale("he");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("אישור");
     });
@@ -430,6 +516,10 @@ describe("bootprompt locales", () => {
   describe("Greek", () => {
     before(() => {
       setLocale("el");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -450,6 +540,10 @@ describe("bootprompt locales", () => {
       setLocale("ja");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -466,6 +560,10 @@ describe("bootprompt locales", () => {
   describe("Hungarian", () => {
     before(() => {
       setLocale("hu");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -486,6 +584,10 @@ describe("bootprompt locales", () => {
       setLocale("hr");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -502,6 +604,10 @@ describe("bootprompt locales", () => {
   describe("Bulgarian", () => {
     before(() => {
       setLocale("bg_BG");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -522,6 +628,10 @@ describe("bootprompt locales", () => {
       setLocale("th");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("ตกลง");
     });
@@ -538,6 +648,10 @@ describe("bootprompt locales", () => {
   describe("Persian", () => {
     before(() => {
       setLocale("fa");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -558,6 +672,10 @@ describe("bootprompt locales", () => {
       setLocale("uk");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -574,6 +692,10 @@ describe("bootprompt locales", () => {
   describe("Albanian", () => {
     before(() => {
       setLocale("sq");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {
@@ -594,6 +716,10 @@ describe("bootprompt locales", () => {
       setLocale("sl");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -612,6 +738,10 @@ describe("bootprompt locales", () => {
       setLocale("sk");
     });
 
+    after(() => {
+      bootprompt.hideAll();
+    });
+
     it("shows the correct OK translation", () => {
       expect(labels.ok).to.equal("OK");
     });
@@ -628,6 +758,10 @@ describe("bootprompt locales", () => {
   describe("Korean", () => {
     before(() => {
       setLocale("ko");
+    });
+
+    after(() => {
+      bootprompt.hideAll();
     });
 
     it("shows the correct OK translation", () => {

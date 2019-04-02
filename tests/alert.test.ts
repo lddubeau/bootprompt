@@ -27,6 +27,10 @@ describe("bootprompt.alert", () => {
             $dialog[0].querySelector(".modal-body button") as HTMLElement;
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("applies the bootprompt-alert class to the dialog", () => {
           expect($dialog[0].classList.contains("bootprompt-alert")).to.be.true;
         });
@@ -84,6 +88,10 @@ function when provided"));
           expect(() => bootprompt.alert("Hello world!", () => {}))
             .not.to.throw();
         });
+
+        after(() => {
+          bootprompt.hideAll();
+        });
       });
     });
   });
@@ -107,6 +115,10 @@ function when provided"));
         });
 
         button = $dialog[0].querySelector(".btn") as HTMLElement;
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       it("adds the correct ok button", () => {
@@ -146,6 +158,10 @@ function when provided"));
         });
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       it("shows the correct title", () => {
         expect(text($dialog, ".modal-title")).to.equal("Hello?");
       });
@@ -161,6 +177,10 @@ function when provided"));
           callback: () => {},
           locale: "lt",
         });
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       it("shows the correct OK translation", () => {
@@ -188,6 +208,10 @@ function when provided"));
           $dialog.find(".bootprompt-accept").trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should hide the modal", () => {
           expect(hidden).to.have.been.calledWithExactly("hide");
         });
@@ -199,6 +223,10 @@ function when provided"));
           $dialog.find(".close").trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should hide the modal", () => {
           expect(hidden).to.have.been.calledWithExactly("hide");
         });
@@ -208,6 +236,10 @@ function when provided"));
         before(() => {
           createDialog();
           $dialog.trigger("escape.close.bp");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should hide the modal", () => {
@@ -238,6 +270,10 @@ function when provided"));
           $dialog.find(".bootprompt-accept").trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -257,6 +293,10 @@ function when provided"));
           $dialog.find(".close").trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -274,6 +314,10 @@ function when provided"));
         before(() => {
           createDialog();
           $dialog.trigger("escape.close.bp");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should invoke the callback", () => {
@@ -313,6 +357,10 @@ function when provided"));
           $dialog.find(".bootprompt-accept").trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -332,6 +380,10 @@ function when provided"));
           $dialog.find(".close").trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -349,6 +401,10 @@ function when provided"));
         before(() => {
           createDialog();
           $dialog.trigger("escape.close.bp");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should invoke the callback", () => {

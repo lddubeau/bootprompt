@@ -59,6 +59,10 @@ describe("bootprompt.confirm", () => {
             second = buttons[1];
           });
 
+          after(() => {
+            bootprompt.hideAll();
+          });
+
           it("creates a dialog object", () => {
             expect($dialog).to.be.an("object");
           });
@@ -102,6 +106,10 @@ describe("bootprompt.confirm", () => {
                            HTMLCollectionOf<HTMLElement>);
           first = buttons[0];
           second = buttons[1];
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("creates a dialog object", () => {
@@ -153,6 +161,10 @@ describe("bootprompt.confirm", () => {
         button = $dialog[0].getElementsByClassName("btn")[0] as HTMLElement;
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       it("adds the correct cancel button", () => {
         expect(button.textContent).to.equal("Custom cancel");
         expect(button.classList.contains("btn-danger")).to.be.true;
@@ -176,6 +188,10 @@ describe("bootprompt.confirm", () => {
         });
 
         button = $dialog[0].getElementsByClassName("btn")[1] as HTMLElement;
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       it("adds the correct confirm button", () => {
@@ -209,6 +225,10 @@ describe("bootprompt.confirm", () => {
                    HTMLCollectionOf<HTMLElement>);
       });
 
+      after(() => {
+        bootprompt.hideAll();
+      });
+
       it("puts confirm first", () => {
         expect(buttons[0].textContent).to.equal("Custom confirm");
         expect(buttons[0].classList.contains("btn-warning")).to.be.true;
@@ -233,6 +253,10 @@ describe("bootprompt.confirm", () => {
 
         buttons = ($dialog[0].getElementsByClassName("btn") as
                    HTMLCollectionOf<HTMLElement>);
+      });
+
+      after(() => {
+        bootprompt.hideAll();
       });
 
       it("puts confirm first", () => {
@@ -285,6 +309,10 @@ cancel confirm)`);
           $(find($dialog, ".bootprompt-accept")).trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -308,6 +336,10 @@ cancel confirm)`);
           $(find($dialog, ".bootprompt-cancel")).trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -329,6 +361,10 @@ cancel confirm)`);
         before(() => {
           createDialog();
           $dialog.trigger("escape.close.bp");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should invoke the callback", () => {
@@ -370,6 +406,10 @@ cancel confirm)`);
           $(find($dialog, ".bootprompt-accept")).trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -393,6 +433,10 @@ cancel confirm)`);
           $(find($dialog, ".bootprompt-cancel")).trigger("click");
         });
 
+        after(() => {
+          bootprompt.hideAll();
+        });
+
         it("should invoke the callback", () => {
           expect(callback).to.have.been.called;
         });
@@ -414,6 +458,10 @@ cancel confirm)`);
         before(() => {
           createDialog();
           $dialog.trigger("escape.close.bp");
+        });
+
+        after(() => {
+          bootprompt.hideAll();
         });
 
         it("should invoke the callback", () => {
