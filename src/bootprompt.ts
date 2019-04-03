@@ -1021,7 +1021,7 @@ export function setAnimate(value: boolean): void {
  * Hide all modals created with bootprompt.
  */
 export function hideAll(): void {
-    $(".bootprompt").modal("hide");
+  $(".bootprompt").modal("hide");
 }
 
 //
@@ -1377,6 +1377,30 @@ export function alert(messageOrOptions: string | AlertOptions,
                 messageOrOptions, callback);
 }
 
+/**
+ * Specialized function that provides a dialog similar to the one provided by
+ * the DOM ``alert()`` function.
+ *
+ * **NOTE**: This function is non-blocking, so any code that must happen after
+ * the dialog is dismissed should await the promise returned by this function.
+ *
+ * @param messageOrOptions The message to display, or an object specifying the
+ * options for the dialog.
+ *
+ * @returns A promise that resolves once the dialog has been dismissed.
+ */
+export async function alert$(messageOrOptions: string | AlertOptions):
+Promise<void> {
+  return new Promise((resolve) => {
+    _alert(typeof messageOrOptions === "string" ?
+           { message: messageOrOptions } : messageOrOptions,
+           undefined)
+      .one("hidden.bs.modal", () => {
+        resolve();
+      });
+  });
+}
+
 function _confirm(options: ConfirmOptions,
                   callback: ConfirmOptions["callback"]): JQuery {
   const finalOptions = mergeDialogOptions("confirm", ["cancel", "confirm"],
@@ -1440,6 +1464,38 @@ export function confirm(messageOrOptions: string | ConfirmOptions,
   return _confirm(typeof messageOrOptions === "string" ?
                   { message: messageOrOptions } :
                   messageOrOptions, callback);
+}
+
+/**
+ * Specialized function that provides a dialog similar to the one provided by
+ * the DOM ``confirm()`` function.
+ *
+ * **NOTE**: This function is non-blocking, so any code that must happen after
+ * the dialog is dismissed should await the promise returned by this function.
+ *
+ * @param messageOrOptions The message to display, or an object specifying the
+ * options for the dialog.
+ *
+ * @returns A promise that resolves once the dialog has been dismissed.
+ */
+export async function confirm$(messageOrOptions: string | ConfirmOptions):
+Promise<boolean | null> {
+  return new Promise((resolve) => {
+    const options = typeof messageOrOptions === "string" ?
+      { message: messageOrOptions } : messageOrOptions;
+    const { callback } = options;
+
+    let result: boolean | null = null;
+    _confirm(options, function (this: JQuery, value: boolean): boolean | void {
+      result = value;
+
+      if (callback !== undefined) {
+        return callback.call(this, result);
+      }
+    }).one("hidden.bs.modal", () => {
+      resolve(result);
+    });
+  });
 }
 
 function setupTextualInput(input: JQuery,
@@ -1852,6 +1908,60 @@ export function prompt(messageOrOptions: string | PromptOptions,
   return _prompt(typeof messageOrOptions === "string" ?
                  { title: messageOrOptions } :
                  messageOrOptions, callback);
+}
+
+export type PromptCallbackReturn<T extends PromptOptions> =
+  ReturnType<Exclude<T["callback"], undefined>>;
+
+/**
+ * Specialized function that provides a dialog similar to the one provided by
+ * the DOM ``confirm()`` function.
+ *
+ * **NOTE**: This function is non-blocking, so any code that must happen after
+ * the dialog is dismissed should await the promise returned by this function.
+ *
+ * @param message The dialog title.
+ *
+ * @returns A promise that resolves once the dialog has been dismissed.
+ */
+export async function prompt$(message: string): Promise<string | null>;
+/**
+ * Specialized function that provides a dialog similar to the one provided by
+ * the DOM ``confirm()`` function.
+ *
+ * **NOTE**: This function is non-blocking, so any code that must happen after
+ * the dialog is dismissed should await the promise returned by this function.
+ *
+ * @param messageOrOptions An object specifying the options for the dialog.
+ *
+ * @returns A promise that resolves once the dialog has been dismissed.
+ */
+export async function prompt$<T extends PromptOptions>(options: T):
+Promise<PromptCallbackReturn<T> | null>;
+export async function prompt$<T extends PromptOptions>(
+  messageOrOptions: string | T):
+Promise<PromptCallbackReturn<T> | null> {
+  return new Promise((resolve) => {
+    const options = typeof messageOrOptions === "string" ?
+      // tslint:disable-next-line:no-object-literal-type-assertion
+      { title: messageOrOptions } as T : messageOrOptions;
+    const { callback } = options;
+
+    let result: PromptCallbackReturn<T> | null = null;
+    _prompt(options, function (this: JQuery,
+                               value: PromptCallbackReturn<T>): boolean | void {
+      result = value;
+
+      if (callback !== undefined) {
+        // We assert the type of callback because TS's type inference fails
+        // here.
+        // tslint:disable-next-line:no-any
+        return (callback as any).call(this, result);
+      }
+    }).one("hidden.bs.modal", () => {
+      resolve(result);
+    });
+  });
 }
 
 //

@@ -38,7 +38,6 @@ describe("Bootprompt", () => {
   describe("event listeners", () => {
     describe("hidden.bs.modal", () => {
       let $dialog: JQuery;
-      let removed: sinon.SinonSpy<[string?], JQuery>;
 
       // tslint:disable-next-line:no-any
       function trigger(target: any): void {
@@ -46,13 +45,15 @@ describe("Bootprompt", () => {
       }
 
       beforeEach(() => {
-        $dialog = bootprompt.alert("hi");
-        removed = sinon.stub($dialog, "remove");
+        $dialog = bootprompt.alert("hi remove");
       });
 
       afterEach(() => {
-        removed.restore();
-        bootprompt.hideAll();
+        // We cannot use hide all because hidden.bs.modal is added with .one
+        // and hideAll won't trigger it again.
+        $dialog.remove();
+        // We also have to remove the backdrop ourselves.
+        $(".modal-backdrop").remove();
       });
 
       describe("when triggered with the wrong target", () => {
@@ -61,7 +62,7 @@ describe("Bootprompt", () => {
         });
 
         it("does not remove the dialog", () => {
-          expect(removed).not.to.have.been.called;
+          expect(document.contains($dialog[0])).to.be.true;
         });
       });
 
@@ -71,7 +72,7 @@ describe("Bootprompt", () => {
         });
 
         it("removes the dialog", () => {
-          expect(removed).to.have.been.called;
+          expect(document.contains($dialog[0])).to.be.false;
         });
       });
     });
@@ -219,7 +220,7 @@ and cannot be removed.`);
       function createDialog(): void {
         callback = sinon.spy();
         $dialog = bootprompt.alert({
-          message: "hi",
+          message: "backdrop false",
           callback,
           backdrop: false,
         });
@@ -269,7 +270,7 @@ and cannot be removed.`);
         callback = sinon.stub();
         callback.returns(true);
         $dialog = bootprompt.alert({
-          message: "hi",
+          message: "backdrop true",
           callback,
           backdrop: true,
         });

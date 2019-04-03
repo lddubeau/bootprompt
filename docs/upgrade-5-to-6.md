@@ -75,3 +75,9 @@ As implied above, if you use JS or if you use TS but perform a type assertion
 and pass a button callback to a specialized function, the callback will be
 silently ignored. Again, this behavior comes from Bootbox, prior to the fork
 from that created Bootprompt.
+
+``Promise`` must be available
+=============================
+
+The addition of the promise-based API requires that ``Promise`` be present. On
+IE10/11 you'll need a polyfill.

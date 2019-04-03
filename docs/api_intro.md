@@ -69,13 +69,35 @@ this order:
 
 # API Introduction
 
-All Bootstrap modals, unlike DOM ``alert()``, ``confirm()``, and ``prompt()``
-calls, are non-blocking.  Keep that in mind when using this API, as the
-functions provided by the API are **not** drop-in replacements for the DOM
-functions they are inspired by.  Any code that depends on the user's selection
-**must** be placed in the callback function.
+The main functions of Bootprompt's API can be divided into two groups:
 
-## Alert
+* The specialized functions which create specialized dialogs: [[alert]],
+  [[confirm]], [[prompt]], and their promise-returning equivalents.
+
+* The general function [[dialog]] which creates custom dialogs.
+
+The specialized functions can be grouped according to another criterion:
+
+* Those that return the ``jQuery`` object which is the modal dialog that was
+  created by the function, and report their results through callbacks:
+  [[alert]], [[confirm]], [[prompt]].
+
+* Those that return a promise which resolves to the result of the user
+  interaction: [[alert$]], [[confirm$]], [[prompt$]].
+
+The [[dialog]] function has no Promise-based counterpart because it does not
+have a general "we're done" callback to call.
+
+All Bootstrap modals, and thus all Bootprompt modals, unlike DOM ``alert()``,
+``confirm()``, and ``prompt()`` calls, are non-blocking.  Keep that in mind when
+using this API, as the functions provided by the API are **not** drop-in
+replacements for the DOM functions they are inspired by.  Any code that depends
+on the user's selection **must** be placed in the callback function, or wait for
+the promise to resolve.
+
+## The Callback-based API
+
+### Alert
 
 The [[alert]] function produce a dialog that behaves similarly to the DOM's
 ``alert()`` function.
@@ -126,7 +148,7 @@ bootprompt.alert({
 
 See [the examples section](#alert-examples) for more examples.
 
-## Confirm
+### Confirm
 
 The [[confirm]] function produce a dialog that behaves similarly to the DOM's
 ``confirm()`` function. The dialog has a cancel and a confirm button. Pressing
@@ -165,7 +187,7 @@ bootprompt.confirm({
 
 See [the examples section](#confirm-examples) for more examples.
 
-## Prompt
+### Prompt
 
 The [[prompt]] function produce a dialog that behaves similarly to the DOM's
 ``prompt()`` function. Pressing the <kbd>ESC</kbd> key or clicking close
@@ -208,7 +230,7 @@ bootprompt.prompt({
 
 See [the examples section](#prompt-examples) for more examples.
 
-## Dialog
+### Dialog
 
 The [[dialog]] function allows creating custom dialogs.
 
@@ -217,6 +239,97 @@ option. However, it is possible to customize dialogs with
 [[DialogOptions]]. Note that **custom dialogs do not use a global
 callback**. Each button you add should have it's own callback function. See
 [the examples section](#dialog-examples) for examples.
+
+## The Promise-based API
+
+The specialized Promise-based function all operate from the same basic
+principle:
+
+* The promise returned by these function resolves after the dialog has been
+  hidden. Formally, it listens for the event ``hidden.bs.modal`` and resolves
+  when this event occurs. **IT DOES NOT MATTER WHAT HID THE DIALOG.** If you call
+  ``$dialog.modal("hide")`` yourself in your own code, this counts as "hiding
+  the dialog" and the promise will resolve.
+
+* ``callback`` still can be used to prevent the dialog from closing by returning
+  the value ``false``.
+
+* The promise resolves to the last value that was passed to the ``callback``
+  option before the dialog was hidden. For instance, if a callback vetoes the
+  dialog closure three times, then the promise will resolve to the value that
+  was passed to ``callback`` the fourth time.
+
+### Alert
+
+The [[alert$]] function produce a dialog that behaves similarly to the DOM's
+``alert()`` function.
+
+If you have code that should not be evaluated until the user has dismissed the
+alert, await the promise:
+
+```
+await bootprompt.alert$("This is an alert!");
+console.log("The dialog has been closed!");
+```
+
+You can still use a callback to control when the dialog closes:
+
+```
+const count = 3;
+await bootprompt.alert$({
+  message: "This is an alert!",
+  callback: () => --count > 0,
+});
+console.log("The dialog has been closed!");
+```
+
+### Confirm
+
+The [[confirm$]] function produce a dialog that behaves similarly to the DOM's
+``confirm()`` function.
+
+If you have code that should not be evaluated until the user has dismissed the
+alert, await the promise:
+
+```
+const response = await bootprompt.confirm$("Frobulate the fnord?");
+console.log(`Response: ${response}`);
+```
+
+You can still use a callback to control when the dialog closes:
+
+```
+const count = 3;
+const response = await bootprompt.confirm$({
+  message: "This is an alert!",
+  callback: () => --count > 0,
+});
+console.log(`Response: ${response}`);
+```
+
+### Prompt
+
+The [[prompt$]] function produce a dialog that behaves similarly to the DOM's
+``prompt()`` function.
+
+If you have code that should not be evaluated until the user has dismissed the
+alert, await the promise:
+
+```
+const response = await bootprompt.prompt$("What is your name?");
+console.log(`Response: ${response}`);
+```
+
+You can still use a callback to control when the dialog closes:
+
+```
+const count = 3;
+const response = await bootprompt.prompt$({
+  message: "What is your name?",
+  callback: () => --count > 0,
+});
+console.log(`Response: ${response}`);
+```
 
 ## Locales
 
