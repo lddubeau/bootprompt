@@ -29,6 +29,7 @@ function onwarn(warning, warn) {
   warn(warning);
 }
 
+// eslint-disable-next-line import/no-default-export
 export default alsoMinified([{
   input: "build/js/bootprompt.js",
   output: {
