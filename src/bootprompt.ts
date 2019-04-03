@@ -1896,8 +1896,8 @@ export function prompt(messageOrOptions: string | PromptOptions,
                  messageOrOptions, callback);
 }
 
-export type PromptCallbackReturn<T extends PromptOptions> =
-  ReturnType<Exclude<T["callback"], undefined>>;
+export type PromiseValue<T extends PromptOptions> =
+  Parameters<Exclude<T["callback"], undefined>>[0] | null;
 
 /**
  * Specialized function that provides a dialog similar to the one provided by
@@ -1923,19 +1923,19 @@ export async function prompt$(message: string): Promise<string | null>;
  * @returns A promise that resolves once the dialog has been dismissed.
  */
 export async function prompt$<T extends PromptOptions>(options: T):
-Promise<PromptCallbackReturn<T> | null>;
+Promise<PromiseValue<T>>;
 export async function prompt$<T extends PromptOptions>(
   messageOrOptions: string | T):
-Promise<PromptCallbackReturn<T> | null> {
+Promise<PromiseValue<T>> {
   return new Promise((resolve) => {
     const options = typeof messageOrOptions === "string" ?
       // tslint:disable-next-line:no-object-literal-type-assertion
       { title: messageOrOptions } as T : messageOrOptions;
     const { callback } = options;
 
-    let result: PromptCallbackReturn<T> | null = null;
+    let result: PromiseValue<T> = null;
     _prompt(options, function (this: JQuery,
-                               value: PromptCallbackReturn<T>): boolean | void {
+                               value: PromiseValue<T>): boolean | void {
       result = value;
 
       if (callback !== undefined) {
