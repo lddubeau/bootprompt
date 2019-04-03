@@ -1211,17 +1211,9 @@ this option.`);
   // Bootstrap event listeners; these handle extra setup & teardown required
   // after the underlying modal has performed certain actions.
 
-  // make sure we unbind any listeners once the dialog has definitively been
-  // dismissed
-  $modal.one("hide.bs.modal", function (e: JQuery.TriggeredEvent): void {
-    // tslint:disable-next-line:no-invalid-this
-    if (e.target === this) {
-      $modal.off("escape.close.bp");
-      $modal.off("click");
-    }
-  });
-
   $modal.one("hidden.bs.modal", () => {
+    $modal.off("escape.close.bp");
+    $modal.off("click");
     $modal.remove();
   });
 
