@@ -3,16 +3,17 @@ const path = require("path");
 // eslint-disable-next-line import/no-extraneous-dependencies
 const semver = require("semver");
 
-function coreJS(files) {
+function inlineFirst(files) {
   files.unshift({
-    pattern: path.resolve("./node_modules/core-js/client/core.js"),
+    pattern:
+    path.resolve("./node_modules/es6-promise/dist/es6-promise.auto.min.js"),
     included: true,
     served: true,
     watched: false,
   });
 }
 
-coreJS.$inject = ["config.files"];
+inlineFirst.$inject = ["config.files"];
 
 function makeSpecifier(version) {
   return version === undefined ? "" : `@${version}`;
@@ -53,11 +54,11 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
   const coverage = !config.debug ? ["karma-coverage-istanbul-instrumenter"] : [];
   const options = {
     basePath: "",
-    frameworks: ["mocha", "chai", "inline-core-js"],
+    frameworks: ["mocha", "chai", "inline-first"],
     plugins: [
       "karma-*",
       {
-        "framework:inline-core-js": ["factory", coreJS],
+        "framework:inline-first": ["factory", inlineFirst],
       },
     ],
     files: [
@@ -94,7 +95,7 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
         inlineSources: true,
       },
     },
-    reporters: ["dots", "coverage-istanbul"],
+    reporters: ["mocha", "coverage-istanbul"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
