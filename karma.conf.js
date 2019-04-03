@@ -202,15 +202,8 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
   };
 
   if (CONTINUOUS_INTEGRATION) {
-    // Running on Travis. Grab the configuration from Travis.
-    localConfig.browserStack = {
-      // Travis provides the tunnel.
-      startTunnel: false,
-      tunnelIdentifier: process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
-      // Travis adds "-travis" to the name, which mucks things up.
-      username: process.env.BROWSERSTACK_USER.replace("-travis", ""),
-      accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
-    };
+    // Running on Travis. The user id and key are taken from the environment.
+    localConfig.browserStack.startTunnel = true;
   }
   else {
     // Running outside Travis: we get our configuration from ./local-config, if
