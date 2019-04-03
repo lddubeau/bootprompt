@@ -53,7 +53,7 @@ describe("Bootprompt", () => {
       });
 
       it("removes the dialog", () => {
-        expect(document.contains($dialog[0])).to.be.false;
+        expect(document.body.contains($dialog[0])).to.be.false;
       });
     });
   });
