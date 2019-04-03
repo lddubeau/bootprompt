@@ -1221,14 +1221,8 @@ this option.`);
     }
   });
 
-  $modal.one("hidden.bs.modal", function (e: JQuery.TriggeredEvent): void {
-    // ensure we don't accidentally intercept hidden events triggered by
-    // children of the current dialog. We shouldn't need to handle this anymore,
-    // now that Bootstrap namespaces its events, but still worth doing.
-    // tslint:disable-next-line:no-invalid-this
-    if (e.target === this) {
-      $modal.remove();
-    }
+  $modal.one("hidden.bs.modal", () => {
+    $modal.remove();
   });
 
   $modal.one("shown.bs.modal", () => {

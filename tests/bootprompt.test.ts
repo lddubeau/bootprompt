@@ -39,16 +39,12 @@ describe("Bootprompt", () => {
     describe("hidden.bs.modal", () => {
       let $dialog: JQuery;
 
-      // tslint:disable-next-line:no-any
-      function trigger(target: any): void {
-        $dialog.trigger($.Event("hidden.bs.modal", { target }));
-      }
-
-      beforeEach(() => {
+      before(() => {
         $dialog = bootprompt.alert("hi remove");
+        $dialog.trigger("hidden.bs.modal");
       });
 
-      afterEach(() => {
+      after(() => {
         // We cannot use hide all because hidden.bs.modal is added with .one
         // and hideAll won't trigger it again.
         $dialog.remove();
@@ -56,24 +52,8 @@ describe("Bootprompt", () => {
         $(".modal-backdrop").remove();
       });
 
-      describe("when triggered with the wrong target", () => {
-        beforeEach(() => {
-          trigger({an: "object"});
-        });
-
-        it("does not remove the dialog", () => {
-          expect(document.contains($dialog[0])).to.be.true;
-        });
-      });
-
-      describe("when triggered with the correct target", () => {
-        beforeEach(() => {
-          trigger($dialog[0]);
-        });
-
-        it("removes the dialog", () => {
-          expect(document.contains($dialog[0])).to.be.false;
-        });
+      it("removes the dialog", () => {
+        expect(document.contains($dialog[0])).to.be.false;
       });
     });
   });
