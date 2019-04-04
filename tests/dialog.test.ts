@@ -89,6 +89,47 @@ describe("bootprompt.dialog", () => {
     });
   });
 
+  describe("when creating an animated dialog", () => {
+    let $dialog: JQuery;
+    before(() => {
+      $dialog = bootprompt.dialog({
+        message: "test",
+        animate: true,
+      });
+    });
+
+    after(() => {
+      // hideAll does not work because we try to remove the modal before it is
+      // done showing up.
+      // bootprompt.hideAll();
+      $dialog.remove();
+      $(".modal-backdrop").remove();
+    });
+
+    it("adds the fade class to the dialog", () => {
+      expect($dialog[0].classList.contains("fade")).to.be.true;
+    });
+  });
+
+  describe("when creating a dialog with centerVertical", () => {
+    let $dialog: JQuery;
+    before(() => {
+      $dialog = bootprompt.dialog({
+        message: "test",
+        centerVertical: true,
+      });
+    });
+
+    after(() => {
+      bootprompt.hideAll();
+    });
+
+    it("adds the modal-dialog-centered class to the dialog", () => {
+      const inner = $dialog[0].getElementsByClassName("modal-dialog")[0];
+      expect(inner.classList.contains("modal-dialog-centered")).to.be.true;
+    });
+  });
+
   describe("when creating a dialog with a button", () => {
     let $dialog: JQuery;
     let buttons: HTMLCollectionOf<HTMLElement>;
