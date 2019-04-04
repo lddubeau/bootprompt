@@ -1488,7 +1488,7 @@ function setupTextualInput(input: JQuery,
                            options: TextPromptOptions & DialogOptions): void {
   const { value, placeholder, pattern, maxlength, required } = options;
 
-  input.val(value as string);
+  input.val(value!);
 
   if (placeholder !== undefined) {
     input.attr("placeholder", placeholder);
@@ -1767,8 +1767,7 @@ function _prompt(options: PromptOptions,
       setupRadio(input, finalOptions, inputTemplate);
       break;
     default:
-      // tslint:disable-next-line:no-any
-      const q: never = (finalOptions as any).inputType as never;
+      const q: never = finalOptions.inputType;
       throw new Error(`Unknown input type: ${q}`);
   }
 
