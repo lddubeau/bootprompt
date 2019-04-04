@@ -45,6 +45,10 @@ Bootprompt supports the same range of browsers as Bootstrap 4. Note that
 Bootstrap 4 dropped support from some old browsers that Bootstrap 3
 supported. For instance, IE 9.
 
+Note that it may be necessary to install polyfills on old browsers in order to
+get Bootprompt to run. Bootprompt 6 adds a promise-based API, which requires
+that ``Promise`` be available at run time.
+
 #### Browser Testing
 
 [![Browser Stack](https://www.browserstack.com/images/mail/browserstack-logo-footer.png)](https://www.browserstack.com)
