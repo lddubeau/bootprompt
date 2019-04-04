@@ -272,16 +272,26 @@ await bootprompt.alert$("This is an alert!");
 console.log("The dialog has been closed!");
 ```
 
+<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Basic Promise" src="https://codepen.io/lddubeau/embed/preview/EJPBVR/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/lddubeau/pen/EJPBVR/'>Alert: Basic Promise</a> by Louis-Dominique Dubeau
+  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
+
 You can still use a callback to control when the dialog closes:
 
 ```
-const count = 3;
+let count = 3;
 await bootprompt.alert$({
   message: "This is an alert!",
-  callback: () => --count > 0,
+  callback: () => --count === 0,
 });
 console.log("The dialog has been closed!");
 ```
+
+<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Promise and Callback" src="https://codepen.io/lddubeau/embed/preview/MRKMyE/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/lddubeau/pen/MRKMyE/'>Alert: Promise and Callback</a> by Louis-Dominique Dubeau
+  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
 
 ### Confirm
 
@@ -296,16 +306,26 @@ const response = await bootprompt.confirm$("Frobulate the fnord?");
 console.log(`Response: ${response}`);
 ```
 
+<iframe height="265" style="width: 100%;" scrolling="no" title="Confirm: Basic Promise" src="https://codepen.io/lddubeau/embed/preview/oObrwR/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/lddubeau/pen/oObrwR/'>Confirm: Basic Promise</a> by Louis-Dominique Dubeau
+  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
+
 You can still use a callback to control when the dialog closes:
 
 ```
-const count = 3;
+let count = 3;
 const response = await bootprompt.confirm$({
-  message: "This is an alert!",
-  callback: () => --count > 0,
+  message: "Please confirm!",
+  callback: () => --count === 0,
 });
-console.log(`Response: ${response}`);
+bootprompt.alert(`Response: ${response}`);
 ```
+
+<iframe height="265" style="width: 100%;" scrolling="no" title="Confirm: Promise and Callback" src="https://codepen.io/lddubeau/embed/preview/MRKMOV/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/lddubeau/pen/MRKMOV/'>Confirm: Promise and Callback</a> by Louis-Dominique Dubeau
+  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
 
 ### Prompt
 
@@ -317,19 +337,29 @@ alert, await the promise:
 
 ```
 const response = await bootprompt.prompt$("What is your name?");
-console.log(`Response: ${response}`);
+bootprompt.alert$(`You answered: ${response}.`);
 ```
+
+<iframe height="265" style="width: 100%;" scrolling="no" title="Prompt: Basic Promise" src="https://codepen.io/lddubeau/embed/preview/axdgGX/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/lddubeau/pen/axdgGX/'>Prompt: Basic Promise</a> by Louis-Dominique Dubeau
+  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
 
 You can still use a callback to control when the dialog closes:
 
 ```
-const count = 3;
+let count = 3;
 const response = await bootprompt.prompt$({
-  message: "What is your name?",
-  callback: () => --count > 0,
+  title: "What is your name?",
+  callback: () => --count === 0
 });
-console.log(`Response: ${response}`);
+bootprompt.alert(`Response: ${response}`);
 ```
+
+<iframe height="265" style="width: 100%;" scrolling="no" title="Prompt: Promise and Callback" src="https://codepen.io/lddubeau/embed/preview/ROrzer/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/lddubeau/pen/ROrzer/'>Prompt: Promise and Callback</a> by Louis-Dominique Dubeau
+  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
 
 ## Locales
 
