@@ -1767,7 +1767,10 @@ function _prompt(options: PromptOptions,
       setupRadio(input, finalOptions, inputTemplate);
       break;
     default:
-      const q: never = finalOptions.inputType;
+      // The type assertion is needed in TS 3.2.4 which is the latest version
+      // that typedoc currently runs. *grumble*...
+      // tslint:disable-next-line:no-unnecessary-type-assertion
+      const q: never = finalOptions.inputType as never;
       throw new Error(`Unknown input type: ${q}`);
   }
 
