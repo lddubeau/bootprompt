@@ -1,0 +1,26 @@
+<html>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <head>
+    <link rel="stylesheet" medial="all" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.css">
+    <link rel="stylesheet" media="all" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" media="all" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="./bootprompt/bootprompt.all.min.js"></script>
+  </head>
+  <body>
+    <p><button id="reload">Reload Example</button></p>
+  </body>
+  <script>
+    const reloadButton = document.getElementById("reload");
+    reloadButton.addEventListener("click", () => {
+      window.location.reload();
+    });
+    const params = new URLSearchParams(window.location.search);
+    const exampleSrc = params.get("example-src");
+    const script = document.createElement("script");
+    const src = `bootprompt/${exampleSrc}.js`;
+    script.src = src;
+    document.head.appendChild(script);
+  </script>
+</html>

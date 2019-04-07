@@ -1,3 +1,34 @@
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>
+<style>
+li.L0, li.L1, li.L2, li.L3,
+li.L5, li.L6, li.L7, li.L8 {
+  list-style-type: decimal !important;
+}
+</style>
+<script>
+function insertExample(title, fileName) {
+  const iframe = document.createElement("iframe");
+  iframe.style.width = "100%";
+  iframe.setAttribute("title", title);
+  iframe.src = `./frame.html?example-src=${fileName}`;
+  iframe.height = 300;
+
+  const pre = document.createElement("pre");
+  pre.classList.add("prettyprint");
+  pre.classList.add("linenums");
+
+  const div = document.createElement("div");
+  div.appendChild(pre);
+  div.appendChild(iframe);
+  document.currentScript.parentNode.insertBefore(div, document.currentScript);
+
+  (async () => {
+    pre.textContent = await (await fetch(`./bootprompt/${fileName}.js`)).text();
+    PR.prettyPrint(undefined, div);
+  })();
+}
+</script>
+
 # Getting Started
 
 ## Installing
@@ -25,6 +56,7 @@ Once you’ve got your dependencies sorted, usage is fairly straightforward and
 much like any other JavaScript library you’ve ever used. The library creates a
 single global instance of a bootprompt object:
 
+<!--prettify linenums=true-->
 ```
 <!DOCTYPE html>
 <html>
@@ -102,41 +134,27 @@ the promise to resolve.
 The [[alert]] function produce a dialog that behaves similarly to the DOM's
 ``alert()`` function.
 
-```
-bootprompt.alert("Your message here...")
-```
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Minimal Example" src="https://codepen.io/lddubeau/embed/preview/aMgBzd/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/aMgBzd/'>Alert: Minimal Example</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: Minimal Example", "alert-minimal-example");
+</script>
 
 Your message can also contain HTML.
 
-```
-bootprompt.alert("Your message <b>here</b>");
-```
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Example With HTML" src="https://codepen.io/lddubeau/embed/preview/Oqebwr/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/Oqebwr/'>Alert: Example With HTML</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: With HTML", "alert-with-html");
+</script>
 
 If you have code that should not be evaluated until the user has dismissed the
 alert, call it within the callback function:
 
-```
-bootprompt.alert("This is an alert with a callback!", () => {
-  console.log('This was logged in the callback!');
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Example With Callback" src="https://codepen.io/lddubeau/embed/preview/moZxab/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/moZxab/'>Alert: Example With Callback</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: With Callback", "alert-with-callback");
+</script>
 
 Alerts can be customized, using [[AlertOptions]]. Here's an example of a small
 alert, using ``size``:
 
+<!--prettify linenums=true-->
 ```
 bootprompt.alert({
   size: "small",
@@ -163,20 +181,14 @@ message you wish to show and a callback to handle the user's selection. The
 callback function is passed a value of ``true`` or ``false``, depending on which
 button the user pressed.
 
-```
-bootprompt.confirm("This is the default confirm!", (result) => {
-  console.log(`This was logged in the callback: ${result}`);
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Confirm: Basic Usage" src="https://codepen.io/lddubeau/embed/preview/moNPew/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/moNPew/'>Confirm: Basic Usage</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Confirm: Basic Usage", "confirm-basic-usage");
+</script>
 
 Confirm dialogs can be customized, using [[ConfirmOptions]]. Here's an example
 of a small dialog, using ``size``:
 
+<!--prettify linenums=true-->
 ```
 bootprompt.confirm({
   size: "small",
@@ -202,24 +214,14 @@ the default value that the ``input`` takes if the user enters nothing if the
 user cancelled or dismissed the dialog; otherwise it is passed the value of the
 text input.
 
-```
-bootprompt.prompt("What is your name?", result => {
-  bootprompt.alert(
-    result === null
-      ? "You did not tell me your name!"
-      : `You said your name is: ${result}`
-  );
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Prompt: Basic Usage" src="https://codepen.io/lddubeau/embed/preview/vPoWJV/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/vPoWJV/'>Prompt: Basic Usage</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Prompt: Basic Usage", "prompt-basic-usage");
+</script>
 
 Prompt dialogs can also be customized, using [[PromptOptions]]. Here's an
 example of a small prompt, using ``size``:
 
+<!--prettify linenums=true-->
 ```
 bootprompt.prompt({
   size: "small",
@@ -267,31 +269,15 @@ The [[alert$]] function produce a dialog that behaves similarly to the DOM's
 If you have code that should not be evaluated until the user has dismissed the
 alert, await the promise:
 
-```
-await bootprompt.alert$("This is an alert!");
-console.log("The dialog has been closed!");
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Basic Promise" src="https://codepen.io/lddubeau/embed/preview/EJPBVR/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/EJPBVR/'>Alert: Basic Promise</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: Basic Promise", "alert-basic-promise");
+</script>
 
 You can still use a callback to control when the dialog closes:
 
-```
-let count = 3;
-await bootprompt.alert$({
-  message: "This is an alert!",
-  callback: () => --count === 0,
-});
-console.log("The dialog has been closed!");
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Promise and Callback" src="https://codepen.io/lddubeau/embed/preview/MRKMyE/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/MRKMyE/'>Alert: Promise and Callback</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: Promise and Callback", "alert-promise-and-callback");
+</script>
 
 ### Confirm
 
@@ -301,31 +287,16 @@ The [[confirm$]] function produce a dialog that behaves similarly to the DOM's
 If you have code that should not be evaluated until the user has dismissed the
 alert, await the promise:
 
-```
-const response = await bootprompt.confirm$("Frobulate the fnord?");
-console.log(`Response: ${response}`);
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Confirm: Basic Promise" src="https://codepen.io/lddubeau/embed/preview/oObrwR/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/oObrwR/'>Confirm: Basic Promise</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Confirm: Basic Promise", "confirm-basic-promise");
+</script>
 
 You can still use a callback to control when the dialog closes:
 
-```
-let count = 3;
-const response = await bootprompt.confirm$({
-  message: "Please confirm!",
-  callback: () => --count === 0,
-});
-bootprompt.alert(`Response: ${response}`);
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Confirm: Promise and Callback" src="https://codepen.io/lddubeau/embed/preview/MRKMOV/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/MRKMOV/'>Confirm: Promise and Callback</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Confirm: Promise and Callback",
+                "confirm-promise-and-callback");
+</script>
 
 ### Prompt
 
@@ -335,31 +306,15 @@ The [[prompt$]] function produce a dialog that behaves similarly to the DOM's
 If you have code that should not be evaluated until the user has dismissed the
 alert, await the promise:
 
-```
-const response = await bootprompt.prompt$("What is your name?");
-bootprompt.alert$(`You answered: ${response}.`);
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Prompt: Basic Promise" src="https://codepen.io/lddubeau/embed/preview/axdgGX/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/axdgGX/'>Prompt: Basic Promise</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Prompt: Basic Promise", "prompt-basic-promise");
+</script>
 
 You can still use a callback to control when the dialog closes:
 
-```
-let count = 3;
-const response = await bootprompt.prompt$({
-  title: "What is your name?",
-  callback: () => --count === 0
-});
-bootprompt.alert(`Response: ${response}`);
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Prompt: Promise and Callback" src="https://codepen.io/lddubeau/embed/preview/ROrzer/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/ROrzer/'>Prompt: Promise and Callback</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Prompt: Promise and Callback", "prompt-promise-and-callback");
+</script>
 
 ## Locales
 
@@ -424,6 +379,7 @@ object. As such, you can chain most jQuery functions onto the result of a
 Bootprompt dialog. Here's an example showing how to handle Bootstrap's
 ``shown.bs.modal`` event, using [``.on()``](http://api.jquery.com/on/):
 
+<!--prettify linenums=true-->
 ```
 const dialog = bootprompt.dialog({
     /* Your options... */
@@ -438,6 +394,7 @@ If you set the ``show`` option to ``false``, you can also use Bootstrap's
 [``modal()``](http://getbootstrap.com/docs/4.0/components/modal/) function to
 show and hide your dialog manually:
 
+<!--prettify linenums=true-->
 ```
 const dialog = bootprompt.dialog({
     show: false,
@@ -475,231 +432,96 @@ Using Bootprompt has some caveats, as noted below.
 
 ### Basic Alert
 
-```
-bootprompt.alert("Your message here...")
-```
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Minimal Example" src="https://codepen.io/lddubeau/embed/preview/aMgBzd/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/aMgBzd/'>Alert: Minimal Example</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
-
+<script>
+  insertExample("Alert: Minimal Example", "alert-minimal-example");
+</script>
 
 ### Basic Alert, with Callback
 
-```
-bootprompt.alert("This is an alert with a callback!", () => {
-  console.log('This was logged in the callback!');
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Example With Callback" src="https://codepen.io/lddubeau/embed/preview/moZxab/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/moZxab/'>Alert: Example With Callback</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: With Callback", "alert-with-callback");
+</script>
 
 ### Basic Alert, Using Options Object
 
-```
-bootprompt.alert({
-  message: "This is an alert with a callback!",
-  callback: () => { console.log('This was logged in the callback!'); },
-})
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Example Using Options" src="https://codepen.io/lddubeau/embed/preview/YgoLzK/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/YgoLzK/'>Alert: Example Using Options</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: Using Options", "alert-using-options");
+</script>
 
 ### Small Alert
 
 Also applies to: ``confirm``, ``prompt``, ``dialog``.
 
-```
-bootprompt.alert({
-  message: "This is the small alert!",
-  size: 'small'
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Example Small" src="https://codepen.io/lddubeau/embed/preview/rREvNK/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/rREvNK/'>Alert: Example Small</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: Small", "alert-small");
+</script>
 
 ### Large Alert
 
 Also applies to: ``confirm``, ``prompt``, ``dialog``.
 
-```
-bootprompt.alert({
-  message: "This is the large alert!",
-  size: 'large'
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Example Large" src="https://codepen.io/lddubeau/embed/preview/RdzyPP/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/RdzyPP/'>Alert: Example Large</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: Large", "alert-large");
+</script>
 
 ### Custom CSS class (using [Animate.css](https://daneden.github.io/animate.css/))
 
 Also applies to: ``confirm``, ``prompt``, ``dialog``.
 
-```
-bootprompt.alert({
-  message: "This is an alert with additional classes!",
-  className: 'rubberBand animated'
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Example with Custom CSS Class" src="https://codepen.io/lddubeau/embed/preview/moZYVM/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/moZYVM/'>Alert: Example with Custom CSS Class</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: With Custom CSS", "alert-with-custom-css");
+</script>
 
 ### Dismiss on Background Click
 
 Also applies to: ``confirm``, ``prompt``, ``dialog``.
 
-```
-bootprompt.alert({
-  message: "This alert can be dismissed by clicking on the background!",
-  backdrop: true
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Example With Clickable Background" src="https://codepen.io/lddubeau/embed/preview/GebVWZ/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/GebVWZ/'>Alert: Example With Clickable Background</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: Dismiss on Background Click",
+                "alert-dismiss-on-background-click");
+</script>
 
 ### Using a Locale
 
 Also applies to: ``confirm``, ``prompt``, ``dialog``.
 
-```
-bootprompt.alert({
- message: "This alert uses the Arabic locale!",
- locale: 'ar',
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Alert: Example Using a Locale" src="https://codepen.io/lddubeau/embed/preview/qvebed/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/qvebed/'>Alert: Example Using a Locale</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Alert: Using a Locale", "alert-using-a-locale");
+</script>
 
 ## Confirm Examples
 
 ### Basic Usage
 
-```
-bootprompt.confirm("This is the default confirm!", (result) => {
-  console.log(`This was logged in the callback: ${result}`);
-});
-```
+<script>
+  insertExample("Confirm: Basic Usage", "confirm-basic-usage");
+</script>
 
-<iframe height="265" style="width: 100%;" scrolling="no" title="Confirm: Basic Usage" src="https://codepen.io/lddubeau/embed/preview/moNPew/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/moNPew/'>Confirm: Basic Usage</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+### Custom Button Text and Color
 
-### Alternate Button Text and Color
+Also applies to: ``alert()``, ``prompt()``, ``dialog()``.
 
-Also applies to: ``alert()``, ``prompt()``, ``dialog``.
-
-```
-bootprompt.confirm({
-  message: "This is a confirm with custom button text and color! Do you like it?",
-  buttons: {
-    confirm: {
-      label: "Yes",
-      className: "btn-success",
-    },
-    cancel: {
-      label: "No",
-      className: "btn-danger",
-    },
-  },
-  callback: (result) => {
-    console.log(`This was logged in the callback: ${result}`);
-  },
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Confirm: Custom Button Text and Color" src="https://codepen.io/lddubeau/embed/preview/MxNyJd/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/MxNyJd/'>Confirm: Custom Button Text and Color</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Confirm: Custom Button Text and Color",
+                "confirm-custom-button-text-and-color");
+</script>
 
 ### Icon and Button Text
 
-Also applies to: ``alert()``, ``prompt()``, ``dialog``.
+Also applies to: ``alert()``, ``prompt()``, ``dialog()``.
 
-```
-bootprompt.confirm({
-  title: "Destroy planet?",
-  message: "Do you want to activate the Deathstar now? This cannot be undone.",
-  buttons: {
-    cancel: {
-      label: '<i class="fa fa-times"></i> Cancel'
-    },
-    confirm: {
-      label: '<i class="fa fa-check"></i> Confirm'
-    }
-  },
-  callback: (result) => {
-    console.log(`This was logged in the callback: ${result}`);
-  }
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Confirm: Custom Icon and Button Text" src="https://codepen.io/lddubeau/embed/preview/JzgJpL/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/JzgJpL/'>Confirm: Custom Icon and Button Text</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Confirm: Custom Icon and Button Text",
+                "confirm-custom-icon-and-button-text");
+</script>
 
 ### Locales
 
-Also applies to: ``alert()``, ``prompt()``, ``dialog``.
-
-```
-<div class="form-group">
-  <label>Choose a locale: </label>
-  <select id="locales" class="custom-select" style="max-width: 200px;"></select>
-</div>
-<button id="confirm">Confirm</button>
+Also applies to: ``alert()``, ``prompt()``, ``dialog()``.
 
 <script>
-const locales = document.getElementById("locales");
-for (const locale in bootprompt.locales()) {
-  const option = document.createElement("option");
-  option.setAttribute("value", locale);
-  option.textContent = locale;
-
-  locales.appendChild(option);
-}
-
-const confirm = document.getElementById("confirm");
-$(confirm).on("click", () => {
-  bootprompt.confirm({
-    message:
-      "This confirm uses the selected locale. Were the labels what you expected?",
-    locale: locales.value,
-    callback: result => {
-      bootprompt.alert(`This was logged in the callback: ${result}`);
-    }
-  });
-});
+  insertExample("Confirm: Locales", "confirm-locales");
 </script>
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Confirm: Locales" src="https://codepen.io/lddubeau/embed/preview/VRoWxV/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/VRoWxV/'>Confirm: Locales</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
 
 ## Prompt Examples
 
@@ -709,252 +531,57 @@ include any form inputs from your message.
 
 ### Basic Usage
 
-```
-bootprompt.prompt("What is your name?", result => {
-  bootprompt.alert(
-    result === null
-      ? "You did not tell me your name!"
-      : `You said your name is: ${result}`
-  );
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Prompt: Basic Usage" src="https://codepen.io/lddubeau/embed/preview/vPoWJV/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/vPoWJV/'>Prompt: Basic Usage</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Prompt: Basic Usage", "prompt-basic-usage");
+</script>
 
 ### Custom Locale
 
-```
-const locale = {
-  OK: "I Suppose",
-  CONFIRM: "Go Ahead",
-  CANCEL: "Maybe Not",
-};
-
-bootprompt.addLocale("custom", locale);
-
-bootprompt.prompt({
-  title: "This is a prompt with a custom locale! What do you think?",
-  locale: "custom",
-  callback: (result) => {
-    bootprompt.alert(`This was logged in the callback: ${result}`);
-  },
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Prompt: Custom Locale" src="https://codepen.io/lddubeau/embed/preview/eXqeVW/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/eXqeVW/'>Prompt: Custom Locale</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Prompt: Custom Locale", "prompt-custom-locale");
+</script>
 
 ### Checkbox
 
-```
-bootprompt.prompt({
-  title: "This is a prompt with a set of checkbox inputs!",
-  value: ["1", "3"],
-  inputType: "checkbox",
-  inputOptions: [{
-    text: "Choice One",
-    value: "1",
-  },
-  {
-    text: "Choice Two",
-    value: "2",
-  },
-  {
-    text: "Choice Three",
-    value: "3",
-  }],
-  callback: (result) => {
-    bootprompt.alert(`Result: ${result}`);
-  },
-});
-```
-
-<iframe height="376" style="width: 100%;" scrolling="no" title="Prompt: Checkbox" src="https://codepen.io/lddubeau/embed/preview/EMqbLb/?height=376&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/EMqbLb/'>Prompt: Checkbox</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Prompt: Checkbox", "prompt-checkbox");
+</script>
 
 ### Radio Buttons and a ``message`` Value
 
-```
-bootprompt.prompt({
-  title: "This is a prompt with a set of radio inputs!",
-  message: "<p>Please select an option below:</p>",
-  inputType: "radio",
-  inputOptions: [{
-    text: "Choice One",
-    value: "1",
-  }, {
-    text: "Choice Two",
-    value: "2",
-  }, {
-    text: "Choice Three",
-    value: "3",
-  }],
-  callback: (result) => {
-    bootprompt.alert(`Result: ${result}`);
-  }
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Prompt: Radio Buttons" src="https://codepen.io/lddubeau/embed/preview/pYMdZN/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/pYMdZN/'>Prompt: Radio Buttons</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Prompt: Radio Buttons", "prompt-radio-buttons");
+</script>
 
 ### Various Types
 
-```
-<div class="form-group">
-  <label>Choose a type: </label>
-  <select id="types" class="custom-select" style="max-width: 200px;">
-    <option>text</option>
-    <option>textarea</option>
-    <option>email</option>
-    <option>password</option>
-    <option>number</option>
-    <option>date</option>
-    <option>time</option>
-  </select>
-</div>
-<button id="prompt">Prompt</button>
-
 <script>
-const prompt = document.getElementById("prompt");
-const types = document.getElementById("types");
-
-$(prompt).on("click", () => {
-  const type = types.value;
-  bootprompt.prompt({
-    title: `This is a prompt with input type: ${type}`,
-    inputType: type,
-    callback: result => {
-      bootprompt.alert(`Result: ${result}`);
-    }
-  });
-});
+  insertExample("Prompt: Various Types", "prompt-various-types");
 </script>
-```
-
-<iframe height="403" style="width: 100%;" scrolling="no" title="Prompt: Various Types" src="https://codepen.io/lddubeau/embed/preview/PLMOrw/?height=403&theme-id=0&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/PLMOrw/'>Prompt: Various Types</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
 
 ### Select
 
-```
-bootprompt.prompt({
-  title: "This is a prompt with select!",
-  inputType: "select",
-  inputOptions: [{
-    text: "Choose one...",
-    value: "",
-  }, {
-    text: "Choice One",
-    value: "1",
-  }, {
-    text: "Choice Two",
-    value: "2",
-  }, {
-    text: "Choice Three",
-    value: "3",
-  }],
-  callback: (result) => {
-    bootprompt.alert(`Result: ${result}`);
-  }
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Prompt: Select" src="https://codepen.io/lddubeau/embed/preview/GLKKvv/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/GLKKvv/'>Prompt: Select</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Prompt: Select", "prompt-select");
+</script>
 
 ### Range
 
-```
-bootprompt.prompt({
-  title: "This is a prompt with a range input!",
-  inputType: "range",
-  min: "0",
-  max: "100",
-  step: "5",
-  value: "35",
-  callback: (result) => {
-    bootprompt.alert(`This was logged in the callback: ${result}`);
-  }
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Prompt: Range" src="https://codepen.io/lddubeau/embed/preview/RObbjg/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/RObbjg/'>Prompt: Range</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Prompt: Range", "prompt-range");
+</script>
 
 ## Dialog Examples
 
 ### Loading... Overlay
 
-```
-const dialog = bootprompt.dialog({
-  message: "<p class='text-center mb-0'><i class='fa fa-spin fa-cog'></i> \
- Please wait while we do something...</p>",
-  closeButton: false,
-  onEscape: false,
-});
-
-setTimeout(() => {
-  dialog.modal("hide");
-}, 2000);
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Dialog: Loading... overlay" src="https://codepen.io/lddubeau/embed/preview/MRgWJK/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/MRgWJK/'>Dialog: Loading... overlay</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Dialog: Loading... Overlay", "dialog-loading-overlay");
+</script>
 
 ### Buttons and Callbacks
 
-```
-bootprompt.dialog({
-  title: "A custom dialog with buttons and callbacks",
-  message: "<p>This dialog has buttons. Each button has it's own callback \
-function.</p>",
-  size: "large",
-  buttons: {
-    cancel: {
-      label: "I'm a cancel button!",
-        className: "btn-danger",
-        callback: () => {
-          bootprompt.alert("Custom cancel clicked");
-        }
-    },
-    noclose: {
-      label: "I don't close the modal!",
-      className: "btn-warning",
-      callback: () => {
-        bootprompt.alert("Custom button clicked");
-        return false;
-      }
-    },
-    ok: {
-      label: "I'm an OK button!",
-      className: "btn-info",
-      callback: () => {
-        bootprompt.alert("Custom OK clicked");
-      }
-    }
-  }
-});
-```
-
-<iframe height="265" style="width: 100%;" scrolling="no" title="Dialog: Buttons and Callbacks" src="http://codepen.io/lddubeau/embed/preview/gyYOxZ/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/lddubeau/pen/gyYOxZ/'>Dialog: Buttons and Callbacks</a> by Louis-Dominique Dubeau
-  (<a href='https://codepen.io/lddubeau'>@lddubeau</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<script>
+  insertExample("Dialog: Buttons and Callbacks",
+                "dialog-buttons-and-callbacks");
+</script>
