@@ -61,7 +61,7 @@
     "karma-mocha-reporter": "^2.2.5",
     "karma-typescript-agile-preprocessor": "^2.1.2",
     "lite-server": "^2.4.0",
-    "mocha": "^6.1.0",
+    "mocha": "^6.1.1",
     "popper.js": "^1.15.0",
     "renovate-config-lddubeau": "^1.0.0",
     "rollup": "^1.9.0",
