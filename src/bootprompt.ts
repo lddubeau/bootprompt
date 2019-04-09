@@ -1488,6 +1488,7 @@ function setupTextualInput(input: JQuery,
                            options: TextPromptOptions & DialogOptions): void {
   const { value, placeholder, pattern, maxlength, required } = options;
 
+  // tslint:disable-next-line:no-non-null-assertion
   input.val(value!);
 
   if (placeholder !== undefined) {
