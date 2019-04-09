@@ -21,7 +21,7 @@
     "build-and-test": "npm run build && npm test --",
     "self:publish": "cd build/dist && npm publish",
     "self:pack": "cd build/dist && npm pack && mv *.tgz ..",
-    "version": "versync -b sync -a",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md && versync -b sync -a",
     "postversion": "npm run build-and-test && npm run self:publish",
     "postpublish": "git push origin --follow-tags",
     "clean": "rm -rf build"
@@ -48,6 +48,7 @@
     "@types/sinon": "^7.0.11",
     "@types/sinon-chai": "^3.2.2",
     "chai": "^4.2.0",
+    "conventional-changelog-cli": "^2.0.12",
     "deepcopy": "^2.0.0",
     "es6-promise": "^4.2.6",
     "eslint": "^5.16.0",
