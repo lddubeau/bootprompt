@@ -99,6 +99,16 @@ this order:
 5. Bootprompt Locales (optional - omit if you only need the default English
    locale)
 
+# Upgrade Notes
+
+If you are upgrading, you should consult the notes for upgrading:
+
+* [Bootprompt 5 to
+  6](https://github.com/lddubeau/bootprompt/blob/master/docs/upgrade-5-to-6.md).
+
+* [Bootbox < 5.x to
+  Bootprompt](https://github.com/lddubeau/bootprompt/blob/master/docs/bootbox-to-bootprompt.md).
+
 # API Introduction
 
 The main functions of Bootprompt's API can be divided into two groups:
