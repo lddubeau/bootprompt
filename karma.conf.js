@@ -45,7 +45,6 @@ ${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
   const bootstrapCSS =
         `${cdn}/bootstrap${bootstrapSpecifier}/dist/css/bootstrap.css`;
 
-
   // eslint-disable-next-line no-console
   console.log(`Using Bootstrap ${useBootstrap || "latest"}`);
   // eslint-disable-next-line no-console
