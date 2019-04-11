@@ -1,5 +1,5 @@
 describe("bootprompt.dialog", () => {
-  before((done) => {
+  before(done => {
     reload(done);
   });
 

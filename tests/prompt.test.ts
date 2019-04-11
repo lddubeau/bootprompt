@@ -1,7 +1,7 @@
 describe("bootprompt.prompt", () => {
   let $dialog: JQuery;
 
-  before((done) => {
+  before(done => {
     reload(done);
   });
 
@@ -2252,7 +2252,7 @@ for more information.`);
           callback = sinon.spy();
           $dialog = bootprompt.prompt({
             title: "What is your IDE?",
-            callback: callback,
+            callback,
             inputType: "select",
             inputOptions: [{
               value: "#",
@@ -2343,7 +2343,7 @@ for more information.`);
           callback = sinon.spy();
           $dialog = bootprompt.prompt({
             title: "What is your IDE?",
-            callback: callback,
+            callback,
             value: "1",
             inputType: "select",
             inputOptions: [{
@@ -2827,7 +2827,7 @@ for more information.`);
             callback = sinon.spy();
             $dialog = bootprompt.prompt({
               title: "What is your IDE?",
-              callback: callback,
+              callback,
               value: "2",
               inputType: "checkbox",
               inputOptions: [{
@@ -2948,7 +2948,7 @@ for more information.`);
             callback = sinon.spy();
             $dialog = bootprompt.prompt({
               title: "What is your IDE?",
-              callback: callback,
+              callback,
               value: ["2", "3"],
               inputType: "checkbox",
               inputOptions: [{
@@ -3151,7 +3151,7 @@ for more information.`);
             callback = sinon.spy();
             $dialog = bootprompt.prompt({
               title: "What is your IDE?",
-              callback: callback,
+              callback,
               value: "2",
               inputType: "radio",
               inputOptions: [{

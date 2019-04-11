@@ -91,7 +91,7 @@ export type ButtonSpec = Button | ButtonCallback;
 export interface Buttons {
   // We want | undefined here so that we can declare specific names as being
   // optional.
-  [key: string]:  ButtonSpec | undefined;
+  [key: string]: ButtonSpec | undefined;
 }
 
 /**
@@ -1135,6 +1135,7 @@ export function dialog(options: DialogOptions): JQuery {
     // Requires Bootstrap 3.1.0 or higher
     /* istanbul ignore if: we don't systematically test with old versions */
     if (fullBootstrapVersion.substring(0, 3) < "3.1") {
+      // tslint:disable-next-line:no-console
       console.warn(`"size" requires Bootstrap 3.1.0 or higher. You appear \
 to be using ${fullBootstrapVersion}. Please upgrade to use this option.`);
     }
@@ -1188,6 +1189,7 @@ to be using ${fullBootstrapVersion}. Please upgrade to use this option.`);
     // Requires Bootstrap 4.0.0 or higher
     /* istanbul ignore if: we don't systematically test with old versions */
     if (fullBootstrapVersion < "4.0.0") {
+      // tslint:disable-next-line:no-console
       console.warn(`"centerVertical" requires Bootstrap 4.0.0 or \
 higher. You appear to be using ${fullBootstrapVersion}. Please upgrade to use \
 this option.`);
@@ -1252,21 +1254,21 @@ this option.`);
   });
 
   $modal.on("click", ".modal-footer button",
-             function (e: JQuery.TriggeredEvent): void {
+             function(e: JQuery.TriggeredEvent): void {
                // tslint:disable-next-line:no-invalid-this
                const callbackKey = $(this).data("bp-handler");
 
                processCallback(e, $modal, callbacks[callbackKey]);
              });
 
-  $modal.on("click", ".bootprompt-close-button", (e) => {
+  $modal.on("click", ".bootprompt-close-button", e => {
     // onEscape might be falsy but that's fine; the fact is
     // if the user has managed to click the close button we
     // have to close the dialog, callback or not
     processCallback(e, $modal, callbacks.onClose);
   });
 
-  $modal.on("keyup", (e) => {
+  $modal.on("keyup", e => {
     if (e.which === 27) {
       $modal.trigger("escape.close.bp");
     }
@@ -1303,7 +1305,7 @@ function _alert(options: AlertOptions,
 provided");
   }
 
-  const customCallback = function (this: JQuery): boolean | void {
+  const customCallback = function(this: JQuery): boolean | void {
     return typeof finalCallback === "function" ?
       finalCallback.call(this) : true;
   };
@@ -1365,7 +1367,7 @@ export function alert(messageOrOptions: string | AlertOptions,
  */
 export async function alert$(messageOrOptions: string | AlertOptions):
 Promise<void> {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     _alert(typeof messageOrOptions === "string" ?
            { message: messageOrOptions } : messageOrOptions,
            undefined)
@@ -1388,7 +1390,7 @@ function _confirm(options: ConfirmOptions,
     throw new Error("confirm requires a callback");
   }
 
-  const cancelCallback = function (this: JQuery): boolean | void {
+  const cancelCallback = function(this: JQuery): boolean | void {
     return finalCallback.call(this, false);
   };
 
@@ -1397,7 +1399,7 @@ function _confirm(options: ConfirmOptions,
   setupEscapeAndCloseCallbacks(finalOptions, cancelCallback);
 
   (buttons.confirm as Button).callback =
-    function (this: JQuery): boolean | void {
+    function(this: JQuery): boolean | void {
       return finalCallback.call(this, true);
     };
 
@@ -1454,13 +1456,13 @@ export function confirm(messageOrOptions: string | ConfirmOptions,
  */
 export async function confirm$(messageOrOptions: string | ConfirmOptions):
 Promise<boolean | null> {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const options = typeof messageOrOptions === "string" ?
       { message: messageOrOptions } : messageOrOptions;
     const { callback } = options;
 
     let result: boolean | null = null;
-    _confirm(options, function (this: JQuery, value: boolean): boolean | void {
+    _confirm(options, function(this: JQuery, value: boolean): boolean | void {
       result = value;
 
       if (callback !== undefined) {
@@ -1763,7 +1765,7 @@ function _prompt(options: PromptOptions,
       throw new Error(`Unknown input type: ${q}`);
   }
 
-  const cancelCallback = function (this: JQuery): boolean | void {
+  const cancelCallback = function(this: JQuery): boolean | void {
     return finalCallback.call(this, null);
   };
 
@@ -1773,14 +1775,14 @@ function _prompt(options: PromptOptions,
   // Prompt submitted - extract the prompt value. This requires a bit of work,
   // given the different input types available.
   // tslint:disable-next-line:no-non-null-assertion
-  (buttons.confirm as Button).callback = function (this: JQuery):
+  (buttons.confirm as Button).callback = function(this: JQuery):
   boolean | void {
     let value: string | string[];
 
     switch (finalOptions.inputType) {
       case "checkbox":
         value = input.find("input:checked")
-          .map(function (this: HTMLElement): string {
+          .map(function(this: HTMLElement): string {
             return $(this).val() as string;
           }).get();
         break;
@@ -1797,7 +1799,7 @@ function _prompt(options: PromptOptions,
         if (finalOptions.inputType === "select" &&
             finalOptions.multiple === true) {
           value = input.find("option:selected")
-            .map(function (this: HTMLElement): string {
+            .map(function(this: HTMLElement): string {
               return $(this).val() as string;
             }).get();
         }
@@ -1826,7 +1828,7 @@ function _prompt(options: PromptOptions,
   // Generate the dialog
   const promptDialog = dialog(finalOptions);
 
-  form.on("submit", (e) => {
+  form.on("submit", e => {
     e.preventDefault();
     // Fix for SammyJS (or similar JS routing library) hijacking the form post.
     e.stopPropagation();
@@ -1918,15 +1920,15 @@ Promise<PromiseValue<T>>;
 export async function prompt$<T extends PromptOptions>(
   messageOrOptions: string | T):
 Promise<PromiseValue<T>> {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const options = typeof messageOrOptions === "string" ?
       // tslint:disable-next-line:no-object-literal-type-assertion
       { title: messageOrOptions } as T : messageOrOptions;
     const { callback } = options;
 
     let result: PromiseValue<T> = null;
-    _prompt(options, function (this: JQuery,
-                               value: PromiseValue<T>): boolean | void {
+    _prompt(options, function(this: JQuery,
+                              value: PromiseValue<T>): boolean | void {
       result = value;
 
       if (callback !== undefined) {
@@ -1951,7 +1953,7 @@ void {
   const { onEscape, onClose } = options;
   options.onEscape = (onEscape === undefined || onEscape === true) ?
     callback :
-    function (this: JQuery, ev: JQuery.TriggeredEvent): boolean | void {
+    function(this: JQuery, ev: JQuery.TriggeredEvent): boolean | void {
       if (onEscape === false || onEscape.call(this, ev) === false) {
         return false;
       }
@@ -1961,7 +1963,7 @@ void {
 
   options.onClose = onClose === undefined ?
     callback :
-    function (this: JQuery, ev: JQuery.TriggeredEvent): boolean | void {
+    function(this: JQuery, ev: JQuery.TriggeredEvent): boolean | void {
       if (onClose.call(this, ev) === false) {
         return false;
       }
@@ -2181,6 +2183,7 @@ function validateMinOrMaxValue(input: JQuery,
     case "date":
       /* istanbul ignore if: we don't test the positive case */
       if (!/(\d{4})-(\d{2})-(\d{2})/.test(value)) {
+        // tslint:disable-next-line:no-console
         console.warn(`Browsers which natively support the "date" input type \
 expect date values to be of the form "YYYY-MM-DD" (see ISO-8601 \
 https://www.iso.org/iso-8601-date-and-time-format.html). Bootprompt does not \
