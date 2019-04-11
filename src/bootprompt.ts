@@ -1254,8 +1254,7 @@ this option.`);
   });
 
   $modal.on("click", ".modal-footer button",
-             function(e: JQuery.TriggeredEvent): void {
-               // tslint:disable-next-line:no-invalid-this
+            function(this: Element, e: JQuery.TriggeredEvent): void {
                const callbackKey = $(this).data("bp-handler");
 
                processCallback(e, $modal, callbacks[callbackKey]);
