@@ -24,18 +24,6 @@ export type LocaleField = "OK" | "CANCEL" | "CONFIRM";
 /** A locale specification. */
 export type LocaleSpec = Record<LocaleField, string>;
 
-/** A locale */
-export interface Locale {
-  /** The name of the locale. */
-  name: string;
-
-  /**
-   * The specification of the locale, which determines how to translate
-   * each field.
-   */
-  spec: LocaleSpec;
-}
-
 const LOCALE_FIELDS: LocaleField[] = ["OK",  "CANCEL", "CONFIRM"];
 
 const definedLocales: Record<string, LocaleSpec> = Object.create(null);
