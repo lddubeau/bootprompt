@@ -48,7 +48,7 @@
     "@types/sinon": "^7.0.11",
     "@types/sinon-chai": "^3.2.2",
     "chai": "^4.2.0",
-    "conventional-changelog-cli": "^2.0.12",
+    "conventional-changelog-cli": "^2.0.17",
     "deepcopy": "^2.0.0",
     "es6-promise": "^4.2.6",
     "eslint": "^5.16.0",
