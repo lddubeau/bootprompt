@@ -10,7 +10,7 @@ import "bootstrap";
 import $ from "jquery";
 
 // We use this to keep versync happy.
-const version = "6.0.0";
+const version = "6.0.1";
 
 // But export this.
 /** Bootprompt's version */
