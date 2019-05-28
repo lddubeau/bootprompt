@@ -7,7 +7,7 @@ describe("bootprompt.prompt$", () => {
   // tslint:disable-next-line:completed-docs
   class Prompt$Test {
     protected _$dialog!: JQuery;
-    protected _promise!: Promise<boolean | null>;
+    protected _promise!: Promise<string | null>;
     protected _callback?: sinon.SinonSpy;
 
     constructor(private readonly makeCallback:
