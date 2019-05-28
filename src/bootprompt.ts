@@ -432,8 +432,9 @@ export type SelectPromptOptionToValue<T extends { inputType: SelectInputType;
  */
 export type PromptOptionsToValue<T extends { inputType?: string;
                                              multiple?: boolean }> =
+  T extends {} ? string : // This is for when inputType is unset.
   T["inputType"] extends (TextualInputType | NumericInputType | TimeInputType |
-                          DateInputType | RadioInputType | never) ? string :
+                          DateInputType | RadioInputType) ? string :
   T["inputType"] extends CheckboxInputType ? (string | string[]) :
   T extends { inputType: SelectInputType } ? SelectPromptOptionToValue<T> :
   never;
