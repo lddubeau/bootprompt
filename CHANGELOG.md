@@ -1,3 +1,13 @@
+<a name="6.0.2"></a>
+## [6.0.2](https://github.com/lddubeau/bootprompt/compare/v6.0.1...v6.0.2) (2019-05-28)
+
+
+### Bug Fixes
+
+* the previous release still had a typing bug ([5d17974](https://github.com/lddubeau/bootprompt/commit/5d17974))
+
+
+
 <a name="6.0.1"></a>
 ## [6.0.1](https://github.com/lddubeau/bootprompt/compare/v6.0.0...v6.0.1) (2019-05-28)
 
