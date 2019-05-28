@@ -8,3 +8,4 @@ coverage
 composer.lock
 .vs
 /localConfig.js
+.use-cdn

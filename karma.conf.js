@@ -1,8 +1,5 @@
 const path = require("path");
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-const semver = require("semver");
-
 function inlineFirst(files) {
   files.unshift({
     pattern:
@@ -15,57 +12,25 @@ function inlineFirst(files) {
 
 inlineFirst.$inject = ["config.files"];
 
-function makeSpecifier(version) {
-  return version === undefined ? "" : `@${version}`;
-}
-
 const { env: { CONTINUOUS_INTEGRATION } } = process;
 
 module.exports = (config) => {
-  // The --use-jquery option is stored as "useJquery". Note the funky
-  // capitalization.
-  //
-  // The --use-bootstrap option is stored as "useBootstrap".
-  const { useBootstrap, useJquery: useJQuery } = config;
   const { browsers, grep } = config;
-
-  const jquerySpecifier = makeSpecifier(useJQuery);
-  const bootstrapSpecifier = makeSpecifier(useBootstrap);
-
-  const cdn = "https://unpkg.com/";
-
-  const jQueryURL = `${cdn}/jquery${jquerySpecifier}/dist/jquery.js`;
-
-  // The bundle file is only for Bootstrap 4. So for Bootstrap 3 we have to
-  // specify bootstrap.js instead of bootstrap.bundle.js.
-  const bootstrapURL =
-        `${cdn}/bootstrap${bootstrapSpecifier}/dist/js/bootstrap.\
-${(useBootstrap === undefined || semver.intersects(`${useBootstrap}`, ">=4")) ?
-"bundle." : ""}js`;
-  const bootstrapCSS =
-        `${cdn}/bootstrap${bootstrapSpecifier}/dist/css/bootstrap.css`;
-
-  // eslint-disable-next-line no-console
-  console.log(`Using Bootstrap ${useBootstrap || "latest"}`);
-  // eslint-disable-next-line no-console
-  console.log(`Using jQuery ${useJQuery || "latest"}`);
 
   const coverage = !config.debug ? ["karma-coverage-istanbul-instrumenter"] : [];
   const options = {
     basePath: "",
-    frameworks: ["mocha", "chai", "inline-first"],
+    frameworks: ["mocha", "chai", "use-cdn", "inline-first"],
     plugins: [
       "karma-*",
       {
         "framework:inline-first": ["factory", inlineFirst],
       },
+      "@use-cdn/karma",
     ],
     files: [
       "node_modules/sinon/pkg/sinon.js",
       "node_modules/sinon-chai/lib/sinon-chai.js",
-      bootstrapCSS,
-      jQueryURL,
-      bootstrapURL,
       // We cannot use the min version here because all comments are stripped.
       // And the comments telling istanbul to ignore lines will be stripped too.
       "build/dist/bootprompt.all.js",
