@@ -399,12 +399,53 @@ ConfirmCancelCommonOptions {
   callback?(this: JQuery, value: boolean): boolean | void;
 }
 
+export type TextInputType = "text";
+export type PasswordInputType = "password";
+export type TextareaInputType = "textarea";
+export type EmailInputType = "email";
+export type NumberInputType = "number";
+export type RangeInputType = "range";
+export type TimeInputType = "time";
+export type DateInputType = "date";
+export type SelectInputType = "select";
+export type CheckboxInputType = "checkbox";
+export type RadioInputType = "radio";
+
+/** The input types that present a text field. */
+export type TextualInputType = TextInputType | PasswordInputType |
+  TextareaInputType | EmailInputType | undefined;
+
+/** The input types that present a numeric field. */
+export type NumericInputType = NumberInputType | RangeInputType;
+
+/**
+ * This type maps an object representing prompt options for a ``select`` input
+ * to the value type to be returned by the prompt.
+ */
+export type SelectPromptOptionToValue<T extends { inputType: SelectInputType;
+                                                  multiple?: boolean }> =
+  T["multiple"] extends true ? (string [] | string) : string;
+
+/**
+ * This type maps an object representing prompt options to the value type to be
+ * returned by the prompt.
+ */
+export type PromptOptionsToValue<T extends { inputType?: string;
+                                             multiple?: boolean }> =
+  T["inputType"] extends (TextualInputType | NumericInputType | TimeInputType |
+                          DateInputType | RadioInputType | never) ? string :
+  T["inputType"] extends CheckboxInputType ? (string | string[]) :
+  T extends { inputType: SelectInputType } ? SelectPromptOptionToValue<T> :
+  never;
+
 /**
  * The options that are supported by the [[prompt]] function, irrespective of
  * what ``inputType`` is used.
  */
-export interface PromptCommonOptions<T extends unknown>
+export interface PromptCommonOptions
   extends CommonOptions, ConfirmCancelCommonOptions {
+  inputType?: string;
+
   title: DocumentContent;
 
   /**
@@ -417,7 +458,8 @@ export interface PromptCommonOptions<T extends unknown>
    * @returns A return value of ``false`` keeps the modal open. Anything else
    * closes it.
    */
-  callback?(this: JQuery, value: T | null): boolean | void;
+  callback?(this: JQuery,
+            value: PromptOptionsToValue<this> | null): boolean | void;
 
   /**
    * If ``pattern`` is set, the prompt will not close if the input value does
@@ -438,7 +480,7 @@ export interface PromptCommonOptions<T extends unknown>
  * The [[prompt]] options that are supported when the ``inputType`` is one of
  * the textual inputs.
  */
-export interface TextPromptOptions extends PromptCommonOptions<string> {
+export interface TextPromptOptions extends PromptCommonOptions {
   /**
    * These input types are all textual input types. These input type generate an
    * ``input`` (or ``textarea``) element with the following classes:
@@ -452,7 +494,7 @@ export interface TextPromptOptions extends PromptCommonOptions<string> {
    *
    * Default: ``"text"``.
    */
-  inputType?: "text" | "password" | "textarea" | "email";
+  inputType?: TextualInputType;
 
   /**
    * An initial value for the input type.
@@ -497,7 +539,7 @@ export interface TextPromptOptions extends PromptCommonOptions<string> {
  * The [[prompt]] options that are supported when the ``inputType`` is one of
  * the numeric inputs.
  */
-export interface NumericPromptOptions extends PromptCommonOptions<string> {
+export interface NumericPromptOptions extends PromptCommonOptions {
   /**
    * These input types are the numeric inputs. These input type generate an
    * ``input`` with the following classes:
@@ -509,7 +551,7 @@ export interface NumericPromptOptions extends PromptCommonOptions<string> {
    *
    * Default: ``"text"``.
    */
-  inputType: "number" | "range";
+  inputType: NumericInputType;
 
   /**
    * See [[TextPromptOptions.placeholder]].
@@ -585,12 +627,12 @@ export interface NumericPromptOptions extends PromptCommonOptions<string> {
  * The [[prompt]] options that are supported when the ``inputType`` is
  * ``"time"``.
  */
-export interface TimePromptOptions extends PromptCommonOptions<string> {
+export interface TimePromptOptions extends PromptCommonOptions {
   /**
    * An ``inputType`` of value ``"time"`` creates an ``input`` with the class
    * name ``bootprompt-input-time``
    */
-  inputType: "time";
+  inputType: TimeInputType;
 
   /**
    * See [[TextPromptOptions.placeholder]].
@@ -660,12 +702,12 @@ export interface TimePromptOptions extends PromptCommonOptions<string> {
  * The [[prompt]] options that are supported when the ``inputType`` is
  * ``"date"``.
  */
-export interface DatePromptOptions extends PromptCommonOptions<string> {
+export interface DatePromptOptions extends PromptCommonOptions {
   /**
    * An ``inputType`` of value ``"date"`` creates an ``input`` with the class
    * name ``bootprompt-input-date``
    */
-  inputType: "date";
+  inputType: DateInputType;
 
   /**
    * See [[TextPromptOptions.placeholder]].
@@ -742,13 +784,12 @@ export interface InputOption {
 /**
  * The options in common for all ``select``-type inputs.
  */
-export interface CommonSelectOptions<T extends unknown>
-extends PromptCommonOptions<T> {
+export interface CommonSelectOptions extends PromptCommonOptions {
   /**
    * An ``inputType`` of value ``"select"`` creates an ``input`` with the class
    * name ``bootprompt-input-select``.
    */
-  inputType: "select";
+  inputType: SelectInputType;
 
   /** The list of specifications for the ``option`` elements in this input. */
   inputOptions: InputOption[];
@@ -762,8 +803,7 @@ extends PromptCommonOptions<T> {
 /**
  * The options supported by ``"select"`` inputs that accept multiple values.
  */
-export interface MultipleSelectPromptOptions
-extends CommonSelectOptions<string[]> {
+export interface MultipleSelectPromptOptions extends CommonSelectOptions {
   /**
    * An initial value for the input type. It is possible to pass an array of
    * values to select multiple initial values.
@@ -783,7 +823,7 @@ extends CommonSelectOptions<string[]> {
 /**
  * The options supported by ``"select"`` inputs that accept a single value.
  */
-export interface SingleSelectPromptOptions extends CommonSelectOptions<string> {
+export interface SingleSelectPromptOptions extends CommonSelectOptions {
   /**
    * An initial value for the input type.
    *
@@ -808,13 +848,12 @@ export type SelectPromptOptions =
 /**
  * The options supported by ``"checkbox"`` inputs.
  */
-export interface CheckboxPromptOptions
-extends PromptCommonOptions<string | string[]> {
+export interface CheckboxPromptOptions extends PromptCommonOptions {
   /**
    * An ``inputType`` of value ``"checkbox"`` creates an ``input`` with the
    * class name ``bootprompt-input-checkbox``.
    */
-  inputType: "checkbox";
+  inputType: CheckboxInputType;
 
   /**
    * An initial value for the input type. It is possible to pass an array of
@@ -831,12 +870,12 @@ extends PromptCommonOptions<string | string[]> {
 /**
  * The options supported by ``"radio"`` inputs.
  */
-export interface RadioPromptOptions extends PromptCommonOptions<string> {
+export interface RadioPromptOptions extends PromptCommonOptions {
   /**
    * An ``inputType`` of value ``"radio"`` creates an ``input`` with the
    * class name ``bootprompt-input-radio``.
    */
-  inputType: "radio";
+  inputType: RadioInputType;
 
   /**
    * An initial value for the input type.
@@ -1889,7 +1928,7 @@ export function prompt(messageOrOptions: string | PromptOptions,
 }
 
 export type PromiseValue<T extends PromptOptions> =
-  Parameters<Exclude<T["callback"], undefined>>[0] | null;
+  PromptOptionsToValue<T> | null;
 
 /**
  * Specialized function that provides a dialog similar to the one provided by
