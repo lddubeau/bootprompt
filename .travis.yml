@@ -13,3 +13,5 @@ env:
 before_script: npm i --no-save coveralls
 script: npm run build-and-test -- --browsers=all
 after_success: ./node_modules/.bin/coveralls < coverage/lcov.info
+after_failure:
+  - cat /home/travis/.npm/_logs/*
