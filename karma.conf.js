@@ -1,4 +1,6 @@
 const path = require("path");
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { ConfigBuilder, lintConfig } = require("karma-browserstack-config");
 
 function inlineFirst(files) {
   files.unshift({
@@ -18,6 +20,12 @@ module.exports = (config) => {
   const { browsers, grep } = config;
 
   const coverage = !config.debug ? ["karma-coverage-istanbul-instrumenter"] : [];
+
+  const customLaunchers = new ConfigBuilder({ mobile: true }).getConfigs({
+    excludes: ["IE8", "IE9"],
+  });
+  lintConfig(customLaunchers);
+
   const options = {
     basePath: "",
     frameworks: ["mocha", "chai", "use-cdn", "inline-first"],
@@ -68,90 +76,7 @@ module.exports = (config) => {
     browserStack: {
       project: "bootprompt",
     },
-    customLaunchers: {
-      ChromeWin: {
-        base: "BrowserStack",
-        browser: "Chrome",
-        os: "Windows",
-        os_version: "10",
-      },
-      FirefoxWin: {
-        base: "BrowserStack",
-        browser: "Firefox",
-        os: "Windows",
-        os_version: "10",
-        // Right now, letting this field empty or setting it to "65" does not
-        // work.
-        browser_version: "64",
-      },
-      OperaWin: {
-        base: "BrowserStack",
-        browser: "Opera",
-        os: "Windows",
-        os_version: "10",
-      },
-      Edge: {
-        base: "BrowserStack",
-        browser: "Edge",
-        os: "Windows",
-        os_version: "10",
-      },
-      IE11: {
-        base: "BrowserStack",
-        browser: "IE",
-        browser_version: "11",
-        os: "Windows",
-        os_version: "10",
-      },
-      IE10: {
-        base: "BrowserStack",
-        browser: "IE",
-        browser_version: "10",
-        os: "Windows",
-        os_version: "8",
-      },
-      Opera: {
-        base: "BrowserStack",
-        browser: "Opera",
-        os: "Windows",
-        os_version: "10",
-      },
-      SafariMojave: {
-        base: "BrowserStack",
-        browser: "Safari",
-        os: "OS X",
-        os_version: "Mojave",
-      },
-      SafariHighSierra: {
-        base: "BrowserStack",
-        browser: "Safari",
-        os: "OS X",
-        os_version: "High Sierra",
-      },
-      SafariSierra: {
-        base: "BrowserStack",
-        browser: "Safari",
-        os: "OS X",
-        os_version: "Sierra",
-      },
-      SafariElCapitan: {
-        base: "BrowserStack",
-        browser: "Safari",
-        os: "OS X",
-        os_version: "El Capitan",
-      },
-      Android4_4: {
-        base: "BrowserStack",
-        browser: "android",
-        os: "android",
-        device: "Samsung Galaxy Tab 4",
-        os_version: "4.4",
-        real_mobile: true,
-      },
-      // iOS... as of 2019/02/05 I don't see iOS supported with plain JS
-      // testing. They do support it with Selenium/Appium but we're not using
-      // that.
-    },
+    customLaunchers,
     captureTimeout: 60000,
     coverageIstanbulReporter: {
       // If we are running in Travis the HTML results are not useful, but
