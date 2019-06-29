@@ -52,7 +52,7 @@
     "chai": "^4.2.0",
     "conventional-changelog-cli": "^2.0.21",
     "deepcopy": "^2.0.0",
-    "es6-promise": "^4.2.6",
+    "es6-promise": "^4.2.8",
     "eslint": "^5.16.0",
     "eslint-config-lddubeau-base": "^3.0.3",
     "husky": "^2.4.0",
