@@ -1787,6 +1787,7 @@ function _prompt(options: PromptOptions,
       break;
     case "checkbox":
       // checkboxes have to nest within a containing element
+      // tslint:disable-next-line:no-jquery-raw-elements
       input = $(`<div class="bootprompt-checkbox-list"></div>`);
       setupCheckbox(input, finalOptions, inputTemplate);
       break;
