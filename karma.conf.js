@@ -69,6 +69,14 @@ module.exports = (config) => {
     },
     reporters: ["mocha", "coverage-istanbul"],
     port: 9876,
+    //
+    // Use this address rather than localhost. Apparently there are issues with
+    // trying to access localhost on iOS. See:
+    // https://www.browserstack.com/question/758
+    // https://www.browserstack.com/question/663
+    // https://stackoverflow.com/q/53034231/
+    //
+    hostname: "bs-local.com",
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
@@ -78,6 +86,7 @@ module.exports = (config) => {
     },
     customLaunchers,
     captureTimeout: 60000,
+    concurrency: 3,
     coverageIstanbulReporter: {
       // If we are running in Travis the HTML results are not useful, but
       // we want to provide coverage information for Coveralls.
