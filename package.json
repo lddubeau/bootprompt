@@ -50,7 +50,7 @@
     "@use-cdn/cli": "^2.0.1",
     "@use-cdn/karma": "^2.0.1",
     "chai": "^4.2.0",
-    "conventional-changelog-cli": "^2.0.23",
+    "conventional-changelog-cli": "^2.0.31",
     "deepcopy": "^2.0.0",
     "es6-promise": "^4.2.8",
     "eslint": "^6.6.0",
