@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "lddubeau:base"
+  ],
+  "packageRules": [{
+    // We cannot use sinon >= 8 because version 8 and above drop support for IE
+    // 10. We still support it and need to run our test suite against it.
+    "packageNames": ["sinon"],
+    "allowedVersions": "<8"
+  }]
+}
