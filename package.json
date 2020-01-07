@@ -55,7 +55,7 @@
     "es6-promise": "^4.2.8",
     "eslint": "^6.8.0",
     "eslint-config-lddubeau-base": "^4.0.2",
-    "husky": "^3.1.0",
+    "husky": "^4.0.0",
     "karma": "^4.4.1",
     "karma-browserstack-config": "^1.0.1",
     "karma-browserstack-launcher": "^1.4.0",
