@@ -105,7 +105,7 @@ module.exports = config => {
     localConfig.browserStack.startTunnel = true;
   }
   else {
-    // Running outside Travis: we get our configuration from ./local-config, if
+    // Running outside Travis: we get our configuration from ./localConfig, if
     // it exists.
     try {
       // eslint-disable-next-line global-require
