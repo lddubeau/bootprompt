@@ -16,10 +16,11 @@ inlineFirst.$inject = ["config.files"];
 
 const { env: { CONTINUOUS_INTEGRATION } } = process;
 
-module.exports = (config) => {
+module.exports = config => {
   const { browsers, grep } = config;
 
-  const coverage = !config.debug ? ["karma-coverage-istanbul-instrumenter"] : [];
+  const coverage =
+        !config.debug ? ["karma-coverage-istanbul-instrumenter"] : [];
 
   const customLaunchers = new ConfigBuilder({ mobile: true }).getConfigs({
     excludes: ["IE8", "IE9"],
@@ -107,7 +108,7 @@ module.exports = (config) => {
     // Running outside Travis: we get our configuration from ./local-config, if
     // it exists.
     try {
-      // eslint-disable-next-line import/no-unresolved, global-require
+      // eslint-disable-next-line global-require
       localConfig = require("./localConfig");
     }
     catch (ex) {} // eslint-disable-line no-empty
