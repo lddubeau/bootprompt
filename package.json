@@ -84,7 +84,7 @@
     "sinon-chai": "^3.4.0",
     "tslint": "^5.20.1",
     "tslint-config-lddubeau": "^4.1.0",
-    "typedoc": "^0.15.7",
+    "typedoc": "^0.15.8",
     "typescript": "^3.7.4",
     "versync": "^5.0.0"
   },
