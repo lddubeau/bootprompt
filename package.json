@@ -59,7 +59,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prefer-arrow": "^1.1.7",
     "eslint-plugin-react": "^7.17.0",
-    "husky": "^4.0.9",
+    "husky": "^4.0.10",
     "karma": "^4.4.1",
     "karma-browserstack-config": "^1.0.1",
     "karma-browserstack-launcher": "^1.4.0",
