@@ -43,7 +43,7 @@
     "@commitlint/config-angular": "^8.3.4",
     "@types/bootstrap": "^4.3.1",
     "@types/chai": "^4.2.11",
-    "@types/jquery": "^3.3.33",
+    "@types/jquery": "^3.3.34",
     "@types/mocha": "^5.2.7",
     "@types/sinon": "^7.5.2",
     "@types/sinon-chai": "^3.2.3",
