@@ -46,7 +46,7 @@
     "@types/jquery": "^3.3.34",
     "@types/mocha": "^5.2.7",
     "@types/sinon": "^7.5.2",
-    "@types/sinon-chai": "^3.2.3",
+    "@types/sinon-chai": "^3.2.4",
     "@use-cdn/cli": "^2.0.1",
     "@use-cdn/karma": "^2.0.1",
     "chai": "^4.2.0",
