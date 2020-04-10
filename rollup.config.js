@@ -1,9 +1,9 @@
-import sourceMaps from "rollup-plugin-sourcemaps";
+import deepcopy from "deepcopy";
 import fs from "fs";
 import path from "path";
-import deepcopy from "deepcopy";
-import { terser } from "rollup-plugin-terser";
 import multiEntry from "rollup-plugin-multi-entry";
+import sourceMaps from "rollup-plugin-sourcemaps";
+import { terser } from "rollup-plugin-terser";
 
 const resolvedBootprompt = path.resolve(__dirname, "./build/js/bootprompt");
 

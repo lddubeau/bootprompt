@@ -1,5 +1,4 @@
 const path = require("path");
-// eslint-disable-next-line import/no-extraneous-dependencies
 const { ConfigBuilder, lintConfig } = require("karma-browserstack-config");
 
 function inlineFirst(files) {
@@ -60,7 +59,7 @@ module.exports = config => {
     typescriptPreprocessor: {
       tsconfigPath: "./tests/tsconfig.json",
       compilerOptions: {
-        // eslint-disable-next-line global-require, import/no-extraneous-dependencies
+        // eslint-disable-next-line global-require
         typescript: require("typescript"),
         sourceMap: false,
         // We have to have them inline for the browser to find them.
