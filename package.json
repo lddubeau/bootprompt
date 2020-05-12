@@ -86,7 +86,7 @@
     "tslint": "^6.1.2",
     "tslint-config-lddubeau": "^4.1.2",
     "typedoc": "^0.17.6",
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.2",
     "versync": "^5.0.0"
   },
   "husky": {
