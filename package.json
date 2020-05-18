@@ -63,7 +63,7 @@
     "husky": "^4.2.5",
     "karma": "^5.0.7",
     "karma-browserstack-config": "^1.0.1",
-    "karma-browserstack-launcher": "^1.5.2",
+    "karma-browserstack-launcher": "^1.6.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^3.1.0",
     "karma-coverage-istanbul-instrumenter": "^1.0.2",
