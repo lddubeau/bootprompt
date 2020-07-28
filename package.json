@@ -61,7 +61,7 @@
     "eslint-plugin-react": "^7.20.4",
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "husky": "^4.2.5",
-    "karma": "^5.1.0",
+    "karma": "^5.1.1",
     "karma-browserstack-config": "^1.0.1",
     "karma-browserstack-launcher": "^1.6.0",
     "karma-chai": "^0.1.0",
